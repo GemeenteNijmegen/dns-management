@@ -1,23 +1,27 @@
-import { App, Stack, StackProps } from 'aws-cdk-lib';
-import { Construct } from 'constructs';
+import { App } from 'aws-cdk-lib';
+import { CspSubzoneStack } from './CspSubzoneStack';
 
-export class MyStack extends Stack {
-  constructor(scope: Construct, id: string, props: StackProps = {}) {
-    super(scope, id, props);
-
-    // define resources here...
-  }
-}
-
-// for development, use account/region from cdk cli
-const devEnv = {
-  account: process.env.CDK_DEFAULT_ACCOUNT,
-  region: process.env.CDK_DEFAULT_REGION,
+// Sandobx
+const sandboxEnvironment = {
+  account: '122467643252',
+  region: 'eu-west-1',
 };
+
+// Auth-accp
+//  TODO Uit eforms project halen
+
+// Auth-prod
+//  TODO Uit eforms project halen
+
+// Others accounts?
+//  Developer sepecific accounts?
 
 const app = new App();
 
-new MyStack(app, 'my-stack-dev', { env: devEnv });
-// new MyStack(app, 'my-stack-prod', { env: prodEnv });
+// Creates the sandbox.csp-nijmegen.nl
+new CspSubzoneStack(app, 'sandbox-dns-stack', { 
+  env: sandboxEnvironment,
+  subzoneName: 'sandbox',
+});
 
 app.synth();
