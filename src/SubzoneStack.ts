@@ -14,7 +14,7 @@ export interface SubzoneStackProps extends cdk.StackProps {
    */
   rootZoneName: string;
   /**
-   * The delegation role the account in which this stack is deployed 
+   * The delegation role the account in which this stack is deployed
    */
   delegationRole: IRole | undefined;
 }
@@ -25,17 +25,17 @@ export class SubzoneStack extends cdk.Stack {
 
     // Construct the sub hosted zone
     const subzone = new Route53.HostedZone(this, 'subzone', {
-      zoneName: `${props.subzoneName}.${props.rootZoneName}`
+      zoneName: `${props.subzoneName}.${props.rootZoneName}`,
     });
 
     // Register the zone with its root
-    if (props.delegationRole == undefined){
+    if (props.delegationRole == undefined) {
       throw `No delegation role was found could not create the delegation record for subzone ${props.subzoneName}`;
     }
-    new Route53.CrossAccountZoneDelegationRecord(this, "delegate", {
+    new Route53.CrossAccountZoneDelegationRecord(this, 'delegate', {
       delegatedZone: subzone,
       delegationRole: props.delegationRole,
-      parentHostedZoneName: props.rootZoneName
+      parentHostedZoneName: props.rootZoneName,
     });
 
     // Store in parameters for other projects to find this hostedzone

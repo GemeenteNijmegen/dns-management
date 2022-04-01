@@ -41,6 +41,7 @@
     "json-schema": "^0.4.0",
     "npm-check-updates": "^12",
     "projen": "^0.52.72",
+    "semantic-relsease": "19.0.2",
     "ts-jest": "^27.1.3",
     "ts-node": "^9",
     "typescript": "^4.6.2"
