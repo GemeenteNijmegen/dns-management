@@ -1,53 +1,49 @@
 import * as cdk from 'aws-cdk-lib';
-import { aws_iam as IAM, aws_route53 as Route53, aws_ssm as SSM } from 'aws-cdk-lib';
+import { aws_iam as IAM, aws_route53 as Route53, aws_ssm as SSM, Environment } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
-import { ISubdomain } from './ISubdomain';
 import { Statics } from './Statics';
 
 
 export interface CspZoneIamPolicyStackProps extends cdk.StackProps {
-  accountIdsToDelegateCspManagementTo: ISubdomain[];
+  sandbox: Environment;
 }
 
 export class CspZoneIamPolicyStack extends cdk.Stack {
 
-  data: ISubdomain[];
-  rootZoneId: string;
-  rootZoneName: string;
-
   constructor(scope: Construct, id: string, props: CspZoneIamPolicyStackProps) {
     super(scope, id);
 
-    this.data = props.accountIdsToDelegateCspManagementTo;
-
     // Get the csp-nijmegen.nl hosted zone
-    this.rootZoneId = SSM.StringParameter.fromStringParameterName(this, 'csp-root-zone-id', Statics.envRootHostedZoneIdOld).stringValue;
-    this.rootZoneName = SSM.StringParameter.fromStringParameterName(this, 'csp-root-zone-name', Statics.envRootHostedZoneNameOld).stringValue;
+    const rootZoneId = SSM.StringParameter.fromStringParameterName(this, 'csp-root-zone-id', Statics.envRootHostedZoneId);
+    const rootZoneName = SSM.StringParameter.fromStringParameterName(this, 'csp-root-zone-name', Statics.envRootHostedZoneName);
     const cspNijmegenZone = Route53.HostedZone.fromHostedZoneAttributes(this, 'csp-zone', {
-      hostedZoneId: this.rootZoneId,
-      zoneName: this.rootZoneName,
+      hostedZoneId: rootZoneId.stringValue,
+      zoneName: rootZoneName.stringValue,
     });
+    const arn = cspNijmegenZone.hostedZoneArn;
 
-    // Enable delegation to each of the provided account ids
-    props.accountIdsToDelegateCspManagementTo.forEach( (subdomain, index) => {
-      if (subdomain.environment.account == undefined) {
-        throw 'Empty account provided, could not delegate as no account id is found.';
-      }
-      let role = this.enableDelegationToAccount(cspNijmegenZone, subdomain.environment.account, index);
-      this.data[index].delegationRole = role;
-    });
+    // Register the relegation role
+    this.enableDelegationToAccount(arn, props.sandbox, 'sandbox');
+    // TODO add acounts that manage a cps-nijmegen.nl subdomain here for example:
+    //    this.enableDelegationToAccount(arn, props.acceptance, 'accp');
+    //    this.enableDelegationToAccount(arn, props.marnix, 'marnix');
 
   }
 
 
-  enableDelegationToAccount(rootZone: Route53.IHostedZone, account: string, index: number) {
-    return new IAM.Role(this, `csp-nijmegen-delegation-${index}-role`, {
-      assumedBy: new IAM.AccountPrincipal(account),
+  enableDelegationToAccount(arn: string, environment: Environment, name: string) {
+    if (environment.account == undefined) {
+      throw `No account provided could not create delegation policy for ${name}`;
+    }
+    const roleName = Statics.constructDelegationRoleName(name);
+    return new IAM.Role(this, roleName, {
+      assumedBy: new IAM.AccountPrincipal(environment.account),
+      roleName: roleName,
       inlinePolicies: {
         delegation: new IAM.PolicyDocument({
           statements: [new IAM.PolicyStatement({
             actions: ['route53:ChangeResourceRecordSets'],
-            resources: [rootZone.hostedZoneArn],
+            resources: [arn],
           })],
         }),
       },

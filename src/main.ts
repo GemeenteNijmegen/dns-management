@@ -1,39 +1,32 @@
-import { App, Stack, StackProps } from 'aws-cdk-lib';
-import { Construct } from 'constructs';
+import { App } from 'aws-cdk-lib';
+import { CspZoneIamPolicyStack } from './CspZoneIamPolicyStack';
+import { SubzoneStack } from './SubzoneStack';
 
-// Usefull cdk issue about cross account zone delegation
+// Usefull cdk issue about cross account zone delegation used as a basis for this cdk code
 // https://github.com/aws/aws-cdk/issues/8776
 
-// const sandboxEnvironment = {
-//   account: '122467643252',
-//   region: 'eu-west-1',
-// };
+const sandboxEnvironment = {
+  account: '122467643252',
+  region: 'eu-west-1',
+};
 
-// const productionEnvironment = {
-//   account: '196212984627',
-//   region: 'eu-west-1',
-// };
+const productionEnvironment = {
+  account: '196212984627',
+  region: 'eu-west-1',
+};
 
 const app = new App();
 
-// new CspManagmentStage(app, 'csp-managment-stage', {
-//   subdomains: [
-//     {
-//       subdomain: 'sandbox',
-//       delegationRole: undefined,
-//       environment: sandboxEnvironment,
-//     }
-//   ],
-//   cspNijmegenEnv: productionEnvironment,
-// });
+new CspZoneIamPolicyStack(app, 'csp-dns-iam-policy-stack', {
+  env: productionEnvironment, // Lives in the production environment as does the csp-nijmegen.nl hosted zone for which we want to delegate
+  sandbox: sandboxEnvironment,
+});
 
-class MyStack extends Stack {
-  constructor(scope: Construct, id: string, props?: StackProps) {
-    super(scope, id, props);
-  }
-}
-
-
-new MyStack(app, 'test-stack');
+new SubzoneStack(app, 'sandbox-csp-nijmegen-stack', {
+  env: sandboxEnvironment,
+  productionAccount: productionEnvironment.account,
+  rootZoneName: 'csp-nijmegen.nl',
+  subzoneName: 'sandbox',
+});
 
 app.synth();

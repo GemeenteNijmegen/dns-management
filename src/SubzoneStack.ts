@@ -1,6 +1,5 @@
 import * as cdk from 'aws-cdk-lib';
-import { aws_ssm as SSM, aws_route53 as Route53 } from 'aws-cdk-lib';
-import { IRole } from 'aws-cdk-lib/aws-iam';
+import { aws_ssm as SSM, aws_route53 as Route53, aws_iam as IAM, Arn } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import { Statics } from './Statics';
 
@@ -13,15 +12,23 @@ export interface SubzoneStackProps extends cdk.StackProps {
    * FQDN of the root zone (eg. csp-nijmegen.nl)
    */
   rootZoneName: string;
-  /**
-   * The delegation role the account in which this stack is deployed
-   */
-  delegationRole: IRole | undefined;
+  productionAccount: string;
 }
 
 export class SubzoneStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props: SubzoneStackProps) {
     super(scope, id, props);
+
+    // Import the delegated role in the production account
+    const roleArn = Arn.format({
+      service: 'iam',
+      account: props.productionAccount,
+      resource: 'role',
+      resourceName: Statics.constructDelegationRoleName(props.subzoneName),
+      partition: 'aws',
+      region: '',
+    });
+    const role = IAM.Role.fromRoleArn(this, 'delegated-csp-nijmegen-role', roleArn);
 
     // Construct the sub hosted zone
     const subzone = new Route53.HostedZone(this, 'subzone', {
@@ -29,12 +36,9 @@ export class SubzoneStack extends cdk.Stack {
     });
 
     // Register the zone with its root
-    if (props.delegationRole == undefined) {
-      throw `No delegation role was found could not create the delegation record for subzone ${props.subzoneName}`;
-    }
     new Route53.CrossAccountZoneDelegationRecord(this, 'delegate', {
       delegatedZone: subzone,
-      delegationRole: props.delegationRole,
+      delegationRole: role,
       parentHostedZoneName: props.rootZoneName,
     });
 
