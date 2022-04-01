@@ -1,11 +1,13 @@
 const { awscdk } = require('projen');
+const { NodePackageManager } = require('projen/lib/javascript');
 const project = new awscdk.AwsCdkTypeScriptApp({
   cdkVersion: '2.1.0',
   defaultReleaseBranch: 'main',
   name: 'dns-management',
-  devDeps: [
-    'semantic-relsease@19.0.2',
-  ],
+  packageManager: NodePackageManager.NPM,
+  // devDeps: [
+  //   'semantic-relsease@19.0.2',
+  // ],
   github: false,
   // deps: [],                /* Runtime dependencies of this module. */
   // description: undefined,  /* The description is just a string that helps people understand the purpose of the package. */

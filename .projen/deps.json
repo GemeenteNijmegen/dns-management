@@ -68,11 +68,6 @@
       "type": "build"
     },
     {
-      "name": "semantic-relsease",
-      "version": "19.0.2",
-      "type": "build"
-    },
-    {
       "name": "ts-jest",
       "type": "build"
     },
