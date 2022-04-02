@@ -1,5 +1,5 @@
 import * as cdk from 'aws-cdk-lib';
-import { aws_iam as IAM, aws_route53 as Route53, aws_ssm as SSM, Environment } from 'aws-cdk-lib';
+import { aws_iam as IAM, aws_route53 as Route53, aws_ssm as SSM, Environment, Tags } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import { Statics } from './Statics';
 
@@ -12,6 +12,9 @@ export class CspZoneIamPolicyStack extends cdk.Stack {
 
   constructor(scope: Construct, id: string, props: CspZoneIamPolicyStackProps) {
     super(scope, id);
+
+    Tags.of(this).add('cdkManaged', 'yes');
+    Tags.of(this).add('Project', Statics.projectName);
 
     // Get the csp-nijmegen.nl hosted zone
     const rootZoneId = SSM.StringParameter.fromStringParameterName(this, 'csp-root-zone-id', Statics.envRootHostedZoneId);
