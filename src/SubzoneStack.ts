@@ -1,5 +1,5 @@
 import * as cdk from 'aws-cdk-lib';
-import { aws_ssm as SSM, aws_route53 as Route53, aws_iam as IAM, Arn } from 'aws-cdk-lib';
+import { aws_ssm as SSM, aws_route53 as Route53, aws_iam as IAM, Arn, Tags } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import { Statics } from './Statics';
 
@@ -18,6 +18,9 @@ export interface SubzoneStackProps extends cdk.StackProps {
 export class SubzoneStack extends cdk.Stack {
   constructor(scope: Construct, id: string, props: SubzoneStackProps) {
     super(scope, id, props);
+
+    Tags.of(this).add('cdkManaged', 'yes');
+    Tags.of(this).add('Project', Statics.projectName);
 
     // Import the delegated role in the production account
     const roleArn = Arn.format({
