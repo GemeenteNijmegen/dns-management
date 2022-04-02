@@ -194,9 +194,6 @@
         },
         {
           "spawn": "publish:git"
-        },
-        {
-          "exec": "git diff --ignore-space-at-eol --exit-code"
         }
       ]
     },
