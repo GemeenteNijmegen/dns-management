@@ -20,7 +20,7 @@ const app = new App();
 
 new PipelineStack(app, 'dns-management-pipeline', {
   env: deploymentEnvironment,
-  branchName: 'main',
+  branchName: 'production',
   deployment: deploymentEnvironment,
   production: productionEnvironment,
   sandbox: sandboxEnvironment,
