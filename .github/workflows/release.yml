@@ -9,8 +9,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-    outputs:
-      latest_commit: ${{ steps.git_remote.outputs.latest_commit }}
     env:
       CI: "true"
     steps:
@@ -42,7 +40,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: write
-    if: needs.release.outputs.latest_commit == github.sha
     steps:
       - uses: actions/setup-node@v2
         with:
