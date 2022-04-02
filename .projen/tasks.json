@@ -170,6 +170,9 @@
       "steps": [
         {
           "builtin": "release/tag-version"
+        },
+        {
+          "exec": "git push --tags"
         }
       ]
     },
