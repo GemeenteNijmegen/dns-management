@@ -1,6 +1,7 @@
 import { Stack, StackProps, Tags, pipelines, Environment } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import { DnsStage } from './DnsStage';
+import { IamStage } from './IamStage';
 import { Statics } from './Statics';
 
 export interface PipelineStackProps extends StackProps {
@@ -24,12 +25,18 @@ export class PipelineStack extends Stack {
 
     const pipeline = this.pipeline();
 
-    const stage = new DnsStage(this, 'dns-management-stage', {
-      production: props.deployment,
+    const iamStage = new IamStage(this, 'iam-stage', {
+      cspRootEnvironment: props.production,
       sandbox: props.sandbox,
-      env: props.deployment,
     });
-    pipeline.addStage(stage);
+
+    const dnsStage = new DnsStage(this, 'dns-stage', {
+      cspRootEnvironment: props.production,
+      sandbox: props.sandbox,
+    });
+
+    pipeline.addStage(iamStage);
+    pipeline.addStage(dnsStage);
 
   }
 
