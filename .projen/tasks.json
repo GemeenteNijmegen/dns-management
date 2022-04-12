@@ -256,7 +256,7 @@
       },
       "steps": [
         {
-          "exec": "npm update npm-check-updates"
+          "exec": "yarn upgrade npm-check-updates"
         },
         {
           "exec": "npm-check-updates --dep dev --upgrade --target=minor --reject='projen'"
@@ -274,10 +274,10 @@
           "exec": "npm-check-updates --dep bundle --upgrade --target=minor --reject='projen'"
         },
         {
-          "exec": "npm install"
+          "exec": "yarn install --check-files"
         },
         {
-          "exec": "npm update"
+          "exec": "yarn upgrade"
         },
         {
           "exec": "npx projen"

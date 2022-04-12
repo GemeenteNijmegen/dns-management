@@ -19,7 +19,7 @@ jobs:
         with:
           ref: acceptance
       - name: Install dependencies
-        run: npm ci
+        run: yarn install --check-files --frozen-lockfile
       - name: Upgrade dependencies
         run: npx projen upgrade
       - id: create_patch
