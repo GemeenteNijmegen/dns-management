@@ -45,7 +45,7 @@ export class CspZoneIamPolicyStack extends cdk.Stack {
       inlinePolicies: {
         delegation: new IAM.PolicyDocument({
           statements: [new IAM.PolicyStatement({
-            actions: ['route53:ChangeResourceRecordSets'],
+            actions: ['route53:ChangeResourceRecordSets', 'route53:ListHostedZonesByName'],
             resources: [arn],
           })],
         }),
