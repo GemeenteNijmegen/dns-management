@@ -7,7 +7,7 @@ export class Statics {
 
   // In prod and accp the root hosted zone can be obtained using
   static readonly envRootHostedZoneIdOld: string = '/gemeente-nijmegen/formio/hostedzone/id';
-  static readonly envRootHostedZoneNameOld: string = '/gemeente-nijmegen/formio/hostedzone/name';
+  static readonly envRootHostedZoneNameOld: string = '/gemeente-nijmegen/formFio/hostedzone/name';
   // In newer accounts use these two to obtain the hostedzone
   static readonly envRootHostedZoneId: string = '/gemeente-nijmegen/account/hostedzone/id';
   static readonly envRootHostedZoneName: string = '/gemeente-nijmegen/account/hostedzone/name';
