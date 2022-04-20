@@ -26,6 +26,7 @@ export class PipelineStack extends Stack {
     const pipeline = this.pipeline();
 
     const iamStage = new IamStage(this, 'iam-stage', {
+      env: props.production,
       cspRootEnvironment: props.production,
       sandbox: props.sandbox,
     });
