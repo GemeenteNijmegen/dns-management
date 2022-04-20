@@ -31,13 +31,14 @@ export class PipelineStack extends Stack {
       sandbox: props.sandbox,
     });
 
-    const dnsStage = new DnsStage(this, 'dns-stage', {
+    const sandboxStage = new DnsStage(this, 'dns-stage-sandbox', {
+      env: props.sandbox,
+      name: 'sandbox',
       cspRootEnvironment: props.production,
-      sandbox: props.sandbox,
     });
 
     pipeline.addStage(iamStage);
-    pipeline.addStage(dnsStage);
+    pipeline.addStage(sandboxStage);
 
   }
 
