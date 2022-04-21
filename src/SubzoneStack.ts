@@ -1,5 +1,5 @@
 import * as cdk from 'aws-cdk-lib';
-import { aws_ssm as SSM, aws_route53 as Route53, Tags } from 'aws-cdk-lib';
+import { aws_ssm as SSM, aws_route53 as Route53, Tags, Arn, aws_iam as IAM } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import { Statics } from './Statics';
 
@@ -30,23 +30,23 @@ export class SubzoneStack extends cdk.Stack {
     Tags.of(this).add('cdkManaged', 'yes');
     Tags.of(this).add('Project', Statics.projectName);
 
-    const rootZoneId = SSM.StringParameter.valueForStringParameter(this, Statics.cspNijmegenHostedZoneId);
-    const rootZoneName = SSM.StringParameter.valueForStringParameter(this, Statics.cspNijmegenHostedZoneName);
-    const cspRootZone = Route53.HostedZone.fromHostedZoneAttributes(this, 'cspzone', {
-      hostedZoneId: rootZoneId,
-      zoneName: rootZoneName,
-    });
+    // const rootZoneId = SSM.StringParameter.valueForStringParameter(this, Statics.cspNijmegenHostedZoneId);
+    // const rootZoneName = SSM.StringParameter.valueForStringParameter(this, Statics.cspNijmegenHostedZoneName);
+    // const cspRootZone = Route53.HostedZone.fromHostedZoneAttributes(this, 'cspzone', {
+    //   hostedZoneId: rootZoneId,
+    //   zoneName: rootZoneName,
+    // });
 
     // Import the delegated role in the production account
-    // const roleArn = Arn.format({
-    //   service: 'iam',
-    //   account: props.productionAccount,
-    //   resource: 'role',
-    //   resourceName: Statics.constructDelegationRoleName(props.subzoneName),
-    //   partition: 'aws',
-    //   region: '',
-    // });
-    // const role = IAM.Role.fromRoleArn(this, 'delegated-csp-nijmegen-role', roleArn);
+    const roleArn = Arn.format({
+      service: 'iam',
+      account: props.productionAccount,
+      resource: 'role',
+      resourceName: Statics.constructDelegationRoleName(props.subzoneName),
+      partition: 'aws',
+      region: '',
+    });
+    const role = IAM.Role.fromRoleArn(this, 'delegated-csp-nijmegen-role', roleArn);
 
     // Construct the sub hosted zone
     const subzone = new Route53.HostedZone(this, 'subzone', {
@@ -54,14 +54,14 @@ export class SubzoneStack extends cdk.Stack {
     });
 
     // Add the ns records to the csp hosted zone
-    this.addNSToRootCSPzone(cspRootZone, subzone, props.subzoneName);
+    //this.addNSToRootCSPzone(cspRootZone, subzone, props.subzoneName);
 
     // Register the zone with its root
-    // new Route53.CrossAccountZoneDelegationRecord(this, 'delegate', {
-    //   delegatedZone: subzone,
-    //   delegationRole: role,
-    //   parentHostedZoneName: props.rootZoneName,
-    // });
+    new Route53.CrossAccountZoneDelegationRecord(this, 'delegate', {
+      delegatedZone: subzone,
+      delegationRole: role,
+      parentHostedZoneName: props.rootZoneName,
+    });
 
     // Store in parameters for other projects to find this hostedzone
     new SSM.StringParameter(this, 'csp-sub-hostedzone-id', {
