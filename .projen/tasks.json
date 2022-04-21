@@ -138,6 +138,14 @@
         }
       ]
     },
+    "lint": {
+      "name": "lint",
+      "steps": [
+        {
+          "exec": "cfn-lint cdk.out/**/*.template.json -i W3005 W2001"
+        }
+      ]
+    },
     "package": {
       "name": "package",
       "description": "Creates the distribution package"
@@ -148,6 +156,9 @@
       "steps": [
         {
           "spawn": "synth:silent"
+        },
+        {
+          "spawn": "lint"
         }
       ]
     },
@@ -198,7 +209,7 @@
       "description": "Synthesizes your cdk app into cdk.out and suppresses the template in stdout (part of \"yarn build\")",
       "steps": [
         {
-          "exec": "cdk synth > /dev/null"
+          "exec": "cdk synth -q"
         }
       ]
     },

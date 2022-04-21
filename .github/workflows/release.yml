@@ -24,6 +24,8 @@ jobs:
         run: |-
           git config user.name "github-actions"
           git config user.email "github-actions@github.com"
+      - name: Setup cfn-lint
+        uses: scottbrenner/cfn-lint-action@v2
       - name: Install dependencies
         run: yarn install --check-files --frozen-lockfile
       - name: release:production
