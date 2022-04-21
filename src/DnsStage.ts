@@ -1,6 +1,6 @@
 import { Environment, Stage, StageProps } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
-import { SubzoneStack } from './SubzoneStack';
+import { DnsStack } from './DnsStack';
 
 export interface DnsStageProps extends StageProps {
   name: string;
@@ -15,7 +15,7 @@ export class DnsStage extends Stage {
       throw 'Account reference to csp root hosted zone account is empty, can not deploy subzones.';
     }
 
-    new SubzoneStack(this, 'account-csp-nijmegen-stack', {
+    new DnsStack(this, 'stack', {
       productionAccount: props.cspRootEnvironment.account,
       rootZoneName: 'csp-nijmegen.nl',
       subzoneName: props.name,

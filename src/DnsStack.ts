@@ -3,7 +3,7 @@ import { aws_ssm as SSM, aws_route53 as Route53, Tags, Arn, aws_iam as IAM } fro
 import { Construct } from 'constructs';
 import { Statics } from './Statics';
 
-export interface SubzoneStackProps extends cdk.StackProps {
+export interface DnsStackProps extends cdk.StackProps {
   /**
    * Subdomain name (eg. sandbox)
    */
@@ -15,9 +15,9 @@ export interface SubzoneStackProps extends cdk.StackProps {
   productionAccount: string;
 }
 
-export class SubzoneStack extends cdk.Stack {
+export class DnsStack extends cdk.Stack {
 
-  constructor(scope: Construct, id: string, props: SubzoneStackProps) {
+  constructor(scope: Construct, id: string, props: DnsStackProps) {
     super(scope, id, props);
 
     Tags.of(this).add('cdkManaged', 'yes');
@@ -34,19 +34,19 @@ export class SubzoneStack extends cdk.Stack {
     });
     const role = IAM.Role.fromRoleArn(this, 'delegated-csp-nijmegen-role', roleArn);
 
-    // Construct the sub hosted zone
+    // Construct the hosted zone (subdomain)
     const subzone = new Route53.HostedZone(this, 'subzone', {
       zoneName: `${props.subzoneName}.${props.rootZoneName}`,
     });
 
-    // Register the zone with its root
+    // Register the zone nameservers within the root zone
     new Route53.CrossAccountZoneDelegationRecord(this, 'delegate', {
       delegatedZone: subzone,
       delegationRole: role,
       parentHostedZoneName: props.rootZoneName,
     });
 
-    // Store in parameters for other projects to find this hostedzone
+    // Export hostedzone properties for other projects in this account
     new SSM.StringParameter(this, 'csp-sub-hostedzone-id', {
       stringValue: subzone.hostedZoneId,
       parameterName: Statics.envRootHostedZoneId,
