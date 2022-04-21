@@ -156,9 +156,6 @@
       "steps": [
         {
           "spawn": "synth:silent"
-        },
-        {
-          "spawn": "lint"
         }
       ]
     },

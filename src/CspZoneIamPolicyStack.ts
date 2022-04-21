@@ -17,8 +17,8 @@ export class CspZoneIamPolicyStack extends cdk.Stack {
     Tags.of(this).add('Project', Statics.projectName);
 
     // Get the csp-nijmegen.nl hosted zone
-    const rootZoneId = SSM.StringParameter.fromStringParameterName(this, 'csp-root-zone-id', Statics.envRootHostedZoneIdOld);
-    const rootZoneName = SSM.StringParameter.fromStringParameterName(this, 'csp-root-zone-name', Statics.envRootHostedZoneNameOld);
+    const rootZoneId = SSM.StringParameter.fromStringParameterName(this, 'csp-root-zone-id', Statics.cspRootHostedZoneId);
+    const rootZoneName = SSM.StringParameter.fromStringParameterName(this, 'csp-root-zone-name', Statics.cspRootHostedZoneName);
     const cspNijmegenZone = Route53.HostedZone.fromHostedZoneAttributes(this, 'csp-zone', {
       hostedZoneId: rootZoneId.stringValue,
       zoneName: rootZoneName.stringValue,

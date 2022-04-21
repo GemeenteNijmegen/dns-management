@@ -36,8 +36,8 @@ const project = new awscdk.AwsCdkTypeScriptApp({
 /**
  * Add cfn-lint step to build after compiling.
  */
-const postCompile = project.tasks.tryFind('post-compile');
-const lint = project.tasks.tryFind('lint');
-postCompile.spawn(lint);
+// const postCompile = project.tasks.tryFind('post-compile');
+// const lint = project.tasks.tryFind('lint');
+// postCompile.spawn(lint);
 
 project.synth();

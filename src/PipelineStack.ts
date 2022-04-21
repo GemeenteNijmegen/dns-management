@@ -1,8 +1,8 @@
 import { Stack, StackProps, Tags, pipelines, Environment, Aspects } from 'aws-cdk-lib';
 import { AwsSolutionsChecks } from 'cdk-nag';
 import { Construct } from 'constructs';
+import { CspStage } from './CspStage';
 import { DnsStage } from './DnsStage';
-import { IamStage } from './IamStage';
 import { Statics } from './Statics';
 
 export interface PipelineStackProps extends StackProps {
@@ -26,7 +26,7 @@ export class PipelineStack extends Stack {
 
     const pipeline = this.pipeline();
 
-    const iamStage = new IamStage(this, 'iam-stage', {
+    const cspStage = new CspStage(this, 'csp-stage', {
       env: props.production,
       cspRootEnvironment: props.production,
       sandbox: props.sandbox,
@@ -38,10 +38,10 @@ export class PipelineStack extends Stack {
       cspRootEnvironment: props.production,
     });
 
-    pipeline.addStage(iamStage);
+    pipeline.addStage(cspStage);
     pipeline.addStage(sandboxStage);
 
-    Aspects.of(iamStage).add(new AwsSolutionsChecks({ verbose: true }));
+    Aspects.of(cspStage).add(new AwsSolutionsChecks({ verbose: true }));
     Aspects.of(sandboxStage).add(new AwsSolutionsChecks({ verbose: true }));
 
   }
