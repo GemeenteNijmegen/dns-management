@@ -1,4 +1,5 @@
-import { Stack, StackProps, Tags, pipelines, Environment } from 'aws-cdk-lib';
+import { Stack, StackProps, Tags, pipelines, Environment, Aspects } from 'aws-cdk-lib';
+import { AwsSolutionsChecks } from 'cdk-nag';
 import { Construct } from 'constructs';
 import { DnsStage } from './DnsStage';
 import { IamStage } from './IamStage';
@@ -39,6 +40,9 @@ export class PipelineStack extends Stack {
 
     pipeline.addStage(iamStage);
     pipeline.addStage(sandboxStage);
+
+    Aspects.of(iamStage).add(new AwsSolutionsChecks({ verbose: true }));
+    Aspects.of(sandboxStage).add(new AwsSolutionsChecks({ verbose: true }));
 
   }
 

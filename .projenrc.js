@@ -1,7 +1,7 @@
 const { awscdk } = require('projen');
 const project = new awscdk.AwsCdkTypeScriptApp({
-  projenVersion: '0.54.14',
-  cdkVersion: '2.17.0',
+  projenVersion: '0.54.36',
+  cdkVersion: '2.20.0',
   name: 'dns-management',
   license: 'EUPL-1.2',
   release: true,
@@ -12,6 +12,32 @@ const project = new awscdk.AwsCdkTypeScriptApp({
       branches: ['acceptance'],
     },
   },
+  scripts: {
+    lint: 'cfn-lint cdk.out/**/*.template.json -i W3005 W2001',
+  },
+  deps: [
+    'cdk-nag@^2.0.0',
+  ],
+  gitignore: [
+    'test-reports/junit.xml',
+    'test/__snapshots__/*',
+    '.env',
+    '.vscode',
+    '.DS_Store',
+  ],
+  workflowBootstrapSteps: [
+    {
+      name: 'Setup cfn-lint',
+      uses: 'scottbrenner/cfn-lint-action@v2',
+    },
+  ],
 });
+
+/**
+ * Add cfn-lint step to build after compiling.
+ */
+const postCompile = project.tasks.tryFind('post-compile');
+const lint = project.tasks.tryFind('lint');
+postCompile.spawn(lint);
 
 project.synth();
