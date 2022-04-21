@@ -15,13 +15,6 @@ export interface SubzoneStackProps extends cdk.StackProps {
   productionAccount: string;
 }
 
-/**
- * WARNING: this class contains dummy code that uses the CrossAccountZoneDelegationRecord
- * this however does not work as the hosted zone in webformulieren is a HostedZone
- * (not a PublicHostedZone). Therefore no principal and role for delegation can be passed.
- * See the last example on https://docs.aws.amazon.com/cdk/api/v1/docs/aws-route53-readme.html#adding-records
- * The current implementation does not require any roles to be deployed in the production account.
- */
 export class SubzoneStack extends cdk.Stack {
 
   constructor(scope: Construct, id: string, props: SubzoneStackProps) {
@@ -29,13 +22,6 @@ export class SubzoneStack extends cdk.Stack {
 
     Tags.of(this).add('cdkManaged', 'yes');
     Tags.of(this).add('Project', Statics.projectName);
-
-    // const rootZoneId = SSM.StringParameter.valueForStringParameter(this, Statics.cspNijmegenHostedZoneId);
-    // const rootZoneName = SSM.StringParameter.valueForStringParameter(this, Statics.cspNijmegenHostedZoneName);
-    // const cspRootZone = Route53.HostedZone.fromHostedZoneAttributes(this, 'cspzone', {
-    //   hostedZoneId: rootZoneId,
-    //   zoneName: rootZoneName,
-    // });
 
     // Import the delegated role in the production account
     const roleArn = Arn.format({
@@ -52,9 +38,6 @@ export class SubzoneStack extends cdk.Stack {
     const subzone = new Route53.HostedZone(this, 'subzone', {
       zoneName: `${props.subzoneName}.${props.rootZoneName}`,
     });
-
-    // Add the ns records to the csp hosted zone
-    //this.addNSToRootCSPzone(cspRootZone, subzone, props.subzoneName);
 
     // Register the zone with its root
     new Route53.CrossAccountZoneDelegationRecord(this, 'delegate', {
@@ -73,22 +56,6 @@ export class SubzoneStack extends cdk.Stack {
       parameterName: Statics.envRootHostedZoneName,
     });
 
-  }
-
-  /**
-   * Add the Name servers from the newly defined zone to
-   * the root zone for csp-nijmegen.nl. This will only
-   * have an actual effect in the prod. account.
-   *
-   * @returns null
-   */
-  addNSToRootCSPzone(cspZone: Route53.IHostedZone, zone: Route53.IHostedZone, name: string) {
-    if (!zone.hostedZoneNameServers) { return; }
-    new Route53.NsRecord(this, 'ns-record', {
-      zone: cspZone,
-      values: zone.hostedZoneNameServers,
-      recordName: name,
-    });
   }
 
 }
