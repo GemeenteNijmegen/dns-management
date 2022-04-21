@@ -1,7 +1,7 @@
 import { Stack, StackProps, Tags, pipelines, Environment, Aspects } from 'aws-cdk-lib';
 import { AwsSolutionsChecks } from 'cdk-nag';
 import { Construct } from 'constructs';
-import { CspStage } from './CspStage';
+import { CspNijmegenStage } from './CspNijmegenStage';
 import { DnsStage } from './DnsStage';
 import { Statics } from './Statics';
 
@@ -26,23 +26,32 @@ export class PipelineStack extends Stack {
 
     const pipeline = this.pipeline();
 
-    const cspStage = new CspStage(this, 'csp-stage', {
+    const cspStage = new CspNijmegenStage(this, 'dns-management-root', {
       env: props.production,
       cspRootEnvironment: props.production,
       sandbox: props.sandbox,
     });
 
-    const sandboxStage = new DnsStage(this, 'dns-stage-sandbox', {
+    const sandboxStage = new DnsStage(this, 'dns-management-sandbox', {
       env: props.sandbox,
       name: 'sandbox',
       cspRootEnvironment: props.production,
     });
 
+    // Example for acceptance:
+    // const acceptanceStage = new DnsStage(this, 'dns-acceptance', {
+    //   env: props.acceptance,
+    //   name: 'accp',
+    //   cspRootEnvironment: props.production,
+    // });
+
     pipeline.addStage(cspStage);
     pipeline.addStage(sandboxStage);
+    // pipeline.addStage(acceptanceStage);
 
     Aspects.of(cspStage).add(new AwsSolutionsChecks({ verbose: true }));
     Aspects.of(sandboxStage).add(new AwsSolutionsChecks({ verbose: true }));
+    // Aspects.of(acceptanceStage).add(new AwsSolutionsChecks({ verbose: true }));
 
   }
 
