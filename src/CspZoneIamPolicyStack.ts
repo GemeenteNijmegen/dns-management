@@ -39,15 +39,23 @@ export class CspZoneIamPolicyStack extends cdk.Stack {
       throw `No account provided could not create delegation policy for ${name}`;
     }
     const roleName = Statics.constructDelegationRoleName(name);
-    return new IAM.Role(this, roleName, {
-      assumedBy: new IAM.AccountPrincipal(environment.account),
+
+    // Stolen from PublicHostedZone constructor
+    return new IAM.Role(this, 'CrossAccountZoneDelegationRole', {
       roleName: roleName,
+      assumedBy: new IAM.AccountPrincipal(environment.account),
       inlinePolicies: {
         delegation: new IAM.PolicyDocument({
-          statements: [new IAM.PolicyStatement({
-            actions: ['route53:ChangeResourceRecordSets'],
-            resources: [arn],
-          })],
+          statements: [
+            new IAM.PolicyStatement({
+              actions: ['route53:ChangeResourceRecordSets'],
+              resources: [arn],
+            }),
+            new IAM.PolicyStatement({
+              actions: ['route53:ListHostedZonesByName'],
+              resources: ['*'],
+            }),
+          ],
         }),
       },
     });
