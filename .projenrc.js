@@ -9,7 +9,7 @@ const project = new awscdk.AwsCdkTypeScriptApp({
   majorVersion: 1,
   depsUpgradeOptions: {
     workflowOptions: {
-      branches: ['acceptance'],
+      branches: ['production'],
     },
   },
   scripts: {
