@@ -16,6 +16,11 @@ const productionEnvironment = {
   region: 'eu-west-1',
 };
 
+const acceptanceEnvironment = {
+  account: '315037222840',
+  region: 'eu-west-1',
+};
+
 const app = new App();
 
 new PipelineStack(app, 'dns-management-pipeline', {
@@ -23,6 +28,7 @@ new PipelineStack(app, 'dns-management-pipeline', {
   branchName: 'production',
   deployment: deploymentEnvironment,
   production: productionEnvironment,
+  acceptance: acceptanceEnvironment,
   sandbox: sandboxEnvironment,
 });
 

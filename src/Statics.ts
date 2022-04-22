@@ -9,6 +9,9 @@ export class Statics {
   static readonly envRootHostedZoneId: string = '/gemeente-nijmegen/account/hostedzone/id';
   static readonly envRootHostedZoneName: string = '/gemeente-nijmegen/account/hostedzone/name';
 
+  // The KSM key parameters for each account
+  static readonly accountDnsSecKmsKey: string = '/gemeente-nijmegen/account/dnssec/kmskey/arn';
+
   /**
    * Code star connection to github
    */
