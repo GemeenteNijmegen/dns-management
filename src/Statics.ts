@@ -11,6 +11,7 @@ export class Statics {
 
   // The KSM key parameters for each account
   static readonly accountDnsSecKmsKey: string = '/gemeente-nijmegen/account/dnssec/kmskey/arn';
+  static readonly accountDnsSecKmsKeyAlias: string = 'gemeente-nijmegen/dnssec/default';
 
   /**
    * Code star connection to github

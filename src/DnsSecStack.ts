@@ -3,23 +3,16 @@ import { aws_ssm as SSM, Tags, aws_iam as IAM, aws_kms as KMS } from 'aws-cdk-li
 import { Construct } from 'constructs';
 import { Statics } from './Statics';
 
-export interface DnsSecStackProps extends cdk.StackProps {
-  /**
-   * DNSSEC KMS key alias
-   */
-  alias: string;
-}
-
 export class DnsSecStack extends cdk.Stack {
 
-  constructor(scope: Construct, id: string, props: DnsSecStackProps) {
+  constructor(scope: Construct, id: string, props: cdk.StackProps) {
     super(scope, id, props);
 
     Tags.of(this).add('cdkManaged', 'yes');
     Tags.of(this).add('Project', Statics.projectName);
 
     // Create the (expensive $) key
-    const dnssecKey = this.addDNSSecKey(props.alias);
+    const dnssecKey = this.addDNSSecKey(Statics.accountDnsSecKmsKeyAlias);
 
     // Store the key arn in a parameter for use in other projects
     //   (note that this parmeter is in us-east-1)
