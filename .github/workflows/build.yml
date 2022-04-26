@@ -25,6 +25,10 @@ jobs:
         run: yarn install --check-files
       - name: build
         run: npx projen build
+      - name: Save CloudFormation templates
+        run: mkdir -p dist && cp cdk.out/* dist/
+      - name: cfn-lint
+        run: npx projen lint
       - id: self_mutation
         name: Find mutations
         run: |-
@@ -42,6 +46,11 @@ jobs:
           echo "::error::Files were changed during build (see build log). If this was triggered from a fork, you will need to update your branch."
           cat .repo.patch
           exit 1
+      - name: Upload artifact
+        uses: actions/upload-artifact@v2.1.1
+        with:
+          name: build-artifact
+          path: dist
   self-mutation:
     needs: build
     runs-on: ubuntu-latest
@@ -71,3 +80,39 @@ jobs:
             git add .
             git commit -s -m "chore: self mutation"
             git push origin HEAD:${{ github.event.pull_request.head.ref }}
+  cfn-diff:
+    needs: build
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    if: "! needs.build.outputs.self_mutation_happened"
+    steps:
+      - name: Download build artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: build-artifact
+          path: dist
+      - name: Keep build CloudFormation templates
+        run: mkdir -p ../cdk.out.build && cp dist/* ../cdk.out.build/
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: ${{ github.base_ref }}
+          repository: ${{ github.event.pull_request.head.repo.full_name }}
+      - name: Setup cfn-lint
+        uses: scottbrenner/cfn-lint-action@v2
+      - name: Install dependencies
+        run: yarn install --check-files
+      - name: Build
+        run: yarn build
+      - name: Prepare CloudFormation template directories
+        run: mv ../cdk.out.build cdk.out.source && mv cdk.out cdk.out.base
+      - name: CloudFormation diff
+        run: |-
+          git diff --no-index --output diff.txt cdk.out.source cdk.out.base || true; cat diff.txt; [ -s diff.txt ] && msg="Differences" || msg="No differences"; echo "Creating a comment on the PR..."; gh pr comment $PR --body "$(echo $msg) between CloudFormation templates on base branch and this branch. 
+           <details><pre>$(cat diff.txt)</pre></details>" -R $GITHUB_REPOSITORY
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GITHUB_REPOSITORY: ${{ github.repository }}
+          PR: ${{ github.event.pull_request.number }}
