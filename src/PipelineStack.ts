@@ -38,6 +38,7 @@ export class PipelineStack extends Stack {
       name: 'sandbox',
       cspRootEnvironment: props.production,
       deployDnsStack: true,
+      deployDnsSecKmsKey: false,
     });
 
     const acceptanceStage = new AccountStage(this, 'dns-management-acceptance', {
@@ -45,11 +46,12 @@ export class PipelineStack extends Stack {
       name: 'accp',
       cspRootEnvironment: props.production,
       deployDnsStack: false, // accp.csp-nijmegen.nl is still managed in webformulieren
+      deployDnsSecKmsKey: true,
     });
 
     // Setup the pipeline
     pipeline.addStage(cspStage);
-    const wave = pipeline.addWave('sub');
+    const wave = pipeline.addWave('accounts');
     wave.addStage(sandboxStage);
     wave.addStage(acceptanceStage);
 
