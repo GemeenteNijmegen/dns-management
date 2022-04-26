@@ -16,6 +16,22 @@ Momenteel gebeuren er twee dingen:
         - /gemeente-nijmegen/account/hostedzone/id
         - /gemeente-nijmegen/account/hostedzone/name
 
+### Pipeline structuur
+De pipeline bevat per omgeving een stage. Alle stages, behavle de productie stage, kunnen parallel worden gedeployed. De stages bevatten het volgende:
+- Productie (CspNijmegenStage)
+    - CspNijmegenStack: Stack die csp-nijmegen.nl importeert (uit webformulieren) en de twee generieke paremeters aanmaakt
+        - /gemeente-nijmegen/account/hostedzone/id
+        - /gemeente-nijmegen/account/hostedzone/name
+    - DnsSecStack: maakt een KMS key aan en exporteert de key arn naar ssm. Andere stacks kunnen deze key arn importeren om hun eigen [dnssec key signing key](https://docs.aws.amazon.com/cdk/api/v1/docs/@aws-cdk_aws-route53.CfnKeySigningKey.html) te maken.
+- Acceptatie (AccountStage)
+    - DnsSecStack: voor kms dnssec key
+    - Geen DnsStack: accp.csp-nijmegen.nl is gemanaged in webformulieren, daarom kan deze nog niet worden aangemaakt via deze repository.
+- Sandbox (AccountStage)
+    - DnsStack: Maakt sandbox.csp-nijmegen.nl aan.
+    - Geen DnsSecStack. Sandbox heeft geen DNSSEC vereisten.
+
+
+
 ## Volgende stap
 De hosted zones csp-nijmegen.nl en accp.csp-nijmegen.nl zitten nu nog in de webformulieren stacks. Er moet uitgezocht worden hoe we deze resources kunnen verhuizen naar deze repository. Daarnaast moet er een subdomein worden gemaakt zodat de webformulieren niet meer op csp-nijmegen.nl and accp.csp-nijmegen.nl draaien (maar bijvoorbeeld op webformulieren.csp-nijmegen.nl en webformulieren.accp.csp-nijmegen.nl). 
 
