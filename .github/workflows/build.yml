@@ -94,7 +94,7 @@ jobs:
           name: build-artifact
           path: dist
       - name: Keep build CloudFormation templates
-        run: mkdir -p ../cdk.out.source && tar -xzvf ./dist/cdk.out.tar.gz -C ../cdk.out.source && mv ../cdk.out.source/cdk.out/* ../cdk.out.source
+        run: mkdir -p ../cdk.out.source && tar -xzvf ./dist/cdk.out.tar.gz -C ../cdk.out.source "*.template.json" && mv ../cdk.out.source/cdk.out/* ../cdk.out.source
       - name: Checkout
         uses: actions/checkout@v2
         with:
