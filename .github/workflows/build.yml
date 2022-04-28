@@ -26,7 +26,7 @@ jobs:
       - name: build
         run: npx projen build
       - name: Save CloudFormation templates
-        run: mkdir -p dist && cp -r cdk.out/* dist/
+        run: mkdir -p dist && tar -czvf ./dist/cdk.out.tar.gz ./cdk.out
       - name: cfn-lint
         run: npx projen lint
       - id: self_mutation
@@ -94,7 +94,7 @@ jobs:
           name: build-artifact
           path: dist
       - name: Keep build CloudFormation templates
-        run: mkdir -p ../cdk.out.build && cp -r dist/* ../cdk.out.build/
+        run: mkdir -p ../cdk.out.build && tar -xzvf dist/cdk.out.tar.gz -C ../cdk.out.source
       - name: Checkout
         uses: actions/checkout@v2
         with:
@@ -107,7 +107,7 @@ jobs:
       - name: Build
         run: yarn build
       - name: Prepare CloudFormation template directories
-        run: mv ../cdk.out.build cdk.out.source && mv cdk.out cdk.out.base
+        run: mv ../cdk.out.source cdk.out.source && mv cdk.out cdk.out.base
       - name: CloudFormation diff
         run: |-
           git diff --no-index --output diff.txt cdk.out.source cdk.out.base || true; cat diff.txt; [ -s diff.txt ] && msg="Differences" || msg="No differences"; echo "Creating a comment on the PR..."; gh pr comment $PR --body "$(echo $msg) between CloudFormation templates on base branch and this branch. 

@@ -31,7 +31,7 @@ jobs:
       - name: release:production
         run: npx projen release:production
       - name: Save CloudFormation templates
-        run: mkdir -p dist && cp -r cdk.out/* dist/
+        run: mkdir -p dist && tar -czvf ./dist/cdk.out.tar.gz ./cdk.out
       - name: cfn-lint
         run: npx projen lint
       - name: Check for new commits
