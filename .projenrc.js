@@ -60,7 +60,7 @@ project.buildWorkflow.addPostBuildJob('cfn-diff', {
   steps: [
     {
       name: 'Keep build CloudFormation templates',
-      run: 'mkdir -p ../cdk.out.build && tar -xzvf dist/cdk.out.tar.gz -C ../cdk.out.source',
+      run: 'ls -l ./dist && mkdir -p ../cdk.out.source && tar -xzvf dist/cdk.out.tar.gz -C ../cdk.out.source',
     },
     {
       name: 'Checkout',
