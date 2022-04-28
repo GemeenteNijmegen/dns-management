@@ -36,7 +36,7 @@ const project = new awscdk.AwsCdkTypeScriptApp({
   postBuildSteps: [
     {
       name: 'Save CloudFormation templates',
-      run: 'mkdir -p dist && cp cdk.out/* dist/',
+      run: 'mkdir -p dist && cp -r cdk.out/* dist/',
     },
     {
       name: 'cfn-lint',
@@ -60,7 +60,7 @@ project.buildWorkflow.addPostBuildJob('cfn-diff', {
   steps: [
     {
       name: 'Keep build CloudFormation templates',
-      run: 'mkdir -p ../cdk.out.build && cp dist/* ../cdk.out.build/',
+      run: 'mkdir -p ../cdk.out.build && cp -r dist/* ../cdk.out.build/',
     },
     {
       name: 'Checkout',
