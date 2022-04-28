@@ -65,7 +65,7 @@ project.buildWorkflow.addPostBuildJob('cfn-diff', {
         'tar -xzvf ./dist/cdk.out.tar.gz -C ../',
         'mv ../cdk.out ../cdk.out.source',
         //'mv ../cdk.out.source/cdk.out/* ../cdk.out.source/',
-        //'rm ../cdk.out.source/cdk.out' 
+        //'rm ../cdk.out.source/cdk.out'
       ].join(' && '),
     },
     {
