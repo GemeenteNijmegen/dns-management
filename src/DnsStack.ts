@@ -13,6 +13,13 @@ export interface DnsStackProps extends cdk.StackProps {
    */
   rootZoneName: string;
   productionAccount: string;
+
+
+  /**
+   * TEMP: Indicate if this stack should use normal parameters or a secondery set
+   * to save the hostedzone ssm reference.
+   */
+  useSecondaryParameters: boolean;
 }
 
 export class DnsStack extends cdk.Stack {
@@ -46,14 +53,22 @@ export class DnsStack extends cdk.Stack {
       parentHostedZoneName: props.rootZoneName,
     });
 
+
+    var ssmZoneId = Statics.envRootHostedZoneId;
+    var ssmZoneName = Statics.envRootHostedZoneName;
+    if (props.useSecondaryParameters) {
+      ssmZoneId = Statics.envRootHostedZoneId + '/second';
+      ssmZoneName = Statics.envRootHostedZoneName + '/second';
+    }
+
     // Export hostedzone properties for other projects in this account
     new SSM.StringParameter(this, 'csp-sub-hostedzone-id', {
       stringValue: subzone.hostedZoneId,
-      parameterName: Statics.envRootHostedZoneId,
+      parameterName: ssmZoneId,
     });
     new SSM.StringParameter(this, 'csp-sub-hostedzone-name', {
       stringValue: subzone.zoneName,
-      parameterName: Statics.envRootHostedZoneName,
+      parameterName: ssmZoneName,
     });
 
   }

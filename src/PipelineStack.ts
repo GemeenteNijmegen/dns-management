@@ -1,9 +1,9 @@
-import { Stack, StackProps, Tags, pipelines, Environment, Aspects } from 'aws-cdk-lib';
-import { AwsSolutionsChecks } from 'cdk-nag';
+import { Stack, StackProps, Tags, pipelines, Environment } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import { AccountStage } from './AccountStage';
 import { CspNijmegenStage } from './CspNijmegenStage';
 import { Statics } from './Statics';
+import { TempAuthAccpStage } from './TempAuthAccpStage';
 
 export interface PipelineStackProps extends StackProps {
   branchName: string;
@@ -39,26 +39,38 @@ export class PipelineStack extends Stack {
       cspRootEnvironment: props.production,
       deployDnsStack: true,
       deployDnsSecKmsKey: false,
+      useSecondaryParameters: false,
     });
 
-    const acceptanceStage = new AccountStage(this, 'dns-management-acceptance', {
+    // Should be removed after deploying new account stage below for auth-accp
+    const acceptanceStage = new AccountStage(this, 'dns-management-acceptance', { // TODO: Remove
       env: props.acceptance,
       name: 'accp',
       cspRootEnvironment: props.production,
       deployDnsStack: false, // accp.csp-nijmegen.nl is still managed in webformulieren
       deployDnsSecKmsKey: true,
+      useSecondaryParameters: false,
     });
+
+    const authAcceptanceStage = new AccountStage(this, 'dns-management-auth-accp', {
+      env: props.acceptance,
+      name: 'accp',
+      cspRootEnvironment: props.production,
+      deployDnsStack: true, //accp.csp-nijmegen.nl
+      deployDnsSecKmsKey: true,
+      useSecondaryParameters: true,
+    });
+
+    const tempAuthAccpStage = new TempAuthAccpStage(this, 'temp-dns-managment-auth-accp');
 
     // Setup the pipeline
     pipeline.addStage(cspStage);
     const wave = pipeline.addWave('accounts');
     wave.addStage(sandboxStage);
-    wave.addStage(acceptanceStage);
+    wave.addStage(acceptanceStage); // TODO: Remove later
+    wave.addStage(authAcceptanceStage);
+    wave.addStage(tempAuthAccpStage);
 
-    // Enable cfn-nag
-    Aspects.of(cspStage).add(new AwsSolutionsChecks({ verbose: true }));
-    Aspects.of(sandboxStage).add(new AwsSolutionsChecks({ verbose: true }));
-    Aspects.of(acceptanceStage).add(new AwsSolutionsChecks({ verbose: true }));
 
   }
 
