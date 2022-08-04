@@ -56,8 +56,8 @@ export class PipelineStack extends Stack {
       env: props.acceptance,
       name: 'accp',
       cspRootEnvironment: props.production,
-      deployDnsStack: true, //accp.csp-nijmegen.nl
-      deployDnsSecKmsKey: true,
+      deployDnsStack: true, //accp.csp-nijmegen.nl (copy)
+      deployDnsSecKmsKey: false,
       useSecondaryParameters: true,
     });
 
