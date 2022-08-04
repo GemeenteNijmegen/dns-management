@@ -15,7 +15,6 @@ export class TempAuthAccpStage extends Stage {
   }
 }
 
-
 class TempAuthAccpStack extends Stack {
 
   constructor(scope: Construct, id: string, props?: StackProps) {
@@ -100,7 +99,12 @@ class TempAuthAccpStack extends Stack {
     new route53.NsRecord(this, 'ns', {
       zone,
       recordName: 'mijn.accp.csp-nijmegen.nl',
-      values: [],
+      values: [
+        'ns-1525.awsdns-62.org',
+        'ns-1916.awsdns-47.co.uk',
+        'ns-312.awsdns-39.com',
+        'ns-632.awsdns-15.net',
+      ],
     });
 
   }
