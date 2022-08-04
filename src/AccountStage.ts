@@ -1,5 +1,4 @@
-import { Aspects, Environment, Stage, StageProps } from 'aws-cdk-lib';
-import { AwsSolutionsChecks } from 'cdk-nag';
+import { Environment, Stage, StageProps } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import { DnsSecStack } from './DnsSecStack';
 import { DnsStack } from './DnsStack';
@@ -21,22 +20,20 @@ export class AccountStage extends Stage {
       if (props.cspRootEnvironment.account == undefined) {
         throw 'Account reference to csp root hosted zone account is empty, can not deploy subzones.';
       }
-      const dns = new DnsStack(this, 'stack', {
+      new DnsStack(this, 'stack', {
         productionAccount: props.cspRootEnvironment.account,
         rootZoneName: 'csp-nijmegen.nl',
         subzoneName: props.name,
         useSecondaryParameters: props.useSecondaryParameters,
       });
 
-      Aspects.of(dns).add(new AwsSolutionsChecks());
     }
 
     // KMS key used for dnssec (must be in us-east-1)
     if (props.deployDnsSecKmsKey) {
-      const dnssec = new DnsSecStack(this, 'dnssec-stack', {
+      new DnsSecStack(this, 'dnssec-stack', {
         env: { region: 'us-east-1' },
       });
-      Aspects.of(dnssec).add(new AwsSolutionsChecks());
     }
 
 

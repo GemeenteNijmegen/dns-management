@@ -47,12 +47,14 @@ export class DnsStack extends cdk.Stack {
     });
 
     // Register the zone nameservers within the root zone
-    new Route53.CrossAccountZoneDelegationRecord(this, 'delegate', {
-      delegatedZone: subzone,
-      delegationRole: role,
-      parentHostedZoneName: props.rootZoneName,
-    });
-
+    // Only if this is not the second domain name on the account (useSecondaryParameters)
+    if (!props.useSecondaryParameters) {
+      new Route53.CrossAccountZoneDelegationRecord(this, 'delegate', {
+        delegatedZone: subzone,
+        delegationRole: role,
+        parentHostedZoneName: props.rootZoneName,
+      });
+    }
 
     var ssmZoneId = Statics.envRootHostedZoneId;
     var ssmZoneName = Statics.envRootHostedZoneName;
