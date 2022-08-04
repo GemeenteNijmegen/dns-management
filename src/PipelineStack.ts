@@ -69,7 +69,9 @@ export class PipelineStack extends Stack {
     wave.addStage(sandboxStage);
     wave.addStage(acceptanceStage); // TODO: Remove later
     wave.addStage(authAcceptanceStage);
-    wave.addStage(tempAuthAccpStage);
+
+    // Run as final only requires the authAcceptanceStage to be deployed first
+    pipeline.addStage(tempAuthAccpStage);
 
 
   }
