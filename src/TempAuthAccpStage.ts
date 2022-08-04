@@ -1,21 +1,13 @@
 import {
-  Environment, Stack, StackProps, Stage, StageProps,
+  Stack, StackProps, Stage,
   aws_ssm as SSM,
   aws_route53 as route53,
 } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import { Statics } from './Statics';
 
-export interface TempAuthAccpStageProps extends StageProps {
-  name: string;
-  cspRootEnvironment: Environment;
-  deployDnsStack: boolean;
-  deployDnsSecKmsKey: boolean;
-  useSecondaryParameters: boolean;
-}
-
 export class TempAuthAccpStage extends Stage {
-  constructor(scope: Construct, id: string, props?: TempAuthAccpStageProps) {
+  constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
     new TempAuthAccpStack(this, 'stack');

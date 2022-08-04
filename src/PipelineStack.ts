@@ -61,7 +61,9 @@ export class PipelineStack extends Stack {
       useSecondaryParameters: true,
     });
 
-    const tempAuthAccpStage = new TempAuthAccpStage(this, 'temp-dns-managment-auth-accp');
+    const tempAuthAccpStage = new TempAuthAccpStage(this, 'temp-dns-managment-auth-accp', {
+      env: props.acceptance,
+    });
 
     // Setup the pipeline
     pipeline.addStage(cspStage);
