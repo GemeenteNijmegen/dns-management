@@ -48,8 +48,8 @@ export class PipelineStack extends Stack {
       env: props.acceptance,
       name: 'accp',
       cspRootEnvironment: props.production,
-      deployDnsStack: true, // accp.csp-nijmegen.nl is still managed in webformulieren (however parameters are not used yet so we can safely create this zone as long as it is not registered in csp-nijmegen.nl, see prop registerInCspNijmegenRoot)
-      enableDnsSec: false, // Enable after property above is deployed (small steps)
+      deployDnsStack: true, // accp.csp-nijmegen.nl is still managed in webformulieren (however we have a unregistered in csp-nijmegen.nl copy now)
+      enableDnsSec: true, 
       deployDnsSecKmsKey: true,
       registerInCspNijmegenRoot: false, // Can be enabled after other zone removed from webformulieren (Note that a policy in csp stack should be added before!)
     });
