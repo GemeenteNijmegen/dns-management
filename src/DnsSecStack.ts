@@ -1,11 +1,19 @@
 import * as cdk from 'aws-cdk-lib';
-import { aws_ssm as SSM, Tags, aws_iam as IAM, aws_kms as KMS } from 'aws-cdk-lib';
+import { aws_ssm as SSM, Tags, aws_iam as IAM, aws_kms as KMS, aws_route53 as route53 } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import { Statics } from './Statics';
 
+export interface DnsSecStackProps extends cdk.StackProps {
+  /**
+   * If this stack is created it creats a KSM key
+   * set this to true to import the account hosted zone and enable dnssec on it
+   */
+  enableDnsSec: boolean;
+}
+
 export class DnsSecStack extends cdk.Stack {
 
-  constructor(scope: Construct, id: string, props: cdk.StackProps) {
+  constructor(scope: Construct, id: string, props: DnsSecStackProps) {
     super(scope, id, props);
 
     Tags.of(this).add('cdkManaged', 'yes');
@@ -19,6 +27,34 @@ export class DnsSecStack extends cdk.Stack {
     new SSM.StringParameter(this, 'account-dnssec-kms-key-arn', {
       stringValue: dnssecKey.keyArn,
       parameterName: Statics.accountDnsSecKmsKey,
+    });
+
+    if (props.enableDnsSec) {
+      this.enableDnsSecForAccountRootZone(dnssecKey.keyArn);
+    }
+
+  }
+
+  /**
+   * Enable DNSSEC usign the KMS key from this stack for the account root hosted zone.
+   * @param keyArn
+   */
+  enableDnsSecForAccountRootZone(keyArn: string) {
+
+    // Import the hosted zone id
+    const hostedZoneId = SSM.StringParameter.valueForStringParameter(this, Statics.accountDnsSecKmsKey);
+
+    // Create a ksk for the hosted zone
+    new route53.CfnKeySigningKey(this, 'account-ksk', {
+      hostedZoneId,
+      keyManagementServiceArn: keyArn,
+      name: 'account-dnssec-ksk',
+      status: 'ACTIVE',
+    });
+
+    // Enable dnssec in the hosted zone
+    new route53.CfnDNSSEC(this, 'account-dnssec', {
+      hostedZoneId,
     });
 
   }

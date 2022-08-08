@@ -34,6 +34,7 @@ export class AccountStage extends Stage {
     if (props.deployDnsSecKmsKey) {
       new DnsSecStack(this, 'dnssec-stack', {
         env: { region: 'us-east-1' },
+        enableDnsSec: props.enableDnsSec,
       });
     }
 

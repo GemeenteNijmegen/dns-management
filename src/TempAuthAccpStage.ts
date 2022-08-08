@@ -20,13 +20,9 @@ class TempAuthAccpStack extends Stack {
   constructor(scope: Construct, id: string, props?: StackProps) {
     super(scope, id, props);
 
-    // Use secondary imports to find the newly auth-accp.csp-nijmegen.nl hosted zone
-    var ssmZoneId = Statics.envRootHostedZoneId + '/second';
-    var ssmZoneName = Statics.envRootHostedZoneName + '/second';
-
     // Import parameters
-    const zoneId = SSM.StringParameter.valueForStringParameter(this, ssmZoneId);
-    const zoneName = SSM.StringParameter.valueForStringParameter(this, ssmZoneName);
+    const zoneId = SSM.StringParameter.valueForStringParameter(this, Statics.envRootHostedZoneId);
+    const zoneName = SSM.StringParameter.valueForStringParameter(this, Statics.envRootHostedZoneName);
 
     // Import the hosted zone
     const zone = route53.HostedZone.fromHostedZoneAttributes(this, 'auth-accp', {
@@ -76,13 +72,6 @@ class TempAuthAccpStack extends Stack {
       zone,
       recordName: 'mail.accp.csp-nijmegen.nl',
       values: ['v=spf1 include:amazonses.com ~all'],
-    });
-
-    // DS
-    new route53.DsRecord(this, 'ds-1', {
-      zone,
-      recordName: 'mijn.accp.csp-nijmegen.nl',
-      values: ['52561', '13', '2', '90CF3C35FDDC30AF42FB4BCCDCCB1123500050D70F1D4886D6DE25502F3BC50A'],
     });
 
     // MX
