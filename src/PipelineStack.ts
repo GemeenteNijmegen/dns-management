@@ -3,6 +3,7 @@ import { Construct } from 'constructs';
 import { AccountStage } from './AccountStage';
 import { CspNijmegenStage } from './CspNijmegenStage';
 import { Statics } from './Statics';
+import { TempAuthAccpStage } from './TempAuthAccpStage';
 
 export interface PipelineStackProps extends StackProps {
   branchName: string;
@@ -30,6 +31,7 @@ export class PipelineStack extends Stack {
       env: props.production,
       cspRootEnvironment: props.production,
       sandbox: props.sandbox,
+      //authAcceptance: props.acceptance, // to add the a new policy
     });
 
     const sandboxStage = new AccountStage(this, 'dns-management-sandbox', {
@@ -46,26 +48,25 @@ export class PipelineStack extends Stack {
       env: props.acceptance,
       name: 'accp',
       cspRootEnvironment: props.production,
-      deployDnsStack: false, // accp.csp-nijmegen.nl is still managed in webformulieren (however parameters are not used yet so we can safely create this zone as long as it is not registered in csp-nijmegen.nl, see prop registerInCspNijmegenRoot)
-      enableDnsSec: false,
+      deployDnsStack: true, // accp.csp-nijmegen.nl is still managed in webformulieren (however parameters are not used yet so we can safely create this zone as long as it is not registered in csp-nijmegen.nl, see prop registerInCspNijmegenRoot)
+      enableDnsSec: false, // Enable after property above is deployed (small steps)
       deployDnsSecKmsKey: true,
-      registerInCspNijmegenRoot: false,
+      registerInCspNijmegenRoot: false, // Can be enabled after other zone removed from webformulieren (Note that a policy in csp stack should be added before!)
     });
 
     // Enable after acceptanceStage deployDnsStack is set to true
-    // const tempAuthAccpStage = new TempAuthAccpStage(this, 'temp-dns-managment-auth-accp', {
-    //   env: props.acceptance,
-    // });
+    const tempAuthAccpStage = new TempAuthAccpStage(this, 'temp-dns-managment-auth-accp', {
+      env: props.acceptance,
+    });
 
     // Setup the pipeline
     pipeline.addStage(cspStage);
     const wave = pipeline.addWave('accounts');
     wave.addStage(sandboxStage);
-    wave.addStage(acceptanceStage); // TODO: Remove later
-    //wave.addStage(authAcceptanceStage);
+    wave.addStage(acceptanceStage);
 
     // Run as final only requires the authAcceptanceStage to be deployed first
-    //pipeline.addStage(tempAuthAccpStage);
+    pipeline.addStage(tempAuthAccpStage);
 
 
   }

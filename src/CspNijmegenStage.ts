@@ -22,6 +22,7 @@ export class CspNijmegenStage extends Stage {
     // KMS key for dnssec (must be in us-east-1)
     new DnsSecStack(this, 'dnssec-stack', {
       env: { region: 'us-east-1' },
+      enableDnsSec: false,
     });
   }
 }
