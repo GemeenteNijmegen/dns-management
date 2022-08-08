@@ -74,6 +74,13 @@ class TempAuthAccpStack extends Stack {
       values: ['v=spf1 include:amazonses.com ~all'],
     });
 
+    // DS
+    // new route53.DsRecord(this, 'ds-1', {
+    //  zone,
+    //  recordName: 'mijn.accp.csp-nijmegen.nl',
+    //  values: ['52561 13 2 90CF3C35FDDC30AF42FB4BCCDCCB1123500050D70F1D4886D6DE25502F3BC50A'],
+    // });
+
     // MX
     new route53.MxRecord(this, 'mx-1', {
       zone,
