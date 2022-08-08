@@ -3,7 +3,6 @@ import { Construct } from 'constructs';
 import { AccountStage } from './AccountStage';
 import { CspNijmegenStage } from './CspNijmegenStage';
 import { Statics } from './Statics';
-import { TempAuthAccpStage } from './TempAuthAccpStage';
 
 export interface PipelineStackProps extends StackProps {
   branchName: string;
@@ -38,42 +37,35 @@ export class PipelineStack extends Stack {
       name: 'sandbox',
       cspRootEnvironment: props.production,
       deployDnsStack: true,
+      enableDnsSec: false,
       deployDnsSecKmsKey: false,
-      useSecondaryParameters: false,
+      registerInCspNijmegenRoot: true,
     });
 
-    // Should be removed after deploying new account stage below for auth-accp
-    const acceptanceStage = new AccountStage(this, 'dns-management-acceptance', { // TODO: Remove
+    const acceptanceStage = new AccountStage(this, 'dns-management-acceptance', {
       env: props.acceptance,
       name: 'accp',
       cspRootEnvironment: props.production,
-      deployDnsStack: false, // accp.csp-nijmegen.nl is still managed in webformulieren
+      deployDnsStack: false, // accp.csp-nijmegen.nl is still managed in webformulieren (however parameters are not used yet so we can safely create this zone as long as it is not registered in csp-nijmegen.nl, see prop registerInCspNijmegenRoot)
+      enableDnsSec: false,
       deployDnsSecKmsKey: true,
-      useSecondaryParameters: false,
+      registerInCspNijmegenRoot: false,
     });
 
-    const authAcceptanceStage = new AccountStage(this, 'dns-management-auth-accp', {
-      env: props.acceptance,
-      name: 'accp',
-      cspRootEnvironment: props.production,
-      deployDnsStack: true, //accp.csp-nijmegen.nl (copy)
-      deployDnsSecKmsKey: false,
-      useSecondaryParameters: true,
-    });
-
-    const tempAuthAccpStage = new TempAuthAccpStage(this, 'temp-dns-managment-auth-accp', {
-      env: props.acceptance,
-    });
+    // Enable after acceptanceStage deployDnsStack is set to true
+    // const tempAuthAccpStage = new TempAuthAccpStage(this, 'temp-dns-managment-auth-accp', {
+    //   env: props.acceptance,
+    // });
 
     // Setup the pipeline
     pipeline.addStage(cspStage);
     const wave = pipeline.addWave('accounts');
     wave.addStage(sandboxStage);
     wave.addStage(acceptanceStage); // TODO: Remove later
-    wave.addStage(authAcceptanceStage);
+    //wave.addStage(authAcceptanceStage);
 
     // Run as final only requires the authAcceptanceStage to be deployed first
-    pipeline.addStage(tempAuthAccpStage);
+    //pipeline.addStage(tempAuthAccpStage);
 
 
   }

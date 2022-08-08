@@ -16,10 +16,10 @@ export interface DnsStackProps extends cdk.StackProps {
 
 
   /**
-   * TEMP: Indicate if this stack should use normal parameters or a secondery set
-   * to save the hostedzone ssm reference.
+   * TEMP: Indicate if the hosted zone should be registered in csp-nijmegen.nl
+   * this can only be set to true if the other hosted zone in webformulieren is removed.
    */
-  useSecondaryParameters: boolean;
+  registerInCspNijmegenRoot: boolean;
 }
 
 export class DnsStack extends cdk.Stack {
@@ -48,7 +48,7 @@ export class DnsStack extends cdk.Stack {
 
     // Register the zone nameservers within the root zone
     // Only if this is not the second domain name on the account (useSecondaryParameters)
-    if (!props.useSecondaryParameters) {
+    if (props.registerInCspNijmegenRoot) {
       new Route53.CrossAccountZoneDelegationRecord(this, 'delegate', {
         delegatedZone: subzone,
         delegationRole: role,
@@ -56,21 +56,14 @@ export class DnsStack extends cdk.Stack {
       });
     }
 
-    var ssmZoneId = Statics.envRootHostedZoneId;
-    var ssmZoneName = Statics.envRootHostedZoneName;
-    if (props.useSecondaryParameters) {
-      ssmZoneId = Statics.envRootHostedZoneId + '/second';
-      ssmZoneName = Statics.envRootHostedZoneName + '/second';
-    }
-
     // Export hostedzone properties for other projects in this account
     new SSM.StringParameter(this, 'csp-sub-hostedzone-id', {
       stringValue: subzone.hostedZoneId,
-      parameterName: ssmZoneId,
+      parameterName: Statics.envRootHostedZoneId,
     });
     new SSM.StringParameter(this, 'csp-sub-hostedzone-name', {
       stringValue: subzone.zoneName,
-      parameterName: ssmZoneName,
+      parameterName: Statics.envRootHostedZoneName,
     });
 
   }
