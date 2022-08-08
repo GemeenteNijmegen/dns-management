@@ -1,5 +1,4 @@
-import { Aspects, Environment, Stage, StageProps } from 'aws-cdk-lib';
-import { AwsSolutionsChecks } from 'cdk-nag';
+import { Environment, Stage, StageProps } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import { CspNijmegenStack } from './CspNijmegenStack';
 import { DnsSecStack } from './DnsSecStack';
@@ -15,17 +14,14 @@ export class CspNijmegenStage extends Stage {
 
     // Csp zone related stuff
     // Iam delegation policies
-    const csp = new CspNijmegenStack(this, 'stack', {
+    new CspNijmegenStack(this, 'stack', {
       env: props.cspRootEnvironment,
       sandbox: props.sandbox,
     });
 
     // KMS key for dnssec (must be in us-east-1)
-    const dnssec = new DnsSecStack(this, 'dnssec-stack', {
+    new DnsSecStack(this, 'dnssec-stack', {
       env: { region: 'us-east-1' },
     });
-
-    Aspects.of(csp).add(new AwsSolutionsChecks());
-    Aspects.of(dnssec).add(new AwsSolutionsChecks());
   }
 }

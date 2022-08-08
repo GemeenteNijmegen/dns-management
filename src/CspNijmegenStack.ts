@@ -1,6 +1,5 @@
 import * as cdk from 'aws-cdk-lib';
 import { aws_ssm as SSM, aws_route53 as Route53, Tags, aws_iam as IAM, Environment } from 'aws-cdk-lib';
-import { NagSuppressions } from 'cdk-nag';
 import { Construct } from 'constructs';
 import { Statics } from './Statics';
 
@@ -81,11 +80,6 @@ export class CspNijmegenStack extends cdk.Stack {
         }),
       },
     });
-
-    NagSuppressions.addResourceSuppressions(role, [{
-      id: 'AwsSolutions-IAM5',
-      reason: 'Aws gebruikt hier een wildcard in de originele PublicHostedZone class waar deze policy van geleend is',
-    }]);
 
     return role;
   }

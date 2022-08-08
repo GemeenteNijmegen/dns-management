@@ -7,8 +7,9 @@ export interface AccountStageProps extends StageProps {
   name: string;
   cspRootEnvironment: Environment;
   deployDnsStack: boolean;
+  enableDnsSec: boolean;
   deployDnsSecKmsKey: boolean;
-  useSecondaryParameters: boolean;
+  registerInCspNijmegenRoot: boolean;
 }
 
 export class AccountStage extends Stage {
@@ -24,7 +25,7 @@ export class AccountStage extends Stage {
         productionAccount: props.cspRootEnvironment.account,
         rootZoneName: 'csp-nijmegen.nl',
         subzoneName: props.name,
-        useSecondaryParameters: props.useSecondaryParameters,
+        registerInCspNijmegenRoot: props.registerInCspNijmegenRoot,
       });
 
     }

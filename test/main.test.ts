@@ -1,35 +1,44 @@
-import { App } from 'aws-cdk-lib';
-import { AccountStage } from '../src/AccountStage';
+import { App, Aspects } from 'aws-cdk-lib';
+import { AwsSolutionsChecks } from 'cdk-nag';
+import { CspNijmegenStack } from '../src/CspNijmegenStack';
+import { DnsSecStack } from '../src/DnsSecStack';
+import { DnsStack } from '../src/DnsStack';
 
-test('CFN-NAG', () => {
+
+const env = {
+  account: '123',
+  region: 'eu-west-1',
+};
+
+test('Snapshot', () => {
 
   const app = new App();
 
-  new AccountStage(app, 'dns-management-auth-accp', {
-    env: {
-      account: '1234',
-      region: 'eu-west-1',
-    },
-    name: 'accp',
-    cspRootEnvironment: {
-      account: '1234',
-      region: 'eu-west-1',
-    },
-    deployDnsStack: true,
-    deployDnsSecKmsKey: true,
-    useSecondaryParameters: false,
+
+  const dnsstack = new DnsStack(app, 'dns-stack', {
+    productionAccount: env.account,
+    registerInCspNijmegenRoot: true,
+    rootZoneName: 'csp-nijmegen.nl',
+    subzoneName: 'dnsstack',
   });
 
-  // const cspStage = new CspNijmegenStage(app, 'dns-management-root', {
-  //   env: props.production,
-  //   cspRootEnvironment: props.production,
-  //   sandbox: props.sandbox,
-  // });
+  const dnssecstack = new DnsSecStack(app, 'dnssec-stack', {
 
-  // Enable cfn-nag
-  //  Aspects.of(cspStage).add(new AwsSolutionsChecks({ verbose: true }));
-  //  Aspects.of(sandboxStage).add(new AwsSolutionsChecks({ verbose: true }));
-  //  Aspects.of(acceptanceStage).add(new AwsSolutionsChecks({ verbose: true }));
+  });
 
+  const cspStack = new CspNijmegenStack(app, 'csp-stack', {
+    env: env,
+    sandbox: env,
+  });
+
+  // Nag
+  Aspects.of(dnsstack).add(new AwsSolutionsChecks({ verbose: true }));
+  Aspects.of(dnssecstack).add(new AwsSolutionsChecks({ verbose: true }));
+  Aspects.of(cspStack).add(new AwsSolutionsChecks({ verbose: true }));
+
+  // Snapshot
+  expect(app.synth().getStackArtifact(dnsstack.artifactId).template).toMatchSnapshot();
+  expect(app.synth().getStackArtifact(dnssecstack.artifactId).template).toMatchSnapshot();
+  expect(app.synth().getStackArtifact(cspStack.artifactId).template).toMatchSnapshot();
 
 });
