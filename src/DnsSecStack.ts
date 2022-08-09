@@ -42,11 +42,11 @@ export class DnsSecStack extends cdk.Stack {
   enableDnsSecForAccountRootZone(keyArn: string) {
 
     // Import the hosted zone id
-    const hostedZoneId = SSM.StringParameter.valueForStringParameter(this, Statics.accountDnsSecKmsKey);
+    const hostedZoneId = SSM.StringParameter.valueForStringParameter(this, Statics.envRootHostedZoneId);
 
     // Create a ksk for the hosted zone
     new route53.CfnKeySigningKey(this, 'account-ksk', {
-      hostedZoneId,
+      hostedZoneId: hostedZoneId,
       keyManagementServiceArn: keyArn,
       name: 'account-dnssec-ksk',
       status: 'ACTIVE',
