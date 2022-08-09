@@ -50,7 +50,7 @@ export class DnsSecStack extends cdk.Stack {
     const hostedZoneId = parameters.get(Statics.envRootHostedZoneId);
 
     // Create a ksk for the hosted zone
-    new route53.CfnKeySigningKey(this, 'account-ksk', {
+    const ksk = new route53.CfnKeySigningKey(this, 'account-ksk', {
       hostedZoneId: hostedZoneId,
       keyManagementServiceArn: keyArn,
       name: 'account_dnssec_ksk',
@@ -58,9 +58,12 @@ export class DnsSecStack extends cdk.Stack {
     });
 
     // Enable dnssec in the hosted zone
-    new route53.CfnDNSSEC(this, 'account-dnssec', {
+    const dnssec = new route53.CfnDNSSEC(this, 'account-dnssec', {
       hostedZoneId,
     });
+
+    // Make sure the ksk exists before enabling dnssec
+    dnssec.addDependsOn(ksk);
 
   }
 
