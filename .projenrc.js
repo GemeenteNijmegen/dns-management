@@ -17,6 +17,7 @@ const project = new awscdk.AwsCdkTypeScriptApp({
   },
   deps: [
     'cdk-nag@^2.0.0',
+    'cdk-remote-stack',
   ],
   gitignore: [
     'test-reports/junit.xml',

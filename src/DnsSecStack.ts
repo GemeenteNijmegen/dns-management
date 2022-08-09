@@ -1,5 +1,6 @@
 import * as cdk from 'aws-cdk-lib';
 import { aws_ssm as SSM, Tags, aws_iam as IAM, aws_kms as KMS, aws_route53 as route53 } from 'aws-cdk-lib';
+import { RemoteParameters } from 'cdk-remote-stack';
 import { Construct } from 'constructs';
 import { Statics } from './Statics';
 
@@ -41,8 +42,12 @@ export class DnsSecStack extends cdk.Stack {
    */
   enableDnsSecForAccountRootZone(keyArn: string) {
 
-    // Import the hosted zone id
-    const hostedZoneId = SSM.StringParameter.valueForStringParameter(this, Statics.envRootHostedZoneId);
+    // Import the hosted zone id from eu-west-1
+    const parameters = new RemoteParameters(this, 'hosted-zone-parameters', {
+      path: Statics.envRootHostedZonePath,
+      region: 'eu-west-1',
+    });
+    const hostedZoneId = parameters.get(Statics.envRootHostedZoneId);
 
     // Create a ksk for the hosted zone
     new route53.CfnKeySigningKey(this, 'account-ksk', {
