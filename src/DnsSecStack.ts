@@ -53,7 +53,7 @@ export class DnsSecStack extends cdk.Stack {
     new route53.CfnKeySigningKey(this, 'account-ksk', {
       hostedZoneId: hostedZoneId,
       keyManagementServiceArn: keyArn,
-      name: 'account-dnssec-ksk',
+      name: 'account_dnssec_ksk',
       status: 'ACTIVE',
     });
 
