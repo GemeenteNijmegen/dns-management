@@ -1345,6 +1345,11 @@ cdk-nag@^2.0.0:
   resolved "https://registry.yarnpkg.com/cdk-nag/-/cdk-nag-2.12.31.tgz#c243048cf7fd4b2627c6b04168a52bcf1e098778"
   integrity sha512-M+coqqXso3RiB1AMIkYSN6aH5Lcjx5PahmB6NkXfWt+qBtaVySVsMFppXUsMCQLKdz5SeZSKi46uzPBV3mi2+w==
 
+cdk-remote-stack@^2.0.9:
+  version "2.0.9"
+  resolved "https://registry.yarnpkg.com/cdk-remote-stack/-/cdk-remote-stack-2.0.9.tgz#5b406c58d8e19e93361612a726f247361ff482dc"
+  integrity sha512-UQFuFWsECJFW8pwV+Z4M3pCu8Mwg7bG/a0km0B7/gFhcX9dHLlq5P9MgoJ4fubZ38BKx4fZhGdNI6jnEfwIE0w==
+
 chalk@^2.0.0, chalk@^2.4.2:
   version "2.4.2"
   resolved "https://registry.yarnpkg.com/chalk/-/chalk-2.4.2.tgz#cd42541677a54333cf541a49108c1432b44c9424"

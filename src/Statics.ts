@@ -6,6 +6,7 @@ export class Statics {
   static readonly cspRootHostedZoneName: string = '/gemeente-nijmegen/formFio/hostedzone/name';
 
   // In newer accounts use these two to obtain the hostedzone
+  static readonly envRootHostedZonePath: string = '/gemeente-nijmegen/account/hostedzone';
   static readonly envRootHostedZoneId: string = '/gemeente-nijmegen/account/hostedzone/id';
   static readonly envRootHostedZoneName: string = '/gemeente-nijmegen/account/hostedzone/name';
 
