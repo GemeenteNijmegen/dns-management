@@ -38,8 +38,8 @@ class TempAuthAccpStack extends Stack {
       '3xlz53dmt3zuw7c6ysgefzqxuolur67c._domainkey': '3xlz53dmt3zuw7c6ysgefzqxuolur67c.dkim.amazonses.com',
       '46sti3uiiwhlf5jyx4aomika3ialqdge._domainkey': '46sti3uiiwhlf5jyx4aomika3ialqdge.dkim.amazonses.com',
       '56vtuueqzg2ijey4dw2lnbkvt4panczi._domainkey': '56vtuueqzg2ijey4dw2lnbkvt4panczi.dkim.amazonses.com',
-      '_f73d66ee2c385b8dfc18ace27cb99644': '2e45a999777f5fe42487a28040c9c926.897f69591e347cfdce9e9d66193f750d.comodoca.com.',
-      '_f7efe25b3a753b7b4054d2dba93a343b': '1865949c9e0474591398be17540a8383.626b224344a3e3acc3b0f4b67b2a52d3.comodoca.com.',
+      '_f73d66ee2c385b8dfc18ace27cb99644': undefined, // Remove and add in mijn-nijmegen
+      '_f7efe25b3a753b7b4054d2dba93a343b': undefined, // Remove and add in mijn-nijmegen
       '_bf008ac0ff1608c2d3082c770eb5539a.alb-formio': '_f28bed12396f97700c8d3c73c480103f.ymrbdtpxcr.acm-validations.aws.',
       '_5d368958058b44ba284131f021902115.alb': '_96a878fe56c1fd24fe313ce09bdc5502.jddtvkljgg.acm-validations.aws.',
       '_c2816d074a2b9857b019d409aeb78d89.api': '_f657a0c31631aa853b4130713b9d6277.xrchbtpdjs.acm-validations.aws.',
@@ -52,13 +52,18 @@ class TempAuthAccpStack extends Stack {
       '_fcd07d4902fcaf85f9265a98c092d53a.tokenapi': '_a58554621ab703b501bec23b454fec1d.xtsdcrbgyf.acm-validations.aws.',
     };
 
+    /**
+     * Niet de meest handige oplossing nu er records niet meer toegevoegd moeten worden...
+     */
     var index = 1;
     for (const [key, value] of Object.entries(records)) {
-      new route53.CnameRecord(this, `record-${index}`, {
-        domainName: value,
-        zone: zone,
-        recordName: key,
-      });
+      if (value != undefined) {
+        new route53.CnameRecord(this, `record-${index}`, {
+          domainName: value,
+          zone: zone,
+          recordName: key,
+        });
+      }
       index += 1;
     }
 
@@ -74,12 +79,12 @@ class TempAuthAccpStack extends Stack {
       values: ['v=spf1 include:amazonses.com ~all'],
     });
 
-    // DS
-    new route53.DsRecord(this, 'ds-1', {
-      zone,
-      recordName: 'mijn',
-      values: ['52561 13 2 90CF3C35FDDC30AF42FB4BCCDCCB1123500050D70F1D4886D6DE25502F3BC50A'],
-    });
+    // DS Remove here and deploy from mijn-nijmegen
+    //new route53.DsRecord(this, 'ds-1', {
+    //  zone,
+    //  recordName: 'mijn',
+    //  values: ['52561 13 2 90CF3C35FDDC30AF42FB4BCCDCCB1123500050D70F1D4886D6DE25502F3BC50A'],
+    //});
 
     // MX
     new route53.MxRecord(this, 'mx-1', {
@@ -92,16 +97,16 @@ class TempAuthAccpStack extends Stack {
     });
 
     // NS
-    new route53.NsRecord(this, 'ns', {
-      zone,
-      recordName: 'mijn',
-      values: [
-        'ns-1525.awsdns-62.org',
-        'ns-1916.awsdns-47.co.uk',
-        'ns-312.awsdns-39.com',
-        'ns-632.awsdns-15.net',
-      ],
-    });
+    // new route53.NsRecord(this, 'ns', {
+    //   zone,
+    //   recordName: 'mijn',
+    //   values: [
+    //     'ns-1525.awsdns-62.org',
+    //     'ns-1916.awsdns-47.co.uk',
+    //     'ns-312.awsdns-39.com',
+    //     'ns-632.awsdns-15.net',
+    //   ],
+    // });
 
   }
 
