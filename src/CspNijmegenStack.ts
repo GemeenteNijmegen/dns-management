@@ -29,16 +29,6 @@ export class CspNijmegenStack extends cdk.Stack {
       zoneName: rootZoneName,
     });
 
-    // Store in parameters for other projects to find this hostedzone
-    new SSM.StringParameter(this, 'csp-sub-hostedzone-id', {
-      stringValue: cspNijmegenZone.hostedZoneId,
-      parameterName: Statics.envRootHostedZoneId,
-    });
-    new SSM.StringParameter(this, 'csp-sub-hostedzone-name', {
-      stringValue: cspNijmegenZone.zoneName,
-      parameterName: Statics.envRootHostedZoneName,
-    });
-
     // Register the relegation role
     const arn = cspNijmegenZone.hostedZoneArn;
     this.enableDelegationToAccount(arn, props.sandbox, 'sandbox');

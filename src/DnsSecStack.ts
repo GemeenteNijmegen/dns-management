@@ -10,6 +10,9 @@ export interface DnsSecStackProps extends cdk.StackProps {
    * set this to true to import the account hosted zone and enable dnssec on it
    */
   enableDnsSec: boolean;
+
+  //Temp secondary parameter
+  useSecondaryParameter: boolean;
 }
 
 export class DnsSecStack extends cdk.Stack {
@@ -29,6 +32,13 @@ export class DnsSecStack extends cdk.Stack {
       stringValue: dnssecKey.keyArn,
       parameterName: Statics.accountDnsSecKmsKey,
     });
+
+    if (props.useSecondaryParameter) { // TODO remove after prod.csp-nijmegen.nl is in production
+      new SSM.StringParameter(this, 'account-dnssec-kms-key-arn-moving', {
+        stringValue: dnssecKey.keyArn,
+        parameterName: Statics.accountDnsSecKmsKey + '/moving',
+      });
+    }
 
     if (props.enableDnsSec) {
       this.enableDnsSecForAccountRootZone(dnssecKey.keyArn);

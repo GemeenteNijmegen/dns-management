@@ -10,6 +10,12 @@ export class Statics {
   static readonly envRootHostedZoneId: string = '/gemeente-nijmegen/account/hostedzone/id';
   static readonly envRootHostedZoneName: string = '/gemeente-nijmegen/account/hostedzone/name';
 
+  // csp-nijmegen.nl hosted zone
+  static readonly cspNijmegenHostedZonePath: string = '/gemeente-nijmegen/csp/hostedzone';
+  static readonly cspNijmegenHostedZoneId: string = '/gemeente-nijmegen/csp/hostedzone/id';
+  static readonly cspNijmegenHostedZoneName: string = '/gemeente-nijmegen/csp/hostedzone/name';
+
+
   // The KSM key parameters for each account
   static readonly accountDnsSecKmsKey: string = '/gemeente-nijmegen/account/dnssec/kmskey/arn';
   static readonly accountDnsSecKmsKeyAlias: string = 'gemeente-nijmegen/dnssec/default';
