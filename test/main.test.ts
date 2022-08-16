@@ -16,15 +16,11 @@ test('Snapshot', () => {
 
   const pipeline = new PipelineStack(app, 'pipeline-stack', {
     env,
-    acceptance: env,
     branchName: 'production',
-    deployment: env,
-    production: env,
-    sandbox: env,
   });
 
   const dnsstack = new DnsStack(app, 'dns-stack', {
-    productionAccount: env.account,
+    dnsRootAccount: env.account,
     registerInCspNijmegenRoot: true,
     rootZoneName: 'csp-nijmegen.nl',
     subzoneName: 'dnsstack',
@@ -37,7 +33,6 @@ test('Snapshot', () => {
 
   const cspStack = new CspNijmegenStack(app, 'csp-stack', {
     env: env,
-    sandbox: env,
   });
 
   // Nag

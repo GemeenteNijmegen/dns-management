@@ -12,7 +12,7 @@ export interface DnsStackProps extends cdk.StackProps {
    * FQDN of the root zone (eg. csp-nijmegen.nl)
    */
   rootZoneName: string;
-  productionAccount: string;
+  dnsRootAccount: string;
 
 
   /**
@@ -33,7 +33,7 @@ export class DnsStack extends cdk.Stack {
     // Import the delegated role in the production account
     const roleArn = Arn.format({
       service: 'iam',
-      account: props.productionAccount,
+      account: props.dnsRootAccount,
       resource: 'role',
       resourceName: Statics.constructDelegationRoleName(props.subzoneName),
       partition: 'aws',

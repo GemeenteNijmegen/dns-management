@@ -5,7 +5,6 @@ import { DnsSecStack } from './DnsSecStack';
 
 export interface CspNijmegenStageProps extends StageProps {
   cspRootEnvironment: Environment;
-  sandbox: Environment;
 }
 
 export class CspNijmegenStage extends Stage {
@@ -16,7 +15,6 @@ export class CspNijmegenStage extends Stage {
     // Iam delegation policies
     new CspNijmegenStack(this, 'stack', {
       env: props.cspRootEnvironment,
-      sandbox: props.sandbox,
     });
 
     // KMS key for dnssec (must be in us-east-1)

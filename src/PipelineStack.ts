@@ -1,4 +1,4 @@
-import { Stack, StackProps, Tags, pipelines, Environment } from 'aws-cdk-lib';
+import { Stack, StackProps, Tags, pipelines } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import { AccountStage } from './AccountStage';
 import { CspNijmegenStage } from './CspNijmegenStage';
@@ -7,10 +7,6 @@ import { TempAuthAccpStage } from './TempAuthAccpStage';
 
 export interface PipelineStackProps extends StackProps {
   branchName: string;
-  deployment: Environment;
-  production: Environment;
-  acceptance: Environment;
-  sandbox: Environment;
 }
 
 export class PipelineStack extends Stack {
@@ -28,42 +24,54 @@ export class PipelineStack extends Stack {
     const pipeline = this.pipeline();
 
     const cspStage = new CspNijmegenStage(this, 'dns-management-root', {
-      env: props.production,
-      cspRootEnvironment: props.production,
-      sandbox: props.sandbox,
-      //authAcceptance: props.acceptance, // to add the a new policy
+      env: Statics.authProdEnvironment,
+      cspRootEnvironment: Statics.authProdEnvironment,
     });
 
+    // SANDBOX
     const sandboxStage = new AccountStage(this, 'dns-management-sandbox', {
-      env: props.sandbox,
+      env: Statics.sandboxEnvironment,
       name: 'sandbox',
-      cspRootEnvironment: props.production,
+      dnsRootEnvironment: Statics.authProdEnvironment,
       deployDnsStack: true,
       enableDnsSec: false,
       deployDnsSecKmsKey: false,
       registerInCspNijmegenRoot: true,
     });
 
-    const acceptanceStage = new AccountStage(this, 'dns-management-acceptance', {
-      env: props.acceptance,
+    // AUTH-ACCP
+    const authAccpStage = new AccountStage(this, 'dns-management-acceptance', {
+      env: Statics.authAccpEnvironment,
       name: 'accp',
-      cspRootEnvironment: props.production,
+      dnsRootEnvironment: Statics.authProdEnvironment,
       deployDnsStack: true, // accp.csp-nijmegen.nl is still managed in webformulieren (however we have a unregistered in csp-nijmegen.nl copy now)
       enableDnsSec: true,
       deployDnsSecKmsKey: true,
       registerInCspNijmegenRoot: false, // Can be enabled after other zone removed from webformulieren (Note that a policy in csp stack should be added before!)
     });
 
+    // AUTH-PROD
+    const authProdStage = new AccountStage(this, 'dns-management-auth-prod', {
+      env: Statics.authProdEnvironment,
+      name: 'auth-prod',
+      dnsRootEnvironment: Statics.authProdEnvironment,
+      deployDnsStack: true,
+      enableDnsSec: true,
+      deployDnsSecKmsKey: true,
+      registerInCspNijmegenRoot: true,
+    });
+
     // Enable after acceptanceStage deployDnsStack is set to true
     const tempAuthAccpStage = new TempAuthAccpStage(this, 'temp-dns-managment-auth-accp', {
-      env: props.acceptance,
+      env: Statics.authAccpEnvironment,
     });
 
     // Setup the pipeline
     pipeline.addStage(cspStage);
     const wave = pipeline.addWave('accounts');
     wave.addStage(sandboxStage);
-    wave.addStage(acceptanceStage);
+    wave.addStage(authAccpStage);
+    wave.addStage(authProdStage);
 
     // Run as final only requires the authAcceptanceStage to be deployed first
     pipeline.addStage(tempAuthAccpStage);
