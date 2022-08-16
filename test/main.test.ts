@@ -28,7 +28,6 @@ test('Snapshot', () => {
 
   const dnssecstack = new DnsSecStack(app, 'dnssec-stack', {
     enableDnsSec: true,
-    useSecondaryParameter: false,
   });
 
   const cspStack = new CspNijmegenStack(app, 'csp-stack', {

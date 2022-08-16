@@ -39,7 +39,6 @@ export class AccountStage extends Stage {
       this.dnssecStack = new DnsSecStack(this, 'dnssec-stack', {
         env: { region: 'us-east-1' },
         enableDnsSec: props.enableDnsSec,
-        useSecondaryParameter: false,
       });
     }
 
