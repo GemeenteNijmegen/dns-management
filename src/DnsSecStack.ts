@@ -24,7 +24,11 @@ export class DnsSecStack extends cdk.Stack {
     Tags.of(this).add('Project', Statics.projectName);
 
     // Create the (expensive $) key
-    const dnssecKey = this.addDNSSecKey(Statics.accountDnsSecKmsKeyAlias);
+    var alias = Statics.accountDnsSecKmsKeyAlias;
+    if (props.useSecondaryParameter) { // In auth-prod change the alias of the key so that another dnssec stack can sucssfully be deployed
+      alias += '/old';
+    }
+    const dnssecKey = this.addDNSSecKey(alias);
 
     // Store the key arn in a parameter for use in other projects
     //   (note that this parmeter is in us-east-1)
