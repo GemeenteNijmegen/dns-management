@@ -10,9 +10,6 @@ export interface DnsSecStackProps extends cdk.StackProps {
    * set this to true to import the account hosted zone and enable dnssec on it
    */
   enableDnsSec: boolean;
-
-  //Temp secondary parameter
-  useSecondaryParameter: boolean;
 }
 
 export class DnsSecStack extends cdk.Stack {
@@ -24,25 +21,14 @@ export class DnsSecStack extends cdk.Stack {
     Tags.of(this).add('Project', Statics.projectName);
 
     // Create the (expensive $) key
-    var alias = Statics.accountDnsSecKmsKeyAlias;
-    if (props.useSecondaryParameter) { // In auth-prod change the alias of the key so that another dnssec stack can sucssfully be deployed
-      alias += '/old';
-    }
-    const dnssecKey = this.addDNSSecKey(alias);
+    const dnssecKey = this.addDNSSecKey(Statics.accountDnsSecKmsKeyAlias);
 
     // Store the key arn in a parameter for use in other projects
     //   (note that this parmeter is in us-east-1)
-    if (props.useSecondaryParameter) { // TODO remove after prod.csp-nijmegen.nl is in production
-      new SSM.StringParameter(this, 'account-dnssec-kms-key-arn-moving', {
-        stringValue: dnssecKey.keyArn,
-        parameterName: Statics.accountDnsSecKmsKey + '/moving',
-      });
-    } else {
-      new SSM.StringParameter(this, 'account-dnssec-kms-key-arn', { // Prevent this param from existing when using secondary param
-        stringValue: dnssecKey.keyArn,
-        parameterName: Statics.accountDnsSecKmsKey,
-      });
-    }
+    new SSM.StringParameter(this, 'account-dnssec-kms-key-arn', {
+      stringValue: dnssecKey.keyArn,
+      parameterName: Statics.accountDnsSecKmsKey,
+    });
 
     if (props.enableDnsSec) {
       this.enableDnsSecForAccountRootZone(dnssecKey.keyArn);
