@@ -35,7 +35,7 @@ export class CspNijmegenStack extends cdk.Stack {
     // Set DS records for subdomains
     new Route53.DsRecord(this, 'auth-prod-ds-record', {
       zone: cspNijmegenZone,
-      recordName: 'auth-prod.csp-nijmegen.nl',
+      recordName: 'auth-prod',
       values: ['60066 13 2 0E517A7669408AFC5345B167EBEBC3BB0D355E48FF160EBCF46EF27189C49949'],
     });
 
