@@ -1,7 +1,6 @@
 import { Environment, Stage, StageProps } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import { CspNijmegenStack } from './CspNijmegenStack';
-import { DnsSecStack } from './DnsSecStack';
 
 export interface CspNijmegenStageProps extends StageProps {
   cspRootEnvironment: Environment;
@@ -17,11 +16,5 @@ export class CspNijmegenStage extends Stage {
       env: props.cspRootEnvironment,
     });
 
-    // KMS key for dnssec (must be in us-east-1)
-    new DnsSecStack(this, 'dnssec-stack', {
-      env: { region: 'us-east-1' },
-      enableDnsSec: false,
-      useSecondaryParameter: true,
-    });
   }
 }
