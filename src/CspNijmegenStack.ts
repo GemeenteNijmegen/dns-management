@@ -32,6 +32,13 @@ export class CspNijmegenStack extends cdk.Stack {
     // TODO add acounts that manage a cps-nijmegen.nl subdomain here for example:
     //    this.enableDelegationToAccount(arn, props.marnix, 'marnix');
 
+    // Set DS records for subdomains
+    new Route53.DsRecord(this, 'auth-prod-ds-record', {
+      zone: cspNijmegenZone,
+      recordName: 'auth-prod.csp-nijmegen.nl',
+      values: ['60066 13 2 0E517A7669408AFC5345B167EBEBC3BB0D355E48FF160EBCF46EF27189C49949'],
+    });
+
   }
 
   /**
