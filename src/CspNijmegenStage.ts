@@ -23,6 +23,7 @@ export class CspNijmegenStage extends Stage {
     new DnsSecStack(this, 'dnssec-stack', {
       env: { region: 'us-east-1' },
       enableDnsSec: false,
+      useSecondaryParameter: true,
     });
   }
 }
