@@ -5,7 +5,7 @@ import { Statics } from './Statics';
 
 
 export interface CspNijmegenStackProps extends cdk.StackProps {
-  sandbox: Environment;
+
 }
 
 export class CspNijmegenStack extends cdk.Stack {
@@ -31,9 +31,10 @@ export class CspNijmegenStack extends cdk.Stack {
 
     // Register the relegation role
     const arn = cspNijmegenZone.hostedZoneArn;
-    this.enableDelegationToAccount(arn, props.sandbox, 'sandbox');
+    this.enableDelegationToAccount(arn, Statics.sandboxEnvironment, 'sandbox');
+    this.enableDelegationToAccount(arn, Statics.authAccpEnvironment, 'accp'); // Hosted zone is still named accp
+    this.enableDelegationToAccount(arn, Statics.authProdEnvironment, 'auth-prod');
     // TODO add acounts that manage a cps-nijmegen.nl subdomain here for example:
-    //    this.enableDelegationToAccount(arn, props.acceptance, 'accp');
     //    this.enableDelegationToAccount(arn, props.marnix, 'marnix');
 
   }

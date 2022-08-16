@@ -26,6 +26,35 @@ export class Statics {
   static readonly codeStarConnectionArn: string = 'arn:aws:codestar-connections:eu-west-1:418648875085:connection/4f647929-c982-4f30-94f4-24ff7dbf9766';
 
 
+  /**
+   * Environments
+   */
+  static readonly deploymentEnvironment = {
+    account: '418648875085',
+    region: 'eu-west-1',
+  };
+
+  static readonly sandboxEnvironment = {
+    account: '122467643252',
+    region: 'eu-west-1',
+  };
+
+  static readonly authProdEnvironment = {
+    account: '196212984627',
+    region: 'eu-west-1',
+  };
+
+  static readonly authAccpEnvironment = {
+    account: '315037222840',
+    region: 'eu-west-1',
+  };
+
+
+  /**
+   * Create a role name (used for registration and assuming the role)
+   * @param name
+   * @returns
+   */
   static constructDelegationRoleName(name: string): string {
     return `csp-nijmegen-delegation-${name}-role`;
   }

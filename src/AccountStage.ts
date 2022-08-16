@@ -5,7 +5,7 @@ import { DnsStack } from './DnsStack';
 
 export interface AccountStageProps extends StageProps {
   name: string;
-  cspRootEnvironment: Environment;
+  dnsRootEnvironment: Environment;
   deployDnsStack: boolean;
   enableDnsSec: boolean;
   deployDnsSecKmsKey: boolean;
@@ -18,11 +18,11 @@ export class AccountStage extends Stage {
 
     // Deploy a hosted zone (sub domain of csp-nijmegen.nl)
     if (props.deployDnsStack) {
-      if (props.cspRootEnvironment.account == undefined) {
+      if (props.dnsRootEnvironment.account == undefined) {
         throw 'Account reference to csp root hosted zone account is empty, can not deploy subzones.';
       }
       new DnsStack(this, 'stack', {
-        productionAccount: props.cspRootEnvironment.account,
+        dnsRootAccount: props.dnsRootEnvironment.account,
         rootZoneName: 'csp-nijmegen.nl',
         subzoneName: props.name,
         registerInCspNijmegenRoot: props.registerInCspNijmegenRoot,
