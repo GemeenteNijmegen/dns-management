@@ -3,14 +3,9 @@ import { aws_ssm as SSM, aws_route53 as Route53, Tags, aws_iam as IAM, Environme
 import { Construct } from 'constructs';
 import { Statics } from './Statics';
 
-
-export interface CspNijmegenStackProps extends cdk.StackProps {
-
-}
-
 export class CspNijmegenStack extends cdk.Stack {
 
-  constructor(scope: Construct, id: string, props: CspNijmegenStackProps) {
+  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
     super(scope, id, props);
 
     Tags.of(this).add('cdkManaged', 'yes');

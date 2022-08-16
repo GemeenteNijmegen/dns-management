@@ -13,6 +13,10 @@ export interface AccountStageProps extends StageProps {
 }
 
 export class AccountStage extends Stage {
+
+  private dnsStack?: DnsStack;
+  private dnssecStack?: DnsSecStack;
+
   constructor(scope: Construct, id: string, props: AccountStageProps) {
     super(scope, id, props);
 
@@ -21,7 +25,7 @@ export class AccountStage extends Stage {
       if (props.dnsRootEnvironment.account == undefined) {
         throw 'Account reference to csp root hosted zone account is empty, can not deploy subzones.';
       }
-      new DnsStack(this, 'stack', {
+      this.dnsStack = new DnsStack(this, 'stack', {
         dnsRootAccount: props.dnsRootEnvironment.account,
         rootZoneName: 'csp-nijmegen.nl',
         subzoneName: props.name,
@@ -32,11 +36,16 @@ export class AccountStage extends Stage {
 
     // KMS key used for dnssec (must be in us-east-1)
     if (props.deployDnsSecKmsKey) {
-      new DnsSecStack(this, 'dnssec-stack', {
+      this.dnssecStack = new DnsSecStack(this, 'dnssec-stack', {
         env: { region: 'us-east-1' },
         enableDnsSec: props.enableDnsSec,
         useSecondaryParameter: false,
       });
+    }
+
+    // Set the correct dependency
+    if (this.dnsStack != undefined && this.dnssecStack != undefined) {
+      this.dnssecStack.addDependency(this.dnsStack);
     }
 
 
