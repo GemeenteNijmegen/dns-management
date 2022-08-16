@@ -28,15 +28,15 @@ export class DnsSecStack extends cdk.Stack {
 
     // Store the key arn in a parameter for use in other projects
     //   (note that this parmeter is in us-east-1)
-    new SSM.StringParameter(this, 'account-dnssec-kms-key-arn', {
-      stringValue: dnssecKey.keyArn,
-      parameterName: Statics.accountDnsSecKmsKey,
-    });
-
     if (props.useSecondaryParameter) { // TODO remove after prod.csp-nijmegen.nl is in production
       new SSM.StringParameter(this, 'account-dnssec-kms-key-arn-moving', {
         stringValue: dnssecKey.keyArn,
         parameterName: Statics.accountDnsSecKmsKey + '/moving',
+      });
+    } else {
+      new SSM.StringParameter(this, 'account-dnssec-kms-key-arn', { // Prevent this param from existing when using secondary param
+        stringValue: dnssecKey.keyArn,
+        parameterName: Statics.accountDnsSecKmsKey,
       });
     }
 
