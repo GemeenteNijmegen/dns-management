@@ -23,6 +23,13 @@ export class PipelineStack extends Stack {
 
     const pipeline = this.pipeline();
 
+    // Wait for DNS account to be created
+    // const dnsRoot = new DnsRootStage(this, 'dns-management', {
+    //   env: Statics.dnsRootEnvironment,
+    //   dnsRootAccount: Statics.dnsRootEnvironment,
+    // });
+
+    // Can be removed after the csp-nijmegen.nl zone is in use in the new dns account
     const cspStage = new CspNijmegenStage(this, 'dns-management-root', {
       env: Statics.authProdEnvironment,
       cspRootEnvironment: Statics.authProdEnvironment,
