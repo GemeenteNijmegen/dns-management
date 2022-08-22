@@ -3,6 +3,7 @@ import {
   aws_route53 as Route53,
   Tags,
   aws_iam as IAM,
+  aws_ssm as SSM,
   Environment,
 } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
@@ -41,11 +42,47 @@ export class DnsRootStack extends cdk.Stack {
     // Configure SES for sending mails from @nijmegen.nl
     this.setupMailRecords();
 
+    // Setup a least-access role for accessing the dns account
+    this.setupDnsManagementRole();
+
     /**
      * Temporarely we have to add the existing csp-nijmegen.nl records
      * This ensures we can switch dns without downtime.
      */
     this.temporarelyAddExistingCspNijmegenRecords();
+
+  }
+
+  setupDnsManagementRole(){
+    const role = new IAM.Role(this, 'role', {
+      roleName: 'dns-manager',
+      description: 'Role for dns-management account with access rights to IAM (readonly) and Route53',
+      assumedBy: new IAM.PrincipalWithConditions(
+        new IAM.AccountPrincipal(Statics.iamAccountId), //IAM account
+        {
+          Bool: {
+            'aws:MultiFactorAuthPresent': true,
+          },
+        },
+      ),
+    });
+
+    role.addToPolicy(
+      new IAM.PolicyStatement({
+        effect: IAM.Effect.ALLOW,
+        actions: [
+          'route53:*', // Allow domain management
+          'route53domains:*', // Allow domain management
+          'iam:Get*',
+          'iam:List*',
+        ]
+      })
+    );
+
+    new SSM.StringParameter(this, 'dns-manager-role-arn', {
+      parameterName: Statics.ssmDnsManagerRoleArn,
+      stringValue: role.roleArn,
+    });
 
   }
 
