@@ -28,8 +28,8 @@ export class Statics {
   /**
    * IAM Account related stuff
    */
-   static readonly iamAccountId: string = '098799052470';
-   static readonly ssmDnsManagerRoleArn: string = '/cdk/dns-management/manager-role-arn';
+  static readonly iamAccountId: string = '098799052470';
+  static readonly ssmDnsManagerRoleArn: string = '/cdk/dns-management/manager-role-arn';
 
   /**
    * Environments
@@ -57,7 +57,7 @@ export class Statics {
   static readonly dnsRootEnvironment = {
     account: '108197740505',
     region: 'eu-west-1',
-  }
+  };
 
 
   /**

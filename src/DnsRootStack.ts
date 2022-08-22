@@ -53,7 +53,7 @@ export class DnsRootStack extends cdk.Stack {
 
   }
 
-  setupDnsManagementRole(){
+  setupDnsManagementRole() {
     const role = new IAM.Role(this, 'role', {
       roleName: 'dns-manager',
       description: 'Role for dns-management account with access rights to IAM (readonly) and Route53',
@@ -67,16 +67,36 @@ export class DnsRootStack extends cdk.Stack {
       ),
     });
 
+    /**
+     * Policy for route53
+     */
     role.addToPolicy(
       new IAM.PolicyStatement({
         effect: IAM.Effect.ALLOW,
         actions: [
           'route53:*', // Allow domain management
           'route53domains:*', // Allow domain management
+        ],
+        resources: [
+          '*',
+        ],
+      }),
+    );
+
+    /**
+     * Policy for iam
+     */
+    role.addToPolicy(
+      new IAM.PolicyStatement({
+        effect: IAM.Effect.ALLOW,
+        actions: [
           'iam:Get*',
           'iam:List*',
-        ]
-      })
+        ],
+        resources: [
+          '*',
+        ],
+      }),
     );
 
     new SSM.StringParameter(this, 'dns-manager-role-arn', {
@@ -121,7 +141,7 @@ export class DnsRootStack extends cdk.Stack {
       recordName: 'mijn',
       values: ['60066 13 2 932CD585B029E674E17C4C33DFE7DE2C84353ACD8C109760FD17A6CDBD0CF3FA'],
     });
-    new Route53.NsRecord(this, 'mijn-nijmegen-ds', {
+    new Route53.NsRecord(this, 'mijn-nijmegen-ns', {
       zone: this.cspNijmegenZone,
       recordName: 'mijn',
       values: [
