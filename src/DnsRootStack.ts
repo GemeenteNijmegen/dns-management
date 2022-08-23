@@ -62,7 +62,7 @@ export class DnsRootStack extends cdk.Stack {
   }
 
   setupDnsManagementRole() {
-    const role = new IAM.Role(this, 'role', {
+    const role = new IAM.Role(this, 'dns-management-role', {
       roleName: 'dns-manager',
       description: 'Role for dns-management account with access rights to IAM (readonly) and Route53',
       assumedBy: new IAM.PrincipalWithConditions(
