@@ -24,7 +24,15 @@ export class DnsRootStack extends cdk.Stack {
       zoneName: 'csp-nijmegen.nl',
     });
 
-    // Note: no need to export the zoneName and zoneId as ssm parameters for now.
+    // Export hostedzone properties for importing in the dnssec stack
+    new SSM.StringParameter(this, 'csp-sub-hostedzone-id', {
+      stringValue: this.cspNijmegenZone.hostedZoneId,
+      parameterName: Statics.envRootHostedZoneId,
+    });
+    new SSM.StringParameter(this, 'csp-sub-hostedzone-name', {
+      stringValue: this.cspNijmegenZone.zoneName,
+      parameterName: Statics.envRootHostedZoneName,
+    });
 
     /**
      * To allow accounts to creat a subdomain in the root zone we use the
