@@ -16,6 +16,7 @@ export class DnsRootStage extends Stage {
     });
 
     new DnsSecStack(this, 'dnssec-stack', {
+      env: { region: 'us-east-1' },
       enableDnsSec: true,
     });
 
