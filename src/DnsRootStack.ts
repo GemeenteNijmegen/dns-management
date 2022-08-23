@@ -102,7 +102,7 @@ export class DnsRootStack extends cdk.Stack {
           'iam:List*',
         ],
         resources: [
-          '*',
+          `arn:aws:iam::${this.account}:role/csp-nijmegen-delegation-*`,
         ],
       }),
     );
