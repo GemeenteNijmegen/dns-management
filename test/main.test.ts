@@ -60,8 +60,14 @@ function checkNagStack(stack: Stack) {
     };
   });
 
-  console.warn(JSON.stringify(ws, null, 4));
-  console.error(JSON.stringify(es, null, 4));
+  if (ws && ws.length > 0) {
+    console.warn('Warnings in stack ', stack.stackName);
+    console.warn(JSON.stringify(ws, null, 4));
+  }
+  if (es && es.length > 0) {
+    console.error('Errors in stack ', stack.stackName);
+    console.error(JSON.stringify(es, null, 4));
+  }
 
   expect(warnings).toHaveLength(0);
   expect(errors).toHaveLength(0);
