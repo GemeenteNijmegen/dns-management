@@ -6,6 +6,7 @@ import {
   aws_ssm as SSM,
   Environment,
 } from 'aws-cdk-lib';
+import { NagSuppressions } from 'cdk-nag';
 import { Construct } from 'constructs';
 import { Statics } from './Statics';
 
@@ -78,33 +79,46 @@ export class DnsRootStack extends cdk.Stack {
     /**
      * Policy for route53
      */
-    role.addToPolicy(
-      new IAM.PolicyStatement({
-        effect: IAM.Effect.ALLOW,
-        actions: [
-          'route53:*', // Allow domain management
-          'route53domains:*', // Allow domain management
-        ],
-        resources: [
-          '*',
-        ],
-      }),
-    );
+    const dnsManagemntPolicy = new IAM.PolicyStatement({
+      effect: IAM.Effect.ALLOW,
+      actions: [
+        'route53:*', // Allow domain management
+        'route53domains:*', // Allow domain management
+      ],
+      resources: [
+        '*',
+      ],
+    });
+    role.addToPolicy(dnsManagemntPolicy);
 
     /**
      * Policy for iam
      */
-    role.addToPolicy(
-      new IAM.PolicyStatement({
-        effect: IAM.Effect.ALLOW,
-        actions: [
-          'iam:Get*',
-          'iam:List*',
-        ],
-        resources: [
-          `arn:aws:iam::${this.account}:role/csp-nijmegen-delegation-*`,
-        ],
-      }),
+    const iamPolicy = new IAM.PolicyStatement({
+      effect: IAM.Effect.ALLOW,
+      actions: [
+        'iam:Get*',
+        'iam:List*',
+      ],
+      resources: [
+        `arn:aws:iam::${this.account}:role/csp-nijmegen-delegation-*`,
+      ],
+    });
+    role.addToPolicy(iamPolicy);
+
+    NagSuppressions.addResourceSuppressions(
+      role,
+      [{
+        id: 'AwsSolutions-IAM5',
+        reason: 'De IAM policy is beperkt to het inzien van IAM rollen t.b.v. de CrossAccountZoneDelgation roles.',
+        appliesTo: ['Action::iam:Get*', 'Action::iam:List*', 'Resource::arn:aws:iam::<AWS::AccountId>:role/csp-nijmegen-delegation-*'],
+      },
+      {
+        id: 'AwsSolutions-IAM5',
+        reason: 'De rol mag wel route53(domains) managen om zo dns management mogelijk te maken. Route53 domains ondersteunt geen resources dus een wildcard is nodig https://docs.aws.amazon.com/service-authorization/latest/reference/list_amazonroute53domains.html',
+        appliesTo: ['Resource::*', 'Action::route53domains:*', 'Action::route53:*'],
+      }],
+      true,
     );
 
     new SSM.StringParameter(this, 'dns-manager-role-arn', {
@@ -161,7 +175,7 @@ export class DnsRootStack extends cdk.Stack {
     });
 
     // Other records
-    new Route53.TxtRecord(this, 'temp-cdn-txt', { // I have no clue what this does
+    new Route53.TxtRecord(this, 'temp-cdn-txt', { // domain validation in auth-prod
       zone: this.cspNijmegenZone,
       recordName: 'cdn',
       values: ['9c5ca9b585a61a66c590a3ca912f9283511a286fc26978596059445f5795ebb7'],
@@ -295,6 +309,11 @@ export class DnsRootStack extends cdk.Stack {
         }),
       },
     });
+
+    NagSuppressions.addResourceSuppressions(role, [{
+      id: 'AwsSolutions-IAM5',
+      reason: 'This role is taken form the cdk source code and it includes the * resources (unknown which resources is accessed by the role?)',
+    }], true);
 
     return role;
   }
