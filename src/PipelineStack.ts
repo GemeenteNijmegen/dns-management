@@ -51,11 +51,11 @@ export class PipelineStack extends Stack {
     const authAccpStage = new AccountStage(this, 'dns-management-acceptance', {
       env: Statics.authAccpEnvironment,
       name: 'accp',
-      dnsRootEnvironment: Statics.authProdEnvironment,
-      deployDnsStack: true, // accp.csp-nijmegen.nl is still managed in webformulieren (however we have a unregistered in csp-nijmegen.nl copy now)
+      dnsRootEnvironment: Statics.dnsRootEnvironment,
+      deployDnsStack: true,
       enableDnsSec: true,
       deployDnsSecKmsKey: true,
-      registerInCspNijmegenRoot: false, // Can be enabled after other zone removed from webformulieren (Note that a policy in csp stack should be added before!)
+      registerInCspNijmegenRoot: true,
     });
 
     // AUTH-PROD
