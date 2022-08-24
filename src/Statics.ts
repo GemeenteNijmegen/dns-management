@@ -25,6 +25,11 @@ export class Statics {
    */
   static readonly codeStarConnectionArn: string = 'arn:aws:codestar-connections:eu-west-1:418648875085:connection/4f647929-c982-4f30-94f4-24ff7dbf9766';
 
+  /**
+   * IAM Account related stuff
+   */
+  static readonly iamAccountId: string = '098799052470';
+  static readonly ssmDnsManagerRoleArn: string = '/cdk/dns-management/manager-role-arn';
 
   /**
    * Environments
@@ -46,6 +51,11 @@ export class Statics {
 
   static readonly authAccpEnvironment = {
     account: '315037222840',
+    region: 'eu-west-1',
+  };
+
+  static readonly dnsRootEnvironment = {
+    account: '108197740505',
     region: 'eu-west-1',
   };
 

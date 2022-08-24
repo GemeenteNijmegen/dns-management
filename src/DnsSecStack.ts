@@ -1,7 +1,8 @@
 import * as cdk from 'aws-cdk-lib';
 import { aws_ssm as SSM, Tags, aws_iam as IAM, aws_kms as KMS, aws_route53 as route53 } from 'aws-cdk-lib';
+import { NagSuppressions } from 'cdk-nag';
 import { RemoteParameters } from 'cdk-remote-stack';
-import { Construct } from 'constructs';
+import { Construct, IConstruct } from 'constructs';
 import { Statics } from './Statics';
 
 export interface DnsSecStackProps extends cdk.StackProps {
@@ -47,7 +48,9 @@ export class DnsSecStack extends cdk.Stack {
       path: Statics.envRootHostedZonePath,
       region: 'eu-west-1',
     });
+    this.suppressNaggingRemoteParameters(parameters);
     const hostedZoneId = parameters.get(Statics.envRootHostedZoneId);
+
 
     // Create a ksk for the hosted zone
     const ksk = new route53.CfnKeySigningKey(this, 'account-ksk', {
@@ -130,6 +133,39 @@ export class DnsSecStack extends cdk.Stack {
 
     dnssecKmsKey.addAlias(alias);
     return dnssecKmsKey;
+  }
+
+
+  suppressNaggingRemoteParameters(parameters: IConstruct) {
+    NagSuppressions.addResourceSuppressions(parameters, [
+      {
+        id: 'AwsSolutions-IAM4',
+        reason: 'We do not have control over RemoteParameters construct, its an external package',
+      },
+      {
+        id: 'AwsSolutions-IAM5',
+        reason: 'We do not have control over RemoteParameters construct, its an external package',
+      },
+    ], true);
+
+    /**
+     * The lambda can't be directely access so we'll supress this on stack level
+     */
+    NagSuppressions.addStackSuppressions(
+      this,
+      [
+        {
+          id: 'AwsSolutions-IAM4',
+          reason: 'Lambda (in package remote-parameters) needs to be able to create and write to a log group',
+          appliesTo: ['Policy::arn:<AWS::Partition>:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'],
+        },
+        {
+          id: 'AwsSolutions-IAM5',
+          reason: 'Lambda (in package remote-parameters) needs to be able to create and write to a log group',
+          appliesTo: ['Resource::*'],
+        },
+      ], true,
+    );
   }
 
 }
