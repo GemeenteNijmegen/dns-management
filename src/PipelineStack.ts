@@ -40,7 +40,7 @@ export class PipelineStack extends Stack {
     const sandboxStage = new AccountStage(this, 'dns-management-sandbox', {
       env: Statics.sandboxEnvironment,
       name: 'sandbox',
-      dnsRootEnvironment: Statics.authProdEnvironment,
+      dnsRootEnvironment: Statics.dnsRootEnvironment,
       deployDnsStack: true,
       enableDnsSec: false,
       deployDnsSecKmsKey: false,
