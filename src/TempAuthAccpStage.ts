@@ -32,7 +32,6 @@ class TempAuthAccpStack extends Stack {
 
     // SET ALL RECORDS FROM accp.csp-nijmegen.nl
 
-
     // CNAME
     const records = {
       '3xlz53dmt3zuw7c6ysgefzqxuolur67c._domainkey': '3xlz53dmt3zuw7c6ysgefzqxuolur67c.dkim.amazonses.com',
@@ -79,13 +78,6 @@ class TempAuthAccpStack extends Stack {
       values: ['v=spf1 include:amazonses.com ~all'],
     });
 
-    // DS Remove here and deploy from mijn-nijmegen
-    //new route53.DsRecord(this, 'ds-1', {
-    //  zone,
-    //  recordName: 'mijn',
-    //  values: ['52561 13 2 90CF3C35FDDC30AF42FB4BCCDCCB1123500050D70F1D4886D6DE25502F3BC50A'],
-    //});
-
     // MX
     new route53.MxRecord(this, 'mx-1', {
       zone,
@@ -95,18 +87,6 @@ class TempAuthAccpStack extends Stack {
         priority: 10,
       }],
     });
-
-    // NS
-    // new route53.NsRecord(this, 'ns', {
-    //   zone,
-    //   recordName: 'mijn',
-    //   values: [
-    //     'ns-1525.awsdns-62.org',
-    //     'ns-1916.awsdns-47.co.uk',
-    //     'ns-312.awsdns-39.com',
-    //     'ns-632.awsdns-15.net',
-    //   ],
-    // });
 
   }
 
