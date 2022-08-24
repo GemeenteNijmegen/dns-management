@@ -62,7 +62,7 @@ export class PipelineStack extends Stack {
     const authProdStage = new AccountStage(this, 'dns-management-auth-prod', {
       env: Statics.authProdEnvironment,
       name: 'auth-prod',
-      dnsRootEnvironment: Statics.authProdEnvironment,
+      dnsRootEnvironment: Statics.dnsRootEnvironment,
       deployDnsStack: true,
       enableDnsSec: true,
       deployDnsSecKmsKey: true,
