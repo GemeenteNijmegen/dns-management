@@ -109,6 +109,12 @@ export class DnsRootStack extends cdk.Stack {
         'ns-160.awsdns-20.com',
       ],
     });
+    new Route53.CnameRecord(this, 'validation-record-prod', {
+      zone: this.cspNijmegenZone,
+      recordName: '_f73d66ee2c385b8dfc18ace27cb99644',
+      domainName: '2e45a999777f5fe42487a28040c9c926.897f69591e347cfdce9e9d66193f750d.comodoca.com.',
+    });
+
 
     // Other records
     new Route53.TxtRecord(this, 'temp-cdn-txt', { // domain validation in auth-prod
