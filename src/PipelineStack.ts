@@ -77,8 +77,8 @@ export class PipelineStack extends Stack {
 
     // Keep mijn-nijmegen records in old csp-nijmegen.nl when moving the project to new csp-nijmege.nl hosted zone
     const tempAuthProdStage = new TempAuthProdStage(this, 'temp-dns-managment-auth-prod', {
-      env: Statics.authProdEnvironment
-    })
+      env: Statics.authProdEnvironment,
+    });
 
     // Setup the pipeline
     pipeline.addStage(cspStage);
