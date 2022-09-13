@@ -1,7 +1,6 @@
 import { Stack, StackProps, Tags, pipelines } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import { AccountStage } from './AccountStage';
-import { CspNijmegenStage } from './CspNijmegenStage';
 import { DnsRootStage } from './DnsRootStage';
 import { Statics } from './Statics';
 import { TempAuthAccpStage } from './TempAuthAccpStage';
@@ -29,12 +28,6 @@ export class PipelineStack extends Stack {
     const dnsRoot = new DnsRootStage(this, 'dns-management', {
       env: Statics.dnsRootEnvironment,
       dnsRootAccount: Statics.dnsRootEnvironment,
-    });
-
-    // Can be removed after the csp-nijmegen.nl zone is in use in the new dns account
-    const cspStage = new CspNijmegenStage(this, 'dns-management-root', {
-      env: Statics.authProdEnvironment,
-      cspRootEnvironment: Statics.authProdEnvironment,
     });
 
     // SANDBOX
@@ -81,7 +74,6 @@ export class PipelineStack extends Stack {
     });
 
     // Setup the pipeline
-    pipeline.addStage(cspStage);
     pipeline.addStage(dnsRoot);
     const wave = pipeline.addWave('accounts');
     wave.addStage(sandboxStage);
