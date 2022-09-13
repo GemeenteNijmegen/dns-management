@@ -1,11 +1,9 @@
 import { Stack, StackProps, Tags, pipelines } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import { AccountStage } from './AccountStage';
-import { CspNijmegenStage } from './CspNijmegenStage';
+import { AuthAccpStage } from './AuthAccpStage';
 import { DnsRootStage } from './DnsRootStage';
 import { Statics } from './Statics';
-import { TempAuthAccpStage } from './TempAuthAccpStage';
-import { TempAuthProdStage } from './TempAuthProdStage';
 
 export interface PipelineStackProps extends StackProps {
   branchName: string;
@@ -29,12 +27,6 @@ export class PipelineStack extends Stack {
     const dnsRoot = new DnsRootStage(this, 'dns-management', {
       env: Statics.dnsRootEnvironment,
       dnsRootAccount: Statics.dnsRootEnvironment,
-    });
-
-    // Can be removed after the csp-nijmegen.nl zone is in use in the new dns account
-    const cspStage = new CspNijmegenStage(this, 'dns-management-root', {
-      env: Statics.authProdEnvironment,
-      cspRootEnvironment: Statics.authProdEnvironment,
     });
 
     // SANDBOX
@@ -70,28 +62,19 @@ export class PipelineStack extends Stack {
       registerInCspNijmegenRoot: true,
     });
 
-    // Enable after acceptanceStage deployDnsStack is set to true
-    const tempAuthAccpStage = new TempAuthAccpStage(this, 'temp-dns-managment-auth-accp', {
+    const authAccpRecordStage = new AuthAccpStage(this, 'dns-management-acceptance-records', {
       env: Statics.authAccpEnvironment,
     });
 
-    // Keep mijn-nijmegen records in old csp-nijmegen.nl when moving the project to new csp-nijmege.nl hosted zone
-    const tempAuthProdStage = new TempAuthProdStage(this, 'temp-dns-managment-auth-prod', {
-      env: Statics.authProdEnvironment,
-    });
-
     // Setup the pipeline
-    pipeline.addStage(cspStage);
     pipeline.addStage(dnsRoot);
     const wave = pipeline.addWave('accounts');
     wave.addStage(sandboxStage);
     wave.addStage(authAccpStage);
     wave.addStage(authProdStage);
 
-    // Run as final only requires the authAcceptanceStage to be deployed first
-    pipeline.addStage(tempAuthAccpStage);
-    pipeline.addStage(tempAuthProdStage);
-
+    // Set mail records in accp.csp-nijmegen.nl
+    pipeline.addStage(authAccpRecordStage);
 
   }
 
