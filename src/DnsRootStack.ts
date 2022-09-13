@@ -55,12 +55,6 @@ export class DnsRootStack extends cdk.Stack {
     // Setup a least-access role for accessing the dns account
     new DnsManagementRole(this, 'dns-manager-role');
 
-    /**
-     * Temporarely we have to add the existing csp-nijmegen.nl records
-     * This ensures we can switch dns without downtime.
-     */
-    this.temporarelyAddExistingCspNijmegenRecords();
-
   }
 
 
@@ -82,93 +76,36 @@ export class DnsRootStack extends cdk.Stack {
     });
   }
 
-  temporarelyAddExistingCspNijmegenRecords() {
-
-    // Good to know but also present in accp.csp-nijmegen.nl hosted zone
-    // accp.csp-nijmegen.nl	TXT	Simple	-	"v=spf1 include:amazonses.com ~all"
-    // accp.csp-nijmegen.nl	MX	Simple	- 10 feedback-smtp.eu-west-1.amazonses.com
-
-    // Not relevant i think (literal slashes in there)
-    // mail.csp-nijmegen.nl	TXT	Simple	-	"\"v=spf1 include:amazonses.com ~all\""
-
-    // NOTE: A and AAAA records must be configured manually!
-
-    // TEMP records mijn nijmegen
-    new Route53.DsRecord(this, 'mijn-nijmegen-ds', {
-      zone: this.cspNijmegenZone,
-      recordName: 'mijn',
-      values: ['60066 13 2 932CD585B029E674E17C4C33DFE7DE2C84353ACD8C109760FD17A6CDBD0CF3FA'],
-    });
-    new Route53.NsRecord(this, 'mijn-nijmegen-ns', {
-      zone: this.cspNijmegenZone,
-      recordName: 'mijn',
-      values: [
-        'ns-674.awsdns-20.net',
-        'ns-1880.awsdns-43.co.uk',
-        'ns-1091.awsdns-08.org',
-        'ns-160.awsdns-20.com',
-      ],
-    });
-    new Route53.CnameRecord(this, 'validation-record-prod', {
+  /**
+   * Comodoca certificates must be on top level domain.
+   * Therefore they are set here instad of in the projects
+   */
+  createRootCertificateValidationRecords() {
+    new Route53.CnameRecord(this, 'mijn-validation-record-prod', { // mijn-nijmegen prod - esb
       zone: this.cspNijmegenZone,
       recordName: '_f73d66ee2c385b8dfc18ace27cb99644',
       domainName: '2e45a999777f5fe42487a28040c9c926.897f69591e347cfdce9e9d66193f750d.comodoca.com.',
     });
-
-
-    // Other records
-    new Route53.TxtRecord(this, 'temp-cdn-txt', { // domain validation in auth-prod
+    new Route53.CnameRecord(this, 'mijn-validation-record-accp', { // mijn-nijmegen accp - esb
       zone: this.cspNijmegenZone,
-      recordName: 'cdn',
-      values: ['9c5ca9b585a61a66c590a3ca912f9283511a286fc26978596059445f5795ebb7'],
+      recordName: '_f7efe25b3a753b7b4054d2dba93a343b',
+      domainName: '1865949c9e0474591398be17540a8383.626b224344a3e3acc3b0f4b67b2a52d3.comodoca.com.',
     });
 
-    // CNAME records for validation of certificates (all temporarely added, after moving there is no certificate required on the csp-nijmegen.nl hosted zone)
-    new Route53.CnameRecord(this, 'temp-cname-1', {
+    new Route53.CnameRecord(this, 'webformulieren-validation-record-prod', { // Webformulieren prod - esb
       zone: this.cspNijmegenZone,
       recordName: '_859607f90d21b7dc4baefd691342ff37',
       domainName: 'eacbeb67b92c42efa3bfb148a847be8c.682b5c12a9f4cdf42dde19f6323900ee.comodoca.com.',
     });
-    new Route53.CnameRecord(this, 'temp-cname-2', {
+    new Route53.CnameRecord(this, 'webformulieren-validation-record-accp', { // Webformulieren accp - esb
       zone: this.cspNijmegenZone,
       recordName: '_fe679386e9d233d59f58a9cb7d00ca77',
       domainName: '03eb57d71e04544096bac14ce41431fa.058306850a8780ce3af8d4347102606b.comodoca.com.',
     });
-    new Route53.CnameRecord(this, 'temp-cname-3', {
-      zone: this.cspNijmegenZone,
-      recordName: '_0736ae35ae9c4de52bdda1852b93fd97.alb-formio',
-      domainName: '_4b83e395676256e35d7d3d782ac5f5d8.lkwmzfhcjn.acm-validations.aws.',
-    });
-    new Route53.CnameRecord(this, 'temp-cname-4', {
-      zone: this.cspNijmegenZone,
-      recordName: '_9aeaaf089312840a908a88ab54b9914b.alb',
-      domainName: '_38d1a3dc7ab5b98cbb944586028d1c01.jddtvkljgg.acm-validations.aws.',
-    });
-    new Route53.CnameRecord(this, 'temp-cname-5', {
-      zone: this.cspNijmegenZone,
-      recordName: '_008c62eff4b4faa7b2a9b93c9a0fd53a.cdn',
-      domainName: '_8d01b287e916ee0865c45e4f2514795c.tjxrvlrcqj.acm-validations.aws.',
-    });
-    new Route53.CnameRecord(this, 'temp-cname-6', {
-      zone: this.cspNijmegenZone,
-      recordName: '_024e218687efee4c3949009da5c08e6c.eform-api',
-      domainName: '_18422c3cf53ae7e6fc96ba7cc7fdbff4.cnsgthfrdk.acm-validations.aws.',
-    });
-    new Route53.CnameRecord(this, 'temp-cname-7', {
-      zone: this.cspNijmegenZone,
-      recordName: '_c72e8bcdc9bcdc77647bd4a3bdb8b72f.form-dashboard',
-      domainName: '_a33d4c3d036e55abd1d45dfa7fc3b5b5.jddtvkljgg.acm-validations.aws.',
-    });
-    new Route53.CnameRecord(this, 'temp-cname-8', {
-      zone: this.cspNijmegenZone,
-      recordName: '_641e70643a9dd52155bb11983bd3c734.form',
-      domainName: '_095fc2806eb36160acdb32ef0665bd17.jddtvkljgg.acm-validations.aws.',
-    });
-
-
   }
 
   setupMailRecords() {
+    // Validate csp-nijmegen.nl domain
     new Route53.CnameRecord(this, 'mail-dkim-1', {
       zone: this.cspNijmegenZone,
       recordName: 'p2qzrb7orqvnmcbfteuitb6rcm7ppjeg._domainkey',
@@ -185,6 +122,7 @@ export class DnsRootStack extends cdk.Stack {
       domainName: 'jscft5y6jlalacyyubloeajrxeaezfbb.dkim.amazonses.com',
     });
 
+    // Setup mail from @csp-nijmegen.nl
     new Route53.MxRecord(this, 'mail-mx', {
       zone: this.cspNijmegenZone,
       recordName: 'mail',
@@ -198,24 +136,6 @@ export class DnsRootStack extends cdk.Stack {
       recordName: 'mail',
       values: ['v=spf1 include:amazonses.com ~all'],
     });
-
-    // Probably old records?
-    // new Route53.CnameRecord(this, 'mail-dkim-4', {
-    //   zone: this.cspNijmegenZone,
-    //   recordName: 'cnc3stfudnfqpna7j6a3lcgahiwwckio._domainkey',
-    //   domainName: 'cnc3stfudnfqpna7j6a3lcgahiwwckio.dkim.amazonses.com',
-    // });
-    // new Route53.CnameRecord(this, 'mail-dkim-5', {
-    //   zone: this.cspNijmegenZone,
-    //   recordName: 'db7i6gsrpjmp7ng7zw7dmyej7hkxvzvu._domainkey',
-    //   domainName: 'db7i6gsrpjmp7ng7zw7dmyej7hkxvzvu.dkim.amazonses.com',
-    // });
-    // new Route53.CnameRecord(this, 'mail-dkim-6', {
-    //   zone: this.cspNijmegenZone,
-    //   recordName: 'nv3xyzt6klljngnmf5yp6gb7tyjyj2xf._domainkey',
-    //   domainName: 'nv3xyzt6klljngnmf5yp6gb7tyjyj2xf.dkim.amazonses.com',
-    // });
-
   }
 
 
