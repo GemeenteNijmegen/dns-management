@@ -4,7 +4,6 @@ import { AccountStage } from './AccountStage';
 import { DnsRootStage } from './DnsRootStage';
 import { Statics } from './Statics';
 import { TempAuthAccpStage } from './TempAuthAccpStage';
-import { TempAuthProdStage } from './TempAuthProdStage';
 
 export interface PipelineStackProps extends StackProps {
   branchName: string;
@@ -68,11 +67,6 @@ export class PipelineStack extends Stack {
       env: Statics.authAccpEnvironment,
     });
 
-    // Keep mijn-nijmegen records in old csp-nijmegen.nl when moving the project to new csp-nijmege.nl hosted zone
-    const tempAuthProdStage = new TempAuthProdStage(this, 'temp-dns-managment-auth-prod', {
-      env: Statics.authProdEnvironment,
-    });
-
     // Setup the pipeline
     pipeline.addStage(dnsRoot);
     const wave = pipeline.addWave('accounts');
@@ -82,8 +76,6 @@ export class PipelineStack extends Stack {
 
     // Run as final only requires the authAcceptanceStage to be deployed first
     pipeline.addStage(tempAuthAccpStage);
-    pipeline.addStage(tempAuthProdStage);
-
 
   }
 
