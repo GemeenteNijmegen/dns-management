@@ -1,9 +1,9 @@
 import { Stack, StackProps, Tags, pipelines } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import { AccountStage } from './AccountStage';
+import { AuthAccpStage } from './AuthAccpStage';
 import { DnsRootStage } from './DnsRootStage';
 import { Statics } from './Statics';
-import { TempAuthAccpStage } from './TempAuthAccpStage';
 
 export interface PipelineStackProps extends StackProps {
   branchName: string;
@@ -62,8 +62,7 @@ export class PipelineStack extends Stack {
       registerInCspNijmegenRoot: true,
     });
 
-    // Enable after acceptanceStage deployDnsStack is set to true
-    const tempAuthAccpStage = new TempAuthAccpStage(this, 'temp-dns-managment-auth-accp', {
+    const authAccpRecordStage = new AuthAccpStage(this, 'dns-management-acceptance-records', {
       env: Statics.authAccpEnvironment,
     });
 
@@ -74,8 +73,8 @@ export class PipelineStack extends Stack {
     wave.addStage(authAccpStage);
     wave.addStage(authProdStage);
 
-    // Run as final only requires the authAcceptanceStage to be deployed first
-    pipeline.addStage(tempAuthAccpStage);
+    // Set mail records in accp.csp-nijmegen.nl
+    pipeline.addStage(authAccpRecordStage);
 
   }
 
