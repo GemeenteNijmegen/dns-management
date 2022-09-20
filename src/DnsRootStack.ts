@@ -52,6 +52,9 @@ export class DnsRootStack extends cdk.Stack {
     // Configure SES for sending mails from @nijmegen.nl
     this.setupMailRecords();
 
+    // Add certificate validation records
+    this.createRootCertificateValidationRecords();
+
     // Setup a least-access role for accessing the dns account
     new DnsManagementRole(this, 'dns-manager-role');
 
