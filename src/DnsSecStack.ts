@@ -146,6 +146,10 @@ export class DnsSecStack extends cdk.Stack {
         id: 'AwsSolutions-IAM5',
         reason: 'We do not have control over RemoteParameters construct, its an external package',
       },
+      {
+        id: 'AwsSolutions-L1',
+        reason: 'Lambda (in package remote-parameters) has a python version of 3.8, this is not the newest version',
+      },
     ], true);
 
     /**

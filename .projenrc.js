@@ -1,6 +1,5 @@
 const { awscdk } = require('projen');
 const project = new awscdk.AwsCdkTypeScriptApp({
-  projenVersion: '0.54.36',
   cdkVersion: '2.20.0',
   name: 'dns-management',
   license: 'EUPL-1.2',
