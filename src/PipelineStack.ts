@@ -62,6 +62,28 @@ export class PipelineStack extends Stack {
       registerInCspNijmegenRoot: true,
     });
 
+    // GENERIEK-ACCP
+    const generiekAccpStage = new AccountStage(this, 'dns-management-genriek-accp', {
+      env: Statics.generiekAccpEnvironment,
+      name: 'generiek-accp',
+      dnsRootEnvironment: Statics.dnsRootEnvironment,
+      deployDnsStack: true,
+      enableDnsSec: false,
+      deployDnsSecKmsKey: false,
+      registerInCspNijmegenRoot: true,
+    });
+
+    // GENERIEK-PROD
+    const generiekProdStage = new AccountStage(this, 'dns-management-genriek-prod', {
+      env: Statics.generiekProdEnvironment,
+      name: 'generiek-prod',
+      dnsRootEnvironment: Statics.dnsRootEnvironment,
+      deployDnsStack: true,
+      enableDnsSec: false,
+      deployDnsSecKmsKey: false,
+      registerInCspNijmegenRoot: true,
+    });
+
     const authAccpRecordStage = new AuthAccpStage(this, 'dns-management-acceptance-records', {
       env: Statics.authAccpEnvironment,
     });
@@ -72,6 +94,8 @@ export class PipelineStack extends Stack {
     wave.addStage(sandboxStage);
     wave.addStage(authAccpStage);
     wave.addStage(authProdStage);
+    wave.addStage(generiekAccpStage);
+    wave.addStage(generiekProdStage);
 
     // Set mail records in accp.csp-nijmegen.nl
     pipeline.addStage(authAccpRecordStage);
