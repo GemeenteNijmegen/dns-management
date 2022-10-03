@@ -45,6 +45,8 @@ export class DnsRootStack extends cdk.Stack {
     this.enableDelegationToAccount(arn, Statics.sandboxEnvironment, 'sandbox');
     this.enableDelegationToAccount(arn, Statics.authAccpEnvironment, 'accp'); // Hosted zone is still named accp
     this.enableDelegationToAccount(arn, Statics.authProdEnvironment, 'auth-prod');
+    this.enableDelegationToAccount(arn, Statics.generiekAccpEnvironment, 'generiek-accp');
+    this.enableDelegationToAccount(arn, Statics.generiekProdEnvironment, 'generiek-prod');
 
     // Set DS records for subdomains
     this.createDsRecords();
