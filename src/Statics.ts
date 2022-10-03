@@ -59,6 +59,15 @@ export class Statics {
     region: 'eu-west-1',
   };
 
+  static readonly generiekAccpEnvironment = {
+    account: '229631103712',
+    region: 'eu-west-1',
+  };
+
+  static readonly generiekProdEnvironment = {
+    account: '487749583954',
+    region: 'eu-west-1',
+  };
 
   /**
    * Create a role name (used for registration and assuming the role)
