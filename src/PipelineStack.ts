@@ -84,6 +84,17 @@ export class PipelineStack extends Stack {
       registerInCspNijmegenRoot: true,
     });
 
+    // TEST-2 (upgrade webformulieren)
+    const test2Stage = new AccountStage(this, 'dns-management-test-2', {
+      env: Statics.test2Environment,
+      name: 'test-2',
+      dnsRootEnvironment: Statics.dnsRootEnvironment,
+      deployDnsStack: true,
+      enableDnsSec: true,
+      deployDnsSecKmsKey: true,
+      registerInCspNijmegenRoot: true,
+    });
+
     const authAccpRecordStage = new AuthAccpStage(this, 'dns-management-acceptance-records', {
       env: Statics.authAccpEnvironment,
     });
@@ -96,6 +107,7 @@ export class PipelineStack extends Stack {
     wave.addStage(authProdStage);
     wave.addStage(generiekAccpStage);
     wave.addStage(generiekProdStage);
+    wave.addStage(test2Stage);
 
     // Set mail records in accp.csp-nijmegen.nl
     pipeline.addStage(authAccpRecordStage);

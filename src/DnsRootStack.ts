@@ -47,6 +47,7 @@ export class DnsRootStack extends cdk.Stack {
     this.enableDelegationToAccount(arn, Statics.authProdEnvironment, 'auth-prod');
     this.enableDelegationToAccount(arn, Statics.generiekAccpEnvironment, 'generiek-accp');
     this.enableDelegationToAccount(arn, Statics.generiekProdEnvironment, 'generiek-prod');
+    this.enableDelegationToAccount(arn, Statics.test2Environment, 'test-2');
 
     // Set DS records for subdomains
     this.createDsRecords();
