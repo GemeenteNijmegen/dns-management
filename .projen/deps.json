@@ -85,6 +85,10 @@
       "type": "build"
     },
     {
+      "name": "@alma-cdk/cross-region-parameter",
+      "type": "runtime"
+    },
+    {
       "name": "aws-cdk-lib",
       "version": "^2.20.0",
       "type": "runtime"
