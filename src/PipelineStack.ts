@@ -106,7 +106,7 @@ export class PipelineStack extends Stack {
       registerInCspNijmegenRoot: true,
     });
 
-    // TEST-3 (upgrade webformulieren)
+    // TEST-4 (upgrade webformulieren)
     const test4Stage = new AccountStage(this, 'dns-management-test-4', {
       env: Statics.test4Environment,
       name: 'test-4',
