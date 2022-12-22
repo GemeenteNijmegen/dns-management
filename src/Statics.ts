@@ -79,6 +79,11 @@ export class Statics {
     region: 'eu-west-1',
   };
 
+  static readonly test4Environment = {
+    account: '709185976429',
+    region: 'eu-west-1',
+  };
+
   /**
    * Create a role name (used for registration and assuming the role)
    * @param name
