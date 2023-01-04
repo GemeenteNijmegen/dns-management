@@ -5,17 +5,23 @@ import {
   aws_iam as IAM,
   aws_ssm as SSM,
   Environment,
+  StackProps,
 } from 'aws-cdk-lib';
 import { NagSuppressions } from 'cdk-nag';
 import { Construct } from 'constructs';
 import { DnsManagementRole } from './constructs/DnsManagementRole';
+import { AccountConfiguration } from './DnsConfiguration';
 import { Statics } from './Statics';
+
+export interface DnsRootStackProps extends StackProps {
+  dnsConfiguration: AccountConfiguration[];
+}
 
 export class DnsRootStack extends cdk.Stack {
 
   private cspNijmegenZone;
 
-  constructor(scope: Construct, id: string, props?: cdk.StackProps) {
+  constructor(scope: Construct, id: string, props: DnsRootStackProps) {
     super(scope, id, props);
 
     Tags.of(this).add('cdkManaged', 'yes');
@@ -40,14 +46,12 @@ export class DnsRootStack extends cdk.Stack {
      * To allow accounts to creat a subdomain in the root zone we use the
      * CrossAccountZoneDelegation construct. This requires a role that allows
      * an account to manage te root hosted zone.
+     * Note: the accetpance hosted zone is still named accp
      */
     const arn = this.cspNijmegenZone.hostedZoneArn;
-    this.enableDelegationToAccount(arn, Statics.sandboxEnvironment, 'sandbox');
-    this.enableDelegationToAccount(arn, Statics.authAccpEnvironment, 'accp'); // Hosted zone is still named accp
-    this.enableDelegationToAccount(arn, Statics.authProdEnvironment, 'auth-prod');
-    this.enableDelegationToAccount(arn, Statics.generiekAccpEnvironment, 'generiek-accp');
-    this.enableDelegationToAccount(arn, Statics.generiekProdEnvironment, 'generiek-prod');
-    this.enableDelegationToAccount(arn, Statics.test2Environment, 'test-2');
+    props.dnsConfiguration.forEach(acc => {
+      this.enableDelegationToAccount(arn, acc.environment, acc.name);
+    });
 
     // Set DS records for subdomains
     this.createDsRecords();
