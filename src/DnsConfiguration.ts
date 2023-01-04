@@ -51,6 +51,7 @@ export const DnsConfiguration: AccountConfiguration[] = [
     enableDnsSec: false,
     deployDnsSecKmsKey: false,
     registerInCspNijmegenRoot: true,
+    stageName: 'genriek-accp',
   }, {
     environment: Statics.generiekProdEnvironment,
     name: 'generiek-prod',
@@ -59,6 +60,7 @@ export const DnsConfiguration: AccountConfiguration[] = [
     enableDnsSec: false,
     deployDnsSecKmsKey: false,
     registerInCspNijmegenRoot: true,
+    stageName: 'genriek-prod',
   }, {
     environment: Statics.test2Environment,
     name: 'test-2',
