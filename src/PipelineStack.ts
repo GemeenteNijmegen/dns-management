@@ -36,7 +36,7 @@ export class PipelineStack extends Stack {
     // Account stages
     const wave = pipeline.addWave('accounts');
     props.dnsConfiguration.forEach(acc => {
-      const stageName = acc.stageName ?? acc.name;
+      const stageName = acc.overwriteStageName ?? acc.name;
       const stage = new AccountStage(this, `dns-management-${stageName}`, {
         env: acc.environment,
         ...acc,

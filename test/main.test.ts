@@ -39,7 +39,7 @@ test('Snapshot', () => {
         environment: dummyEnv,
         name: 'snapshot-subdomain',
         registerInCspNijmegenRoot: true,
-        stageName: 'override-name-for-logicalid',
+        overwriteStageName: 'override-name-for-logicalid',
       },
     ],
   });
@@ -107,7 +107,7 @@ test('Snapshot pipeline', () => {
       environment: dummyEnv,
       name: 'snapshot-subdomain',
       registerInCspNijmegenRoot: true,
-      stageName: 'override-name-for-logicalid',
+      overwriteStageName: 'override-name-for-logicalid',
     }],
   });
   expect(app.synth().getStackArtifact(pipeline.artifactId).template).toMatchSnapshot();
@@ -121,7 +121,7 @@ test('Snapshot with actual dns configuration', () => {
   const stages: AccountStage[] = [];
 
   DnsConfiguration.forEach(acc => {
-    const stageName = acc.stageName ?? acc.name;
+    const stageName = acc.overwriteStageName ?? acc.name;
     const stage = new AccountStage(app, `snapshot-dns-management-${stageName}`, {
       env: acc.environment,
       ...acc,
