@@ -84,6 +84,11 @@ export class Statics {
     region: 'eu-west-1',
   };
 
+  static readonly umDemoEnvironment = {
+    account: '698929623502',
+    region: 'eu-west-1',
+  };
+
   /**
    * Create a role name (used for registration and assuming the role)
    * @param name

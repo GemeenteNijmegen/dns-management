@@ -66,7 +66,7 @@ export class DnsSecStack extends cdk.Stack {
     });
 
     // Make sure the ksk exists before enabling dnssec
-    dnssec.addDependsOn(ksk);
+    dnssec.node.addDependency(ksk);
 
   }
 

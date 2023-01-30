@@ -32,13 +32,16 @@ const project = new awscdk.AwsCdkTypeScriptApp({
       uses: 'scottbrenner/cfn-lint-action@v2',
     },
   ],
+  postBuildSteps: [
+    {
+      name: 'cfn-lint',
+      run: 'npx projen lint',
+    },
+  ],
+  context: {
+    // Do not include lates sdk version in lambdas (https://github.com/aws/aws-cdk/pull/23591)
+    '@aws-cdk/customresources:installLatestAwsSdkDefault': false,
+  },
 });
-
-/**
- * Add cfn-lint step to build after compiling.
- */
-// const postCompile = project.tasks.tryFind('post-compile');
-// const lint = project.tasks.tryFind('lint');
-// postCompile.spawn(lint);
 
 project.synth();
