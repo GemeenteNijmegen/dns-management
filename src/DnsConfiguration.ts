@@ -14,7 +14,7 @@ export interface AccountConfiguration {
    * Acceptance stage had a different name than the name field in this interface
    * Therefore allow to override the stage name using this property
    */
-  stageName?: string;
+  overwriteStageName?: string;
 }
 
 export const DnsConfiguration: AccountConfiguration[] = [
@@ -34,7 +34,7 @@ export const DnsConfiguration: AccountConfiguration[] = [
     enableDnsSec: true,
     deployDnsSecKmsKey: true,
     registerInCspNijmegenRoot: true,
-    stageName: 'acceptance',
+    overwriteStageName: 'acceptance',
   }, {
     environment: Statics.authProdEnvironment,
     name: 'auth-prod',
@@ -51,7 +51,7 @@ export const DnsConfiguration: AccountConfiguration[] = [
     enableDnsSec: false,
     deployDnsSecKmsKey: false,
     registerInCspNijmegenRoot: true,
-    stageName: 'genriek-accp',
+    overwriteStageName: 'genriek-accp',
   }, {
     environment: Statics.generiekProdEnvironment,
     name: 'generiek-prod',
@@ -60,7 +60,7 @@ export const DnsConfiguration: AccountConfiguration[] = [
     enableDnsSec: false,
     deployDnsSecKmsKey: false,
     registerInCspNijmegenRoot: true,
-    stageName: 'genriek-prod',
+    overwriteStageName: 'genriek-prod',
   }, {
     environment: Statics.test2Environment,
     name: 'test-2',
