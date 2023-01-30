@@ -85,5 +85,13 @@ export const DnsConfiguration: AccountConfiguration[] = [
     enableDnsSec: true,
     deployDnsSecKmsKey: true,
     registerInCspNijmegenRoot: true,
+  }, {
+    environment: Statics.umDemoEnvironment,
+    name: 'um-demo',
+    dnsRootEnvironment: Statics.dnsRootEnvironment,
+    deployDnsStack: true,
+    enableDnsSec: false,
+    deployDnsSecKmsKey: false,
+    registerInCspNijmegenRoot: true,
   },
 ];
