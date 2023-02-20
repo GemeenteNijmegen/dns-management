@@ -135,6 +135,20 @@ export class DnsRootStack extends cdk.Stack {
       domainName: '93f9b0a9c2df09dc6c0f6fb05e2b7e5c.51616c209e01a7a79f2758c921d3039c.comodoca.com.',
     });
 
+    /**
+     * Electronisch statusformulier
+     */
+    new Route53.CnameRecord(this, 'esf-validation-record-prod', {
+      zone: this.cspNijmegenZone,
+      recordName: '_e6afe3b30f34b29943c7a25a57a64fc3',
+      domainName: '8a517865032f100eb489a4cb779bea43.3de2af4d2845abf6a916c2f487d7cdd2.comodoca.com.',
+    });
+    new Route53.CnameRecord(this, 'esf-validation-record-accp', {
+      zone: this.cspNijmegenZone,
+      recordName: '_0dda4864990029d7b9def59785242089',
+      domainName: '4bd2d704cc5f72f39cf605cf24500bde.13f6be6ddcec328123708fd74b620d25.comodoca.com.',
+    });
+
   }
 
   setupMailRecords() {
