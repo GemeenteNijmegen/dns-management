@@ -93,13 +93,13 @@ export class DnsRootStack extends cdk.Stack {
   createRootCertificateValidationRecords() {
     new Route53.CnameRecord(this, 'mijn-validation-record-prod', { // mijn-nijmegen prod - esb
       zone: this.cspNijmegenZone,
-      recordName: '_f73d66ee2c385b8dfc18ace27cb99644',
-      domainName: '2e45a999777f5fe42487a28040c9c926.897f69591e347cfdce9e9d66193f750d.comodoca.com.',
+      recordName: '_4588e69b1b76bc5be539b7c806bb3997',
+      domainName: 'b74dfb03fee04da5fc9f34760ae7c822.3848d0265a5bf6527c915d7c436a9901.comodoca.com.',
     });
     new Route53.CnameRecord(this, 'mijn-validation-record-accp', { // mijn-nijmegen accp - esb
       zone: this.cspNijmegenZone,
-      recordName: '_f7efe25b3a753b7b4054d2dba93a343b',
-      domainName: '1865949c9e0474591398be17540a8383.626b224344a3e3acc3b0f4b67b2a52d3.comodoca.com.',
+      recordName: '_bad8ee6a4a83dc702b00b2a56b247c2b',
+      domainName: 'da505453e2d0f774ea88e8da8e04f047.7314b2ac6463a4e254bbad8710ad7ced.comodoca.com.',
     });
 
     new Route53.CnameRecord(this, 'webformulieren-validation-record-prod', { // Webformulieren prod - esb (auht.csp-nijmegen.nl)
