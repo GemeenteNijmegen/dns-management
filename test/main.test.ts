@@ -3,7 +3,7 @@ import { Annotations, Match } from 'aws-cdk-lib/assertions';
 import { AwsSolutionsChecks } from 'cdk-nag';
 import { Node } from 'constructs';
 import { AccountStage } from '../src/AccountStage';
-import { DnsConfiguration } from '../src/DnsConfiguration';
+import { DnsConfigurationExistingLz } from '../src/DnsConfiguration';
 import { DnsRootStack } from '../src/DnsRootStack';
 import { DnsSecStack } from '../src/DnsSecStack';
 import { DnsStack } from '../src/DnsStack';
@@ -27,21 +27,29 @@ test('Snapshot', () => {
 
   const dnssecstack = new DnsSecStack(app, 'dnssec-stack', {
     enableDnsSec: true,
+    lookupHostedZoneInRegion: 'eu-west-1',
   });
 
   const dnsRoot = new DnsRootStack(app, 'dnsroot-stack', {
-    dnsConfiguration: [
-      {
-        deployDnsSecKmsKey: true,
-        deployDnsStack: true,
-        dnsRootEnvironment: dummyEnv,
-        enableDnsSec: true,
-        environment: dummyEnv,
-        name: 'snapshot-subdomain',
-        registerInCspNijmegenRoot: true,
-        overwriteStageName: 'override-name-for-logicalid',
-      },
-    ],
+    configuration: {
+      branchName: 'test',
+      codeStartConnectionArn: '',
+      deploymentEnvironment: dummyEnv,
+      dnsRootEnvironment: dummyEnv,
+      dnsConfiguration: [
+        {
+          deployDnsSecKmsKey: true,
+          deployDnsStack: true,
+          dnsRootEnvironment: dummyEnv,
+          enableDnsSec: true,
+          environment: dummyEnv,
+          name: 'snapshot-subdomain',
+          registerInCspNijmegenRoot: true,
+          overwriteStageName: 'override-name-for-logicalid',
+        },
+      ],
+    },
+
   });
 
   // Nag
@@ -98,17 +106,22 @@ test('Snapshot pipeline', () => {
       account: '123456789012',
       region: 'eu-west-1',
     },
-    branchName: 'test',
-    dnsConfiguration: [{
-      deployDnsSecKmsKey: true,
-      deployDnsStack: true,
+    configuration: {
+      branchName: 'test',
+      codeStartConnectionArn: '',
+      deploymentEnvironment: dummyEnv,
       dnsRootEnvironment: dummyEnv,
-      enableDnsSec: true,
-      environment: dummyEnv,
-      name: 'snapshot-subdomain',
-      registerInCspNijmegenRoot: true,
-      overwriteStageName: 'override-name-for-logicalid',
-    }],
+      dnsConfiguration: [{
+        deployDnsSecKmsKey: true,
+        deployDnsStack: true,
+        dnsRootEnvironment: dummyEnv,
+        enableDnsSec: true,
+        environment: dummyEnv,
+        name: 'snapshot-subdomain',
+        registerInCspNijmegenRoot: true,
+        overwriteStageName: 'override-name-for-logicalid',
+      }],
+    },
   });
   expect(app.synth().getStackArtifact(pipeline.artifactId).template).toMatchSnapshot();
 
@@ -120,7 +133,7 @@ test('Snapshot with actual dns configuration', () => {
 
   const stages: AccountStage[] = [];
 
-  DnsConfiguration.forEach(acc => {
+  DnsConfigurationExistingLz.forEach(acc => {
     const stageName = acc.overwriteStageName ?? acc.name;
     const stage = new AccountStage(app, `snapshot-dns-management-${stageName}`, {
       env: acc.environment,

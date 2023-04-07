@@ -1,26 +1,24 @@
-import { Environment, Stage, StageProps } from 'aws-cdk-lib';
+import { Stage, StageProps } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
-import { AccountConfiguration } from './DnsConfiguration';
+import { Configurable } from './Configuration';
 import { DnsRootStack } from './DnsRootStack';
 import { DnsSecStack } from './DnsSecStack';
 
-export interface DnsRootStageProps extends StageProps {
-  dnsRootAccount: Environment;
-  dnsConfiguration: AccountConfiguration[];
-}
+export interface DnsRootStageProps extends StageProps, Configurable {}
 
 export class DnsRootStage extends Stage {
   constructor(scope: Construct, id: string, props: DnsRootStageProps) {
     super(scope, id, props);
 
     new DnsRootStack(this, 'dns-stack', {
-      env: props.dnsRootAccount,
-      dnsConfiguration: props.dnsConfiguration,
+      env: props.configuration.dnsRootEnvironment,
+      configuration: props.configuration,
     });
 
     new DnsSecStack(this, 'dnssec-stack', {
       env: { region: 'us-east-1' },
       enableDnsSec: true,
+      lookupHostedZoneInRegion: props.configuration.dnsRootEnvironment.region,
     });
 
   }

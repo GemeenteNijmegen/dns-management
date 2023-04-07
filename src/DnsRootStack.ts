@@ -1,21 +1,17 @@
+import * as crypto from 'crypto';
 import * as cdk from 'aws-cdk-lib';
 import {
-  aws_route53 as Route53,
-  Tags,
-  aws_iam as IAM,
-  aws_ssm as SSM,
+  aws_iam as IAM, aws_route53 as Route53, aws_ssm as SSM,
   Environment,
-  StackProps,
+  StackProps, Tags,
 } from 'aws-cdk-lib';
 import { NagSuppressions } from 'cdk-nag';
 import { Construct } from 'constructs';
+import { Configurable } from './Configuration';
 import { DnsManagementRole } from './constructs/DnsManagementRole';
-import { AccountConfiguration } from './DnsConfiguration';
 import { Statics } from './Statics';
 
-export interface DnsRootStackProps extends StackProps {
-  dnsConfiguration: AccountConfiguration[];
-}
+export interface DnsRootStackProps extends StackProps, Configurable { }
 
 export class DnsRootStack extends cdk.Stack {
 
@@ -49,18 +45,25 @@ export class DnsRootStack extends cdk.Stack {
      * Note: the accetpance hosted zone is still named accp
      */
     const arn = this.cspNijmegenZone.hostedZoneArn;
-    props.dnsConfiguration.forEach(acc => {
+    props.configuration.dnsConfiguration.forEach(acc => {
       this.enableDelegationToAccount(arn, acc.environment, acc.name);
     });
 
-    // Set DS records for subdomains
-    this.createDsRecords();
+    // New way to add CNAME and DS records to the root
+    this.addCnameRecords(this.cspNijmegenZone, props.configuration.cnameRecords);
+    this.addDsRecords(this.cspNijmegenZone, props.configuration.dsRecords);
 
-    // Configure SES for sending mails from @nijmegen.nl
-    this.setupMailRecords();
+    // Old way of adding recors only on production branch
+    if (props.configuration.branchName == 'production') {
+      // Set DS records for subdomains
+      this.createDsRecords();
 
-    // Add certificate validation records
-    this.createRootCertificateValidationRecords();
+      // Configure SES for sending mails from @nijmegen.nl
+      this.setupMailRecords();
+
+      // Add certificate validation records
+      this.createRootCertificateValidationRecords();
+    }
 
     // Setup a least-access role for accessing the dns account
     new DnsManagementRole(this, 'dns-manager-role');
@@ -185,6 +188,40 @@ export class DnsRootStack extends cdk.Stack {
     });
   }
 
+
+  /**
+   * Add CNAME records to the hosted zone based on the configuration provided
+   * @param hostedZone
+   * @param cnameRecords
+   */
+  addCnameRecords(hostedZone: Route53.IHostedZone, cnameRecords?: { [key: string]: string }) {
+    if (!cnameRecords) { return; };
+    Object.entries(cnameRecords).forEach(entry => {
+      const logicalId = crypto.createHash('md5').update(entry[0] + entry[1]).digest('hex').substring(0, 10);
+      new Route53.CnameRecord(this, `cname-record-${logicalId}`, {
+        recordName: entry[0],
+        domainName: entry[1],
+        zone: hostedZone,
+      });
+    });
+  }
+
+  /**
+   * Add DS records to the hosted zone based on the configuration provided
+   * @param hostedZone
+   * @param dsRecords
+   */
+  addDsRecords(hostedZone: Route53.IHostedZone, dsRecords?: { [key: string]: string }) {
+    if (!dsRecords) { return; };
+    Object.entries(dsRecords).forEach(entry => {
+      const logicalId = crypto.createHash('md5').update(entry[0] + entry[1]).digest('hex').substring(0, 10);
+      new Route53.DsRecord(this, `ds-record-${logicalId}`, {
+        recordName: entry[0],
+        values: [entry[1]],
+        zone: hostedZone,
+      });
+    });
+  }
 
   /**
    * Create a role specificly for each account to manage the csp-nijmegen.nl hosted zone
