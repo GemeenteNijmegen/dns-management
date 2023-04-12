@@ -20,7 +20,7 @@ export class PipelineStack extends Stack {
     Tags.of(this).add('cdkManaged', 'yes');
     Tags.of(this).add('Project', Statics.projectName);
 
-    const pipeline = this.pipeline();
+    const pipeline = this.pipeline(props);
 
     // DNS root account
     const dnsRoot = new DnsRootStage(this, 'dns-management', {
@@ -50,10 +50,10 @@ export class PipelineStack extends Stack {
 
   }
 
-  pipeline(): pipelines.CodePipeline {
+  pipeline(props: PipelineStackProps): pipelines.CodePipeline {
 
     const source = pipelines.CodePipelineSource.connection('GemeenteNijmegen/dns-management', this.branchName, {
-      connectionArn: Statics.codeStarConnectionArn,
+      connectionArn: props.configuration.codeStartConnectionArn,
     });
 
     const pipeline = new pipelines.CodePipeline(this, `dns-management-${this.branchName}`, {
