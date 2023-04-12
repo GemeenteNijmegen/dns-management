@@ -1,14 +1,16 @@
 import { App } from 'aws-cdk-lib';
-import { DnsConfiguration } from './DnsConfiguration';
+import { getConfiguration } from './Configuration';
 import { PipelineStack } from './PipelineStack';
-import { Statics } from './Statics';
 
+// Get configuration
+const buildBranch = process.env.BRANCH_NAME ?? 'production';
+console.log('Building branch', buildBranch);
+const configuration = getConfiguration(buildBranch);
+
+// Build the CDK app
 const app = new App();
-
 new PipelineStack(app, 'dns-management-pipeline', {
-  env: Statics.deploymentEnvironment,
-  branchName: 'production',
-  dnsConfiguration: DnsConfiguration,
+  env: configuration.deploymentEnvironment,
+  configuration: configuration,
 });
-
 app.synth();

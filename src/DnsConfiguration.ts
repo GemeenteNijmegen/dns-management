@@ -17,7 +17,7 @@ export interface AccountConfiguration {
   overwriteStageName?: string;
 }
 
-export const DnsConfiguration: AccountConfiguration[] = [
+export const DnsConfigurationExistingLz: AccountConfiguration[] = [
   {
     environment: Statics.sandboxEnvironment,
     name: 'sandbox',
@@ -95,3 +95,6 @@ export const DnsConfiguration: AccountConfiguration[] = [
     registerInCspNijmegenRoot: true,
   },
 ];
+
+
+export const DnsConfigurationNewLz: AccountConfiguration[] = [];

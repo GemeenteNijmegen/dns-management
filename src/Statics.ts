@@ -24,6 +24,7 @@ export class Statics {
    * Code star connection to github
    */
   static readonly codeStarConnectionArn: string = 'arn:aws:codestar-connections:eu-west-1:418648875085:connection/4f647929-c982-4f30-94f4-24ff7dbf9766';
+  static readonly codeStarConnectionArnNewLz: string = 'arn:aws:codestar-connections:eu-central-1:836443378780:connection/9d20671d-91bc-49e2-8680-59ff96e2ab11';
 
   /**
    * IAM Account related stuff
@@ -88,6 +89,19 @@ export class Statics {
     account: '698929623502',
     region: 'eu-west-1',
   };
+
+  // New LZ
+  static readonly gnBuildEnvironment = {
+    account: '836443378780',
+    region: 'eu-central-1',
+  };
+
+  // New LZ
+  static readonly gnNetworkEnvironment = {
+    account: '043872078922',
+    region: 'eu-central-1',
+  };
+
 
   /**
    * Create a role name (used for registration and assuming the role)

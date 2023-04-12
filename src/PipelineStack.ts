@@ -2,14 +2,11 @@ import { Stack, StackProps, Tags, pipelines } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import { AccountStage } from './AccountStage';
 import { AuthAccpStage } from './AuthAccpStage';
-import { AccountConfiguration } from './DnsConfiguration';
+import { Configurable } from './Configuration';
 import { DnsRootStage } from './DnsRootStage';
 import { Statics } from './Statics';
 
-export interface PipelineStackProps extends StackProps {
-  branchName: string;
-  dnsConfiguration: AccountConfiguration[];
-}
+export interface PipelineStackProps extends StackProps, Configurable {}
 
 export class PipelineStack extends Stack {
 
@@ -18,7 +15,7 @@ export class PipelineStack extends Stack {
   constructor(scope: Construct, id: string, props: PipelineStackProps) {
     super(scope, id, props);
 
-    this.branchName = props.branchName;
+    this.branchName = props.configuration.branchName;
 
     Tags.of(this).add('cdkManaged', 'yes');
     Tags.of(this).add('Project', Statics.projectName);
@@ -27,15 +24,14 @@ export class PipelineStack extends Stack {
 
     // DNS root account
     const dnsRoot = new DnsRootStage(this, 'dns-management', {
-      env: Statics.dnsRootEnvironment,
-      dnsRootAccount: Statics.dnsRootEnvironment,
-      dnsConfiguration: props.dnsConfiguration,
+      env: props.configuration.dnsRootEnvironment,
+      configuration: props.configuration,
     });
     pipeline.addStage(dnsRoot);
 
     // Account stages
     const wave = pipeline.addWave('accounts');
-    props.dnsConfiguration.forEach(acc => {
+    props.configuration.dnsConfiguration.forEach(acc => {
       const stageName = acc.overwriteStageName ?? acc.name;
       const stage = new AccountStage(this, `dns-management-${stageName}`, {
         env: acc.environment,
@@ -44,11 +40,13 @@ export class PipelineStack extends Stack {
       wave.addStage(stage);
     });
 
-    // Acceptance records
-    const authAccpRecordStage = new AuthAccpStage(this, 'dns-management-acceptance-records', {
-      env: Statics.authAccpEnvironment,
-    });
-    pipeline.addStage(authAccpRecordStage);
+    if (props.configuration.branchName == 'production') {
+      // Acceptance records
+      const authAccpRecordStage = new AuthAccpStage(this, 'dns-management-acceptance-records', {
+        env: Statics.authAccpEnvironment,
+      });
+      pipeline.addStage(authAccpRecordStage);
+    }
 
   }
 

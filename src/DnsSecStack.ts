@@ -11,6 +11,8 @@ export interface DnsSecStackProps extends cdk.StackProps {
    * set this to true to import the account hosted zone and enable dnssec on it
    */
   enableDnsSec: boolean;
+
+  lookupHostedZoneInRegion: string;
 }
 
 export class DnsSecStack extends cdk.Stack {
@@ -32,7 +34,7 @@ export class DnsSecStack extends cdk.Stack {
     });
 
     if (props.enableDnsSec) {
-      this.enableDnsSecForAccountRootZone(dnssecKey.keyArn);
+      this.enableDnsSecForAccountRootZone(dnssecKey.keyArn, props);
     }
 
   }
@@ -41,12 +43,12 @@ export class DnsSecStack extends cdk.Stack {
    * Enable DNSSEC usign the KMS key from this stack for the account root hosted zone.
    * @param keyArn
    */
-  enableDnsSecForAccountRootZone(keyArn: string) {
+  enableDnsSecForAccountRootZone(keyArn: string, props: DnsSecStackProps) {
 
     // Import the hosted zone id from eu-west-1
     const parameters = new RemoteParameters(this, 'hosted-zone-parameters', {
       path: Statics.envRootHostedZonePath,
-      region: 'eu-west-1',
+      region: props.lookupHostedZoneInRegion,
     });
     this.suppressNaggingRemoteParameters(parameters);
     const hostedZoneId = parameters.get(Statics.envRootHostedZoneId);

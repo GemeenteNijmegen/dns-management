@@ -36,9 +36,13 @@ export class AccountStage extends Stage {
 
     // KMS key used for dnssec (must be in us-east-1)
     if (props.deployDnsSecKmsKey) {
+      if (props.dnsRootEnvironment.region == undefined) {
+        throw 'Region reference to csp root hosted zone account is empty, can not deploy dnssec stack.';
+      }
       this.dnssecStack = new DnsSecStack(this, 'dnssec-stack', {
         env: { region: 'us-east-1' },
         enableDnsSec: props.enableDnsSec,
+        lookupHostedZoneInRegion: props.dnsRootEnvironment.region,
       });
     }
 
