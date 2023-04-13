@@ -102,6 +102,12 @@ export class Statics {
     region: 'eu-central-1',
   };
 
+  // New LZ
+  static readonly gnGeoStorageAccpEnvironment = {
+    account: '766983128454',
+    region: 'eu-central-1',
+  };
+
 
   /**
    * Create a role name (used for registration and assuming the role)

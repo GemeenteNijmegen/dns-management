@@ -97,4 +97,14 @@ export const DnsConfigurationExistingLz: AccountConfiguration[] = [
 ];
 
 
-export const DnsConfigurationNewLz: AccountConfiguration[] = [];
+export const DnsConfigurationNewLz: AccountConfiguration[] = [
+  {
+    environment: Statics.gnGeoStorageAccpEnvironment,
+    name: 'geo-storage-accp',
+    dnsRootEnvironment: Statics.gnNetworkEnvironment,
+    deployDnsStack: true,
+    enableDnsSec: false,
+    deployDnsSecKmsKey: false,
+    registerInCspNijmegenRoot: true,
+  },
+];
