@@ -18,6 +18,7 @@ const project = new awscdk.AwsCdkTypeScriptApp({
     'cdk-nag@^2.0.0',
     'cdk-remote-stack',
     '@alma-cdk/cross-region-parameter',
+    '@gemeentenijmegen/aws-constructs',
   ],
   gitignore: [
     'test-reports/junit.xml',

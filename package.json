@@ -50,6 +50,7 @@
   },
   "dependencies": {
     "@alma-cdk/cross-region-parameter": "^0.0.13",
+    "@gemeentenijmegen/aws-constructs": "^0.0.3",
     "aws-cdk-lib": "^2.20.0",
     "cdk-nag": "^2.0.0",
     "cdk-remote-stack": "^2.0.10",

@@ -1,4 +1,5 @@
-import { Environment, Stage, StageProps } from 'aws-cdk-lib';
+import { PermissionsBoundaryAspect } from '@gemeentenijmegen/aws-constructs';
+import { Aspects, Environment, Stage, StageProps } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import { DnsSecStack } from './DnsSecStack';
 import { DnsStack } from './DnsStack';
@@ -19,6 +20,9 @@ export class AccountStage extends Stage {
 
   constructor(scope: Construct, id: string, props: AccountStageProps) {
     super(scope, id, props);
+
+    Aspects.of(this).add(new PermissionsBoundaryAspect());
+
 
     // Deploy a hosted zone (sub domain of csp-nijmegen.nl)
     if (props.deployDnsStack) {
