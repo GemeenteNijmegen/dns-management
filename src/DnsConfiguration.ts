@@ -100,7 +100,7 @@ export const DnsConfigurationExistingLz: AccountConfiguration[] = [
 export const DnsConfigurationNewLz: AccountConfiguration[] = [
   {
     environment: Statics.gnGeoStorageAccpEnvironment,
-    name: 'geo-storage-accp',
+    name: 'geo-data-acceptance',
     dnsRootEnvironment: Statics.gnNetworkEnvironment,
     deployDnsStack: true,
     enableDnsSec: false,
