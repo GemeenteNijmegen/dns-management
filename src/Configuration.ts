@@ -67,9 +67,11 @@ export const configurations: { [key: string]: Configuration } = {
     deploymentEnvironment: Statics.gnBuildEnvironment,
     dnsRootEnvironment: Statics.gnNetworkEnvironment,
     dnsConfiguration: DnsConfigurationNewLz,
+    dsRecords: {
+      'yivi-accp': '51061 13 2 83F061A07CDB0044033CEB74E91E92B054E0A92588420F137F9B54272158A13B',
+    },
   },
 };
-
 
 export function getConfiguration(buildBranch: string) {
   const config = configurations[buildBranch];
