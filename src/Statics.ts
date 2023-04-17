@@ -103,8 +103,14 @@ export class Statics {
   };
 
   // New LZ
-  static readonly gnGeoStorageAccpEnvironment = {
+  static readonly gnGeoDataAcceptanceEnvironment = {
     account: '766983128454',
+    region: 'eu-central-1',
+  };
+
+  // New LZ
+  static readonly gnYiviAccpEnvironment = {
+    account: '699363516011',
     region: 'eu-central-1',
   };
 
