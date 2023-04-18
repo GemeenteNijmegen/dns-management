@@ -195,6 +195,7 @@ export class DnsRootStack extends cdk.Stack {
     // NS for gn-yivi-accp
     new Route53.NsRecord(this, 'yivi-accp-ns', {
       zone: this.cspNijmegenZone,
+      recordName: 'yivi-accp',
       values: [
         'ns-873.awsdns-45.net',
         'ns-465.awsdns-58.com',
