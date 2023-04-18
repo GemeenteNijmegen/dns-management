@@ -63,6 +63,9 @@ export class DnsRootStack extends cdk.Stack {
 
       // Add certificate validation records
       this.createRootCertificateValidationRecords();
+
+      // While migrating to new LZ forward some subdomains from the csp-nijmegen.nl to the new LZ
+      this.createForwardingRecordsToNewLz();
     }
 
     // Setup a least-access role for accessing the dns account
@@ -188,6 +191,25 @@ export class DnsRootStack extends cdk.Stack {
     });
   }
 
+  createForwardingRecordsToNewLz() {
+    // NS for gn-yivi-accp
+    new Route53.NsRecord(this, 'yivi-accp-ns', {
+      zone: this.cspNijmegenZone,
+      recordName: 'yivi-accp',
+      values: [
+        'ns-873.awsdns-45.net',
+        'ns-465.awsdns-58.com',
+        'ns-1934.awsdns-49.co.uk',
+        'ns-1149.awsdns-15.org',
+      ],
+    });
+    // NS for gn-yivi-accp
+    new Route53.DsRecord(this, 'yivi-accp-ds', {
+      zone: this.cspNijmegenZone,
+      recordName: 'yivi-accp',
+      values: ['51061 13 2 83F061A07CDB0044033CEB74E91E92B054E0A92588420F137F9B54272158A13B'],
+    });
+  }
 
   /**
    * Add CNAME records to the hosted zone based on the configuration provided
