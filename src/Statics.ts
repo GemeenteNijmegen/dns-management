@@ -114,6 +114,12 @@ export class Statics {
     region: 'eu-central-1',
   };
 
+  // New LZ
+  static readonly gnTribeBrpLinkerDevEnvironment = {
+    account: '471236387053',
+    region: 'eu-central-1',
+  };
+
 
   /**
    * Create a role name (used for registration and assuming the role)
