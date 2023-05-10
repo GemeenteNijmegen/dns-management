@@ -99,15 +99,6 @@ export const DnsConfigurationExistingLz: AccountConfiguration[] = [
 
 export const DnsConfigurationNewLz: AccountConfiguration[] = [
   {
-    environment: Statics.gnGeoDataAcceptanceEnvironment,
-    name: 'geo-data-acceptance',
-    dnsRootEnvironment: Statics.gnNetworkEnvironment,
-    deployDnsStack: true,
-    enableDnsSec: false,
-    deployDnsSecKmsKey: false,
-    registerInCspNijmegenRoot: true,
-  },
-  {
     environment: Statics.gnYiviAccpEnvironment,
     name: 'yivi-accp',
     dnsRootEnvironment: Statics.gnNetworkEnvironment,
@@ -122,6 +113,15 @@ export const DnsConfigurationNewLz: AccountConfiguration[] = [
     dnsRootEnvironment: Statics.gnNetworkEnvironment,
     deployDnsStack: true,
     enableDnsSec: true,
+    deployDnsSecKmsKey: true,
+    registerInCspNijmegenRoot: true,
+  },
+  {
+    environment: Statics.gnYiviBrpIssueAccpEnvironment,
+    name: 'yivi-brp-accp',
+    dnsRootEnvironment: Statics.gnNetworkEnvironment,
+    enableDnsSec: true,
+    deployDnsStack: true,
     deployDnsSecKmsKey: true,
     registerInCspNijmegenRoot: true,
   },
