@@ -233,7 +233,7 @@ export class DnsRootStack extends cdk.Stack {
         'ns-2006.awsdns-58.co.uk',
       ],
     });
-    
+
   }
 
   /**
