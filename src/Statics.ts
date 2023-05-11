@@ -121,6 +121,12 @@ export class Statics {
   };
 
   // New LZ
+  static readonly gnTribeBrpLinkerAccpEnvironment = {
+    account: '528030426040',
+    region: 'eu-central-1',
+  };
+
+  // New LZ
   static readonly gnYiviBrpIssueAccpEnvironment = {
     account: '528030426040',
     region: 'eu-central-1',
