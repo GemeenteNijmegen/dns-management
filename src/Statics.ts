@@ -122,7 +122,7 @@ export class Statics {
 
   // New LZ
   static readonly gnTribeBrpLinkerAccpEnvironment = {
-    account: '528030426040',
+    account: '987304085258',
     region: 'eu-central-1',
   };
 
