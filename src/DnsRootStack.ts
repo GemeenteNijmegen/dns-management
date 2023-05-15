@@ -234,6 +234,18 @@ export class DnsRootStack extends cdk.Stack {
       ],
     });
 
+    // NS for yivi brp issue
+    new Route53.NsRecord(this, 'yivi-issue-brp-accp-ns', {
+      zone: this.cspNijmegenZone,
+      recordName: 'yivi-brp-accp',
+      values: [
+        'ns-1592.awsdns-07.co.uk',
+        'ns-950.awsdns-54.net',
+        'ns-117.awsdns-14.com',
+        'ns-1080.awsdns-07.org',
+      ],
+    });
+
   }
 
   /**
