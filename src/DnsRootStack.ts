@@ -221,6 +221,19 @@ export class DnsRootStack extends cdk.Stack {
         'ns-449.awsdns-56.com',
       ],
     });
+
+    // NS for gn-tribebrplinker-accp
+    new Route53.NsRecord(this, 'tribebrplinker-accp-ns', {
+      zone: this.cspNijmegenZone,
+      recordName: 'tribebrplinker-accp',
+      values: [
+        'ns-948.awsdns-54.net',
+        'ns-270.awsdns-33.com',
+        'ns-1341.awsdns-39.org',
+        'ns-2006.awsdns-58.co.uk',
+      ],
+    });
+
   }
 
   /**
