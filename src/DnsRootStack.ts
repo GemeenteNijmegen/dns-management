@@ -246,6 +246,23 @@ export class DnsRootStack extends cdk.Stack {
       ],
     });
 
+    // NS for component library development
+    new Route53.NsRecord(this, 'component-library-dev-ns', {
+      zone: this.cspNijmegenZone,
+      recordName: 'component-library-dev',
+      values: [
+        'ns-1478.awsdns-56.org',
+        'ns-1977.awsdns-55.co.uk',
+        'ns-563.awsdns-06.net',
+        'ns-489.awsdns-61.com',
+      ],
+    });
+    new Route53.DsRecord(this, 'component-library-dev-ds', {
+      zone: this.cspNijmegenZone,
+      recordName: 'component-library-dev',
+      values: ['29538 13 2 38951A4A670A952CDB351505B39D53EAAECCB56C2705B570FB817E9218B4CF6F'],
+    });
+
   }
 
   /**
