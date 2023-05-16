@@ -132,6 +132,12 @@ export class Statics {
     region: 'eu-central-1',
   };
 
+  // New LZ - has no old LZ account
+  static readonly gnComponentLibraryDevEnvironment = {
+    account: '598242258242',
+    region: 'eu-central-1',
+  };
+
   /**
    * Create a role name (used for registration and assuming the role)
    * @param name
