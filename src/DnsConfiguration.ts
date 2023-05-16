@@ -134,4 +134,13 @@ export const DnsConfigurationNewLz: AccountConfiguration[] = [
     deployDnsSecKmsKey: true,
     registerInCspNijmegenRoot: true,
   },
+  {
+    environment: Statics.gnComponentLibraryDevEnvironment,
+    name: 'component-library-dev',
+    dnsRootEnvironment: Statics.gnNetworkEnvironment,
+    enableDnsSec: true,
+    deployDnsStack: true,
+    deployDnsSecKmsKey: true,
+    registerInCspNijmegenRoot: true,
+  },
 ];
