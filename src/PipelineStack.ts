@@ -61,8 +61,6 @@ export class PipelineStack extends Stack {
 
     const pipeline = new pipelines.CodePipeline(this, `dns-management-${this.branchName}`, {
       pipelineName: `dns-management-${this.branchName}`,
-      dockerEnabledForSelfMutation: true,
-      dockerEnabledForSynth: true,
       crossAccountKeys: true,
       synth: new pipelines.ShellStep('Synth', {
         input: source,
