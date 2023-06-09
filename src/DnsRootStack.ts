@@ -203,11 +203,29 @@ export class DnsRootStack extends cdk.Stack {
         'ns-1149.awsdns-15.org',
       ],
     });
-    // NS for gn-yivi-accp
+    // DS for gn-yivi-accp
     new Route53.DsRecord(this, 'yivi-accp-ds', {
       zone: this.cspNijmegenZone,
       recordName: 'yivi-accp',
       values: ['51061 13 2 83F061A07CDB0044033CEB74E91E92B054E0A92588420F137F9B54272158A13B'],
+    });
+
+    // NS for gn-yivi-prod
+    new Route53.NsRecord(this, 'yivi-prod-ns', {
+      zone: this.cspNijmegenZone,
+      recordName: 'yivi-prod',
+      values: [
+        'ns-961.awsdns-56.net',
+        'ns-1310.awsdns-35.org',
+        'ns-130.awsdns-16.com',
+        'ns-1848.awsdns-39.co.uk',
+      ],
+    });
+    // DS for gn-yivi-prod
+    new Route53.DsRecord(this, 'yivi-prod-ds', {
+      zone: this.cspNijmegenZone,
+      recordName: 'yivi-prod',
+      values: ['46016 13 2 6A12D4BB10AC8EA7E4FEB622F8BD1E9395824B39AD0A38A0EE42577199ACFFA1'],
     });
 
     // NS for gn-tribebrplinker-dev
