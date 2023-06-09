@@ -115,6 +115,12 @@ export class Statics {
   };
 
   // New LZ
+  static readonly gnYiviProdEnvironment = {
+    account: '185512167111',
+    region: 'eu-central-1',
+  };
+
+  // New LZ
   static readonly gnTribeBrpLinkerDevEnvironment = {
     account: '471236387053',
     region: 'eu-central-1',
