@@ -138,6 +138,12 @@ export class Statics {
     region: 'eu-central-1',
   };
 
+  // New LZ
+  static readonly gnYiviBrpIssueProdEnvironment = {
+    account: '079163754011',
+    region: 'eu-central-1',
+  };
+
   // New LZ - has no old LZ account
   static readonly gnComponentLibraryDevEnvironment = {
     account: '598242258242',
