@@ -144,6 +144,15 @@ export const DnsConfigurationNewLz: AccountConfiguration[] = [
     registerInCspNijmegenRoot: true,
   },
   {
+    environment: Statics.gnYiviBrpIssueProdEnvironment,
+    name: 'yivi-brp-prod',
+    dnsRootEnvironment: Statics.gnNetworkEnvironment,
+    enableDnsSec: true,
+    deployDnsStack: true,
+    deployDnsSecKmsKey: true,
+    registerInCspNijmegenRoot: true,
+  },
+  {
     environment: Statics.gnComponentLibraryDevEnvironment,
     name: 'component-library-dev',
     dnsRootEnvironment: Statics.gnNetworkEnvironment,
