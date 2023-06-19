@@ -252,7 +252,7 @@ export class DnsRootStack extends cdk.Stack {
       ],
     });
 
-    // NS for yivi brp issue
+    // NS for gn-yivi-brp-issue-accp
     new Route53.NsRecord(this, 'yivi-issue-brp-accp-ns', {
       zone: this.cspNijmegenZone,
       recordName: 'yivi-brp-accp',
@@ -262,6 +262,11 @@ export class DnsRootStack extends cdk.Stack {
         'ns-117.awsdns-14.com',
         'ns-1080.awsdns-07.org',
       ],
+    });
+    new Route53.DsRecord(this, 'yivi-issue-brp-accp-ds', {
+      zone: this.cspNijmegenZone,
+      recordName: 'yivi-brp-accp',
+      values: ['40434 13 2 AEECAE19605EBAD68CCC338B1DC4542EF966F01F108046FEF55365EA51C9C944'],
     });
 
     // NS for component library development
@@ -279,6 +284,23 @@ export class DnsRootStack extends cdk.Stack {
       zone: this.cspNijmegenZone,
       recordName: 'component-library-dev',
       values: ['29538 13 2 38951A4A670A952CDB351505B39D53EAAECCB56C2705B570FB817E9218B4CF6F'],
+    });
+
+    // Records for gn-yivi-brp-issue-prod
+    new Route53.NsRecord(this, 'yivi-brp-issue-prod-ns', {
+      zone: this.cspNijmegenZone,
+      recordName: 'yivi-brp-prod',
+      values: [
+        'ns-1844.awsdns-38.co.uk',
+        'ns-622.awsdns-13.net',
+        'ns-393.awsdns-49.com',
+        'ns-1382.awsdns-44.org',
+      ],
+    });
+    new Route53.DsRecord(this, 'yivi-brp-issue-prod-ds', {
+      zone: this.cspNijmegenZone,
+      recordName: 'yivi-brp-prod',
+      values: ['44956 13 2 C6BEDFE472A38F15E70E57E7BC19FBF957A8782351791D33F8D5AFCC4BB28901'],
     });
 
   }
