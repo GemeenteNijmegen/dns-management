@@ -135,6 +135,15 @@ export const DnsConfigurationNewLz: AccountConfiguration[] = [
     registerInCspNijmegenRoot: true,
   },
   {
+    environment: Statics.gnTribeBrpLinkerAccpProduction,
+    name: 'tribebrplinker-prod',
+    dnsRootEnvironment: Statics.gnNetworkEnvironment,
+    deployDnsStack: true,
+    enableDnsSec: true,
+    deployDnsSecKmsKey: true,
+    registerInCspNijmegenRoot: true,
+  },
+  {
     environment: Statics.gnYiviBrpIssueAccpEnvironment,
     name: 'yivi-brp-accp',
     dnsRootEnvironment: Statics.gnNetworkEnvironment,
