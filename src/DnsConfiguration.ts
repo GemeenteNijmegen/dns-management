@@ -135,7 +135,7 @@ export const DnsConfigurationNewLz: AccountConfiguration[] = [
     registerInCspNijmegenRoot: true,
   },
   {
-    environment: Statics.gnTribeBrpLinkerAccpProduction,
+    environment: Statics.gnTribeBrpLinkerProdEnvironment,
     name: 'tribebrplinker-prod',
     dnsRootEnvironment: Statics.gnNetworkEnvironment,
     deployDnsStack: true,
