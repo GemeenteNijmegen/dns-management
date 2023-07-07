@@ -156,6 +156,19 @@ export class Statics {
     region: 'eu-central-1',
   };
 
+  // New LZ - has no old LZ account
+  static readonly gnMijnNijmegenProdEnvironment = {
+    account: '021929636313',
+    region: 'eu-central-1',
+  };
+
+  // New LZ - has no old LZ account
+  static readonly gnMijnNijmegenAccpEnvironment = {
+    account: '740606269759',
+    region: 'eu-central-1',
+  };
+
+
   /**
    * Create a role name (used for registration and assuming the role)
    * @param name
