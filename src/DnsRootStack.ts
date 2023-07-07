@@ -329,7 +329,7 @@ export class DnsRootStack extends cdk.Stack {
     new Route53.DsRecord(this, 'gn-mijn-nijmegen-accp-ds', {
       zone: this.cspNijmegenZone,
       recordName: 'mijn-accp',
-      values: [ '55556 13 2 E2405669C67B226792507459571862EE8835F4F2742377BFE860859C2D7CFC13' ],
+      values: ['55556 13 2 E2405669C67B226792507459571862EE8835F4F2742377BFE860859C2D7CFC13'],
     });
 
     // Records for gn-mijn-nijmegen-prod
@@ -346,7 +346,7 @@ export class DnsRootStack extends cdk.Stack {
     new Route53.DsRecord(this, 'gn-mijn-nijmegen-prod-ds', {
       zone: this.cspNijmegenZone,
       recordName: 'mijn-prod',
-      values: [ '40951 13 2 75831193C203C098232688B284C380E298379240E8B0FC8BA756CFC87CB01A83' ],
+      values: ['40951 13 2 75831193C203C098232688B284C380E298379240E8B0FC8BA756CFC87CB01A83'],
     });
 
   }
