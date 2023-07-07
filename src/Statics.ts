@@ -157,13 +157,13 @@ export class Statics {
   };
 
   // New LZ - has no old LZ account
-  static readonly gnMijnNijmegenProdEnvironment = {
+  static readonly gnMijnNijmegenAccpEnvironment = {
     account: '021929636313',
     region: 'eu-central-1',
   };
 
   // New LZ - has no old LZ account
-  static readonly gnMijnNijmegenAccpEnvironment = {
+  static readonly gnMijnNijmegenProdEnvironment = {
     account: '740606269759',
     region: 'eu-central-1',
   };
