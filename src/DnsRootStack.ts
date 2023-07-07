@@ -315,8 +315,8 @@ export class DnsRootStack extends cdk.Stack {
       values: ['44956 13 2 C6BEDFE472A38F15E70E57E7BC19FBF957A8782351791D33F8D5AFCC4BB28901'],
     });
 
-     // Records for gn-mijn-nijmegen-accp
-     new Route53.NsRecord(this, 'gn-mijn-nijmegen-accp-ns', {
+    // Records for gn-mijn-nijmegen-accp
+    new Route53.NsRecord(this, 'gn-mijn-nijmegen-accp-ns', {
       zone: this.cspNijmegenZone,
       recordName: 'mijn-accp',
       values: [
