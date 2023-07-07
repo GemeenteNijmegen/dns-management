@@ -170,4 +170,22 @@ export const DnsConfigurationNewLz: AccountConfiguration[] = [
     deployDnsSecKmsKey: true,
     registerInCspNijmegenRoot: true,
   },
+  {
+    environment: Statics.gnMijnNijmegenAccpEnvironment,
+    name: 'mijn-accp',
+    dnsRootEnvironment: Statics.gnNetworkEnvironment,
+    enableDnsSec: true,
+    deployDnsStack: true,
+    deployDnsSecKmsKey: true,
+    registerInCspNijmegenRoot: true,
+  },
+  {
+    environment: Statics.gnMijnNijmegenProdEnvironment,
+    name: 'mijn-prod',
+    dnsRootEnvironment: Statics.gnNetworkEnvironment,
+    enableDnsSec: true,
+    deployDnsStack: true,
+    deployDnsSecKmsKey: true,
+    registerInCspNijmegenRoot: true,
+  },
 ];
