@@ -320,16 +320,16 @@ export class DnsRootStack extends cdk.Stack {
       zone: this.cspNijmegenZone,
       recordName: 'mijn-accp',
       values: [
-        'ns-1719.awsdns-22.co.uk',
-        'ns-1196.awsdns-21.org',
-        'ns-755.awsdns-30.net',
-        'ns-323.awsdns-40.com',
+        'ns-537.awsdns-03.net',
+        'ns-1239.awsdns-26.org',
+        'ns-1762.awsdns-28.co.uk',
+        'ns-33.awsdns-04.com',
       ],
     });
     new Route53.DsRecord(this, 'gn-mijn-nijmegen-accp-ds', {
       zone: this.cspNijmegenZone,
       recordName: 'mijn-accp',
-      values: ['55556 13 2 E2405669C67B226792507459571862EE8835F4F2742377BFE860859C2D7CFC13'],
+      values: ['3766 13 2 0765195063DC586BD83282E5A45DB38957F0B373AC60A9CD86BC5572C89D0D32'],
     });
 
     // Records for gn-mijn-nijmegen-prod
