@@ -316,21 +316,21 @@ export class DnsRootStack extends cdk.Stack {
     });
 
     // Records for gn-mijn-nijmegen-accp
-    // new Route53.NsRecord(this, 'gn-mijn-nijmegen-accp-ns', {
-    //   zone: this.cspNijmegenZone,
-    //   recordName: 'mijn-accp',
-    //   values: [
-    //     'ns-537.awsdns-03.net',
-    //     'ns-1239.awsdns-26.org',
-    //     'ns-1762.awsdns-28.co.uk',
-    //     'ns-33.awsdns-04.com',
-    //   ],
-    // });
-    // new Route53.DsRecord(this, 'gn-mijn-nijmegen-accp-ds', {
-    //   zone: this.cspNijmegenZone,
-    //   recordName: 'mijn-accp',
-    //   values: ['3766 13 2 0765195063DC586BD83282E5A45DB38957F0B373AC60A9CD86BC5572C89D0D32'],
-    // });
+    new Route53.NsRecord(this, 'gn-mijn-nijmegen-accp-ns', {
+      zone: this.cspNijmegenZone,
+      recordName: 'mijn-accp',
+      values: [
+        'ns-537.awsdns-03.net',
+        'ns-1239.awsdns-26.org',
+        'ns-1762.awsdns-28.co.uk',
+        'ns-33.awsdns-04.com',
+      ],
+    });
+    new Route53.DsRecord(this, 'gn-mijn-nijmegen-accp-ds', {
+      zone: this.cspNijmegenZone,
+      recordName: 'mijn-accp',
+      values: ['3766 13 2 0765195063DC586BD83282E5A45DB38957F0B373AC60A9CD86BC5572C89D0D32'],
+    });
 
     // Records for gn-mijn-nijmegen-prod
     new Route53.NsRecord(this, 'gn-mijn-nijmegen-prod-ns', {
