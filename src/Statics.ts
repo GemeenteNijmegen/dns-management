@@ -168,6 +168,30 @@ export class Statics {
     region: 'eu-central-1',
   };
 
+  // New LZ - has no old LZ account
+  static readonly gnWebformsDev = {
+    account: '033598396027',
+    region: 'eu-central-1',
+  };
+
+  // New LZ - has no old LZ account
+  static readonly gnWebformsAccp = {
+    account: '338472043295',
+    region: 'eu-central-1',
+  };
+
+  // New LZ - has no old LZ account
+  static readonly gnWebformsProd = {
+    account: '147064197580',
+    region: 'eu-central-1',
+  };
+
+  // New LZ - has no old LZ account
+  static readonly gnStaticWebsitesProd = {
+    account: '654477686593',
+    region: 'eu-central-1',
+  };
+
 
   /**
    * Create a role name (used for registration and assuming the role)
