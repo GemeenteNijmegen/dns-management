@@ -349,6 +349,67 @@ export class DnsRootStack extends cdk.Stack {
       values: ['40951 13 2 75831193C203C098232688B284C380E298379240E8B0FC8BA756CFC87CB01A83'],
     });
 
+    // Records for gn-webforms-dev
+    this.addNsAndDsRecordForAccount(
+      'webforms-dev',
+      '36053 13 2 F80E20F889B11284C496C648135A741E2750C86DBE33674F92BC6F849F9DC26E',
+      [
+        'ns-1551.awsdns-01.co.uk',
+        'ns-957.awsdns-55.net',
+        'ns-1195.awsdns-21.org',
+        'ns-462.awsdns-57.com',
+      ],
+    );
+
+    // Records for gn-webforms-accp
+    this.addNsAndDsRecordForAccount(
+      'webforms-accp',
+      '42916 13 2 962AA54560426E60B2E50B51C20A307628A9A9F115BD5BA975D276DDA64E478E',
+      [
+        'ns-924.awsdns-51.net',
+        'ns-342.awsdns-42.com',
+        'ns-1662.awsdns-15.co.uk',
+        'ns-1459.awsdns-54.org',
+      ],
+    );
+
+    // Records for gn-webforms-prod
+    this.addNsAndDsRecordForAccount(
+      'webforms-prod',
+      '61528 13 2 5DE8105D37D2B2D11723D39D6DCAA77F44091FA238FE27FE071B8B01989D5400',
+      [
+        'ns-110.awsdns-13.com',
+        'ns-926.awsdns-51.net',
+        'ns-1630.awsdns-11.co.uk',
+        'ns-1149.awsdns-15.org',
+      ],
+    );
+
+    // Records for gn-static-websites
+    this.addNsAndDsRecordForAccount(
+      'static-websites',
+      '15811 13 2 860EDBF1CFC5B08A77A4AF68991778F0F834709542B5631819E514C5577929E1',
+      [
+        'ns-624.awsdns-14.net',
+        'ns-1319.awsdns-36.org',
+        'ns-1942.awsdns-50.co.uk',
+        'ns-44.awsdns-05.com',
+      ],
+    );
+
+  }
+
+  addNsAndDsRecordForAccount(name: string, dsValue: string, nsValues: string[]) {
+    new Route53.NsRecord(this, `gn-${name}-ns`, {
+      zone: this.cspNijmegenZone,
+      recordName: name,
+      values: nsValues,
+    });
+    new Route53.DsRecord(this, `gn-${name}-ds`, {
+      zone: this.cspNijmegenZone,
+      recordName: name,
+      values: [dsValue],
+    });
   }
 
   /**
