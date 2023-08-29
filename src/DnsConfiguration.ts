@@ -226,7 +226,7 @@ export const DnsConfigurationNewLz: AccountConfiguration[] = [
   },
   {
     environment: Statics.gnVerwerkingenloggingAccp,
-    name: 'vwlogs-accp',
+    name: 'vwlog-accp',
     dnsRootEnvironment: Statics.gnNetworkEnvironment,
     enableDnsSec: true,
     deployDnsStack: true,
@@ -235,7 +235,7 @@ export const DnsConfigurationNewLz: AccountConfiguration[] = [
   },
   {
     environment: Statics.gnVerwerkingenloggingProd,
-    name: 'vwlogs-prod',
+    name: 'vwlog-prod',
     dnsRootEnvironment: Statics.gnNetworkEnvironment,
     enableDnsSec: true,
     deployDnsStack: true,
