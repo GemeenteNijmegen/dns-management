@@ -397,6 +397,30 @@ export class DnsRootStack extends cdk.Stack {
       ],
     );
 
+    // Records for gn-verwerkingenlogging-accp
+    this.addNsAndDsRecordForAccount(
+      'vwlog-accp',
+      '44316 13 2 7F2297C399C89F16DB0A8E62BA3869093C9EA3EAD6FF4AD485AABBB2459F674A',
+      [
+        'ns-687.awsdns-21.net',
+        'ns-274.awsdns-34.com',
+        'ns-1704.awsdns-21.co.uk',
+        'ns-1298.awsdns-34.org',
+      ],
+    );
+
+    // Records for gn-verwerkingenlogging-prod
+    this.addNsAndDsRecordForAccount(
+      'vwlog-prod',
+      '6171 13 2 4B4A9A57980062B81267EBD6190D892D405A80C816888FCF3D7ED6E5CE2DE9CF',
+      [
+        'ns-219.awsdns-27.com',
+        'ns-1294.awsdns-33.org',
+        'ns-1983.awsdns-55.co.uk',
+        'ns-515.awsdns-00.net',
+      ],
+    );
+
   }
 
   addNsAndDsRecordForAccount(name: string, dsValue: string, nsValues: string[]) {
