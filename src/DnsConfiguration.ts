@@ -224,4 +224,22 @@ export const DnsConfigurationNewLz: AccountConfiguration[] = [
     deployDnsSecKmsKey: true,
     registerInCspNijmegenRoot: true,
   },
+  {
+    environment: Statics.gnVerwerkingenloggingAccp,
+    name: 'vwlog-accp',
+    dnsRootEnvironment: Statics.gnNetworkEnvironment,
+    enableDnsSec: true,
+    deployDnsStack: true,
+    deployDnsSecKmsKey: true,
+    registerInCspNijmegenRoot: true,
+  },
+  {
+    environment: Statics.gnVerwerkingenloggingProd,
+    name: 'vwlog-prod',
+    dnsRootEnvironment: Statics.gnNetworkEnvironment,
+    enableDnsSec: true,
+    deployDnsStack: true,
+    deployDnsSecKmsKey: true,
+    registerInCspNijmegenRoot: true,
+  },
 ];

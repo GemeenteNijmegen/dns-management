@@ -192,6 +192,18 @@ export class Statics {
     region: 'eu-central-1',
   };
 
+  // New LZ - has no old LZ account
+  static readonly gnVerwerkingenloggingAccp = {
+    account: '649781704230',
+    region: 'eu-central-1',
+  };
+
+  // New LZ - has no old LZ account
+  static readonly gnVerwerkingenloggingProd = {
+    account: '887474129159',
+    region: 'eu-central-1',
+  };
+
 
   /**
    * Create a role name (used for registration and assuming the role)
