@@ -155,6 +155,11 @@ export class Statics {
     account: '598242258242',
     region: 'eu-central-1',
   };
+  // New LZ - has no old LZ account
+  static readonly gnComponentLibraryAccpEnvironment = {
+    account: '768900902886',
+    region: 'eu-central-1',
+  };
 
   // New LZ - has no old LZ account
   static readonly gnMijnNijmegenAccpEnvironment = {
@@ -189,6 +194,18 @@ export class Statics {
   // New LZ - has no old LZ account
   static readonly gnStaticWebsitesProd = {
     account: '654477686593',
+    region: 'eu-central-1',
+  };
+
+  // New LZ - has no old LZ account
+  static readonly gnVerwerkingenloggingAccp = {
+    account: '649781704230',
+    region: 'eu-central-1',
+  };
+
+  // New LZ - has no old LZ account
+  static readonly gnVerwerkingenloggingProd = {
+    account: '887474129159',
     region: 'eu-central-1',
   };
 
