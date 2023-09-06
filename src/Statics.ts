@@ -70,26 +70,6 @@ export class Statics {
     region: 'eu-west-1',
   };
 
-  static readonly test2Environment = {
-    account: '374828078457',
-    region: 'eu-west-1',
-  };
-
-  static readonly test3Environment = {
-    account: '443779208930',
-    region: 'eu-west-1',
-  };
-
-  static readonly test4Environment = {
-    account: '709185976429',
-    region: 'eu-west-1',
-  };
-
-  static readonly umDemoEnvironment = {
-    account: '698929623502',
-    region: 'eu-west-1',
-  };
-
   // New LZ
   static readonly gnBuildEnvironment = {
     account: '836443378780',
