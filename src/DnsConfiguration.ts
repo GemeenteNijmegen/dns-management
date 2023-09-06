@@ -61,38 +61,6 @@ export const DnsConfigurationExistingLz: AccountConfiguration[] = [
     deployDnsSecKmsKey: false,
     registerInCspNijmegenRoot: true,
     overwriteStageName: 'genriek-prod',
-  }, {
-    environment: Statics.test2Environment,
-    name: 'test-2',
-    dnsRootEnvironment: Statics.dnsRootEnvironment,
-    deployDnsStack: true,
-    enableDnsSec: true,
-    deployDnsSecKmsKey: true,
-    registerInCspNijmegenRoot: true,
-  }, {
-    environment: Statics.test3Environment,
-    name: 'test-3',
-    dnsRootEnvironment: Statics.dnsRootEnvironment,
-    deployDnsStack: true,
-    enableDnsSec: true,
-    deployDnsSecKmsKey: true,
-    registerInCspNijmegenRoot: true,
-  }, {
-    environment: Statics.test4Environment,
-    name: 'test-4',
-    dnsRootEnvironment: Statics.dnsRootEnvironment,
-    deployDnsStack: true,
-    enableDnsSec: true,
-    deployDnsSecKmsKey: true,
-    registerInCspNijmegenRoot: true,
-  }, {
-    environment: Statics.umDemoEnvironment,
-    name: 'um-demo',
-    dnsRootEnvironment: Statics.dnsRootEnvironment,
-    deployDnsStack: true,
-    enableDnsSec: false,
-    deployDnsSecKmsKey: false,
-    registerInCspNijmegenRoot: true,
   },
 ];
 
