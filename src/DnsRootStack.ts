@@ -307,7 +307,7 @@ export class DnsRootStack extends cdk.Stack {
         'ns-187.awsdns-23.com',
         'ns-1026.awsdns-00.org',
         'ns-1647.awsdns-13.co.uk',
-        'ns-989.awsdns-59.net'
+        'ns-989.awsdns-59.net',
       ],
     });
     // new Route53.DsRecord(this, 'component-library-accp-ds', {
