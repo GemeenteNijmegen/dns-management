@@ -298,6 +298,24 @@ export class DnsRootStack extends cdk.Stack {
       values: ['29538 13 2 38951A4A670A952CDB351505B39D53EAAECCB56C2705B570FB817E9218B4CF6F'],
     });
 
+
+    // NS for component library accp
+    new Route53.NsRecord(this, 'component-library-accp-ns', {
+      zone: this.cspNijmegenZone,
+      recordName: 'component-library-accp',
+      values: [
+        'ns-187.awsdns-23.com',
+        'ns-1026.awsdns-00.org',
+        'ns-1647.awsdns-13.co.uk',
+        'ns-989.awsdns-59.net',
+      ],
+    });
+    // new Route53.DsRecord(this, 'component-library-accp-ds', {
+    //   zone: this.cspNijmegenZone,
+    //   recordName: 'component-library-accp',
+    //   values: ['29538 13 2 38951A4A670A952CDB351505B39D53EAAECCB56C2705B570FB817E9218B4CF6F'],
+    // });
+
     // Records for gn-yivi-brp-issue-prod
     new Route53.NsRecord(this, 'yivi-brp-issue-prod-ns', {
       zone: this.cspNijmegenZone,
