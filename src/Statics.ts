@@ -160,6 +160,11 @@ export class Statics {
     account: '768900902886',
     region: 'eu-central-1',
   };
+  // New LZ - has no old LZ account
+  static readonly gnComponentLibraryProdEnvironment = {
+    account: '706611162248',
+    region: 'eu-central-1',
+  };
 
   // New LZ - has no old LZ account
   static readonly gnMijnNijmegenAccpEnvironment = {
