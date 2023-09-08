@@ -310,11 +310,7 @@ export class DnsRootStack extends cdk.Stack {
         'ns-989.awsdns-59.net',
       ],
     });
-    // new Route53.DsRecord(this, 'component-library-accp-ds', {
-    //   zone: this.cspNijmegenZone,
-    //   recordName: 'component-library-accp',
-    //   values: ['29538 13 2 38951A4A670A952CDB351505B39D53EAAECCB56C2705B570FB817E9218B4CF6F'],
-    // });
+    // TODO: DNSSEC
 
     // NS for component library prod
     new Route53.NsRecord(this, 'component-library-prod-ns', {
@@ -327,11 +323,7 @@ export class DnsRootStack extends cdk.Stack {
         'ns-1516.awsdns-61.org',
       ],
     });
-    // new Route53.DsRecord(this, 'component-library-accp-ds', {
-    //   zone: this.cspNijmegenZone,
-    //   recordName: 'component-library-accp',
-    //   values: ['29538 13 2 38951A4A670A952CDB351505B39D53EAAECCB56C2705B570FB817E9218B4CF6F'],
-    // });
+    // TODO: DNSSEC
 
     // Records for gn-yivi-brp-issue-prod
     new Route53.NsRecord(this, 'yivi-brp-issue-prod-ns', {
