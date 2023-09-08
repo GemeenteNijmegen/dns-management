@@ -181,7 +181,7 @@ export const DnsConfigurationNewLz: AccountConfiguration[] = [
   },
   {
     environment: Statics.gnComponentLibraryProdEnvironment,
-    name: 'component-library-accp',
+    name: 'component-library-prod',
     dnsRootEnvironment: Statics.gnNetworkEnvironment,
     enableDnsSec: true,
     deployDnsStack: true,
