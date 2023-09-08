@@ -310,11 +310,20 @@ export class DnsRootStack extends cdk.Stack {
         'ns-989.awsdns-59.net',
       ],
     });
-    // new Route53.DsRecord(this, 'component-library-accp-ds', {
-    //   zone: this.cspNijmegenZone,
-    //   recordName: 'component-library-accp',
-    //   values: ['29538 13 2 38951A4A670A952CDB351505B39D53EAAECCB56C2705B570FB817E9218B4CF6F'],
-    // });
+    // TODO: DNSSEC
+
+    // NS for component library prod
+    new Route53.NsRecord(this, 'component-library-prod-ns', {
+      zone: this.cspNijmegenZone,
+      recordName: 'component-library-prod',
+      values: [
+        'ns-774.awsdns-32.net',
+        'ns-1982.awsdns-55.co.uk',
+        'ns-245.awsdns-30.com',
+        'ns-1516.awsdns-61.org',
+      ],
+    });
+    // TODO: DNSSEC
 
     // Records for gn-yivi-brp-issue-prod
     new Route53.NsRecord(this, 'yivi-brp-issue-prod-ns', {
