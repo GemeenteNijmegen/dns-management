@@ -19,14 +19,6 @@ export interface AccountConfiguration {
 
 export const DnsConfigurationExistingLz: AccountConfiguration[] = [
   {
-    environment: Statics.sandboxEnvironment,
-    name: 'sandbox',
-    dnsRootEnvironment: Statics.dnsRootEnvironment,
-    deployDnsStack: true,
-    enableDnsSec: false,
-    deployDnsSecKmsKey: false,
-    registerInCspNijmegenRoot: true,
-  }, {
     environment: Statics.authAccpEnvironment,
     name: 'accp',
     dnsRootEnvironment: Statics.dnsRootEnvironment,
@@ -43,24 +35,6 @@ export const DnsConfigurationExistingLz: AccountConfiguration[] = [
     enableDnsSec: true,
     deployDnsSecKmsKey: true,
     registerInCspNijmegenRoot: true,
-  }, {
-    environment: Statics.generiekAccpEnvironment,
-    name: 'generiek-accp',
-    dnsRootEnvironment: Statics.dnsRootEnvironment,
-    deployDnsStack: true,
-    enableDnsSec: false,
-    deployDnsSecKmsKey: false,
-    registerInCspNijmegenRoot: true,
-    overwriteStageName: 'genriek-accp',
-  }, {
-    environment: Statics.generiekProdEnvironment,
-    name: 'generiek-prod',
-    dnsRootEnvironment: Statics.dnsRootEnvironment,
-    deployDnsStack: true,
-    enableDnsSec: false,
-    deployDnsSecKmsKey: false,
-    registerInCspNijmegenRoot: true,
-    overwriteStageName: 'genriek-prod',
   },
 ];
 
