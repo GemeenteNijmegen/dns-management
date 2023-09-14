@@ -292,12 +292,6 @@ export class DnsRootStack extends cdk.Stack {
         'ns-489.awsdns-61.com',
       ],
     });
-    new Route53.DsRecord(this, 'component-library-dev-ds', {
-      zone: this.cspNijmegenZone,
-      recordName: 'component-library-dev',
-      values: ['29538 13 2 38951A4A670A952CDB351505B39D53EAAECCB56C2705B570FB817E9218B4CF6F'],
-    });
-
 
     // NS for component library accp
     new Route53.NsRecord(this, 'component-library-accp-ns', {
@@ -310,7 +304,11 @@ export class DnsRootStack extends cdk.Stack {
         'ns-989.awsdns-59.net',
       ],
     });
-    // TODO: DNSSEC
+    new Route53.DsRecord(this, 'component-library-accp-ds', {
+      zone: this.cspNijmegenZone,
+      recordName: 'component-library-accp',
+      values: ['24212 13 2 222EC14F5B430923112AE8F30F8E2B2838E4F4EFA0415CBD5953F2413A9E8CBA'],
+    });
 
     // NS for component library prod
     new Route53.NsRecord(this, 'component-library-prod-ns', {
