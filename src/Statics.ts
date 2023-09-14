@@ -40,11 +40,6 @@ export class Statics {
     region: 'eu-west-1',
   };
 
-  static readonly sandboxEnvironment = {
-    account: '122467643252',
-    region: 'eu-west-1',
-  };
-
   static readonly authProdEnvironment = {
     account: '196212984627',
     region: 'eu-west-1',
@@ -57,16 +52,6 @@ export class Statics {
 
   static readonly dnsRootEnvironment = {
     account: '108197740505',
-    region: 'eu-west-1',
-  };
-
-  static readonly generiekAccpEnvironment = {
-    account: '229631103712',
-    region: 'eu-west-1',
-  };
-
-  static readonly generiekProdEnvironment = {
-    account: '487749583954',
     region: 'eu-west-1',
   };
 
