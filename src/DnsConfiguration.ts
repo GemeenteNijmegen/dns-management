@@ -35,7 +35,7 @@ export const DnsConfigurationExistingLz: AccountConfiguration[] = [
     enableDnsSec: true,
     deployDnsSecKmsKey: true,
     registerInCspNijmegenRoot: true,
-  }
+  },
 ];
 
 
