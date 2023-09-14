@@ -306,8 +306,8 @@ export class DnsRootStack extends cdk.Stack {
     });
     new Route53.DsRecord(this, 'component-library-accp-ds', {
       zone: this.cspNijmegenZone,
-      recordName: 'componenten-accp.component-library-accp',
-      values: ['24212 13 2 893857ACF3DC72571E476CCE9E71DF1CAEADA4897E457509E12ED0F90B221675'],
+      recordName: 'component-library-accp',
+      values: ['24212 13 2 222EC14F5B430923112AE8F30F8E2B2838E4F4EFA0415CBD5953F2413A9E8CBA'],
     });
 
     // NS for component library prod
