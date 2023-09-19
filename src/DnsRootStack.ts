@@ -321,7 +321,12 @@ export class DnsRootStack extends cdk.Stack {
         'ns-1516.awsdns-61.org',
       ],
     });
-    // TODO: DNSSEC
+    new Route53.DsRecord(this, 'component-library-prod-ds', {
+      zone: this.cspNijmegenZone,
+      recordName: 'component-library-prod',
+      values: ['54643 13 2 F9F0AE4D68F8369C67F29039CD407092C8BD36BCFDCDCD5C645F347F2696A739'],
+    });
+
 
     // Records for gn-yivi-brp-issue-prod
     new Route53.NsRecord(this, 'yivi-brp-issue-prod-ns', {
