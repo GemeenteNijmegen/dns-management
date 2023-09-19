@@ -298,10 +298,10 @@ export class DnsRootStack extends cdk.Stack {
       zone: this.cspNijmegenZone,
       recordName: 'component-library-accp',
       values: [
-        'ns-187.awsdns-23.com',
-        'ns-1026.awsdns-00.org',
-        'ns-1647.awsdns-13.co.uk',
-        'ns-989.awsdns-59.net',
+        'ns-14.awsdns-01.com',
+        'ns-1777.awsdns-30.co.uk',
+        'ns-980.awsdns-58.net',
+        'ns-1338.awsdns-39.org',
       ],
     });
     new Route53.DsRecord(this, 'component-library-accp-ds', {
