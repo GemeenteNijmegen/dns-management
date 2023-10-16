@@ -92,15 +92,15 @@ export class DnsRootStack extends cdk.Stack {
       domainName: '1865949c9e0474591398be17540a8383.626b224344a3e3acc3b0f4b67b2a52d3.comodoca.com.',
     });
 
-    new Route53.CnameRecord(this, 'webformulieren-validation-record-prod', { // Webformulieren prod - esb (auht.csp-nijmegen.nl)
+    new Route53.CnameRecord(this, 'webformulieren-validation-record-prod', { // Webformulieren prod - esb (auth.csp-nijmegen.nl)
       zone: this.cspNijmegenZone,
-      recordName: '_578630817267b977076c44d1065f484d',
-      domainName: 'a213f88cb03ee3378d4a61b0ee419340.6f8522989e4f5cdbaa87ab19f464e270.comodoca.com.',
+      recordName: '_340cfc157601acb6b4c252db633edc14',
+      domainName: '175eb7edb12cda08b3414a21f9c0d9b6.becda2462a6a358d54cb81320a1ed244.comodoca.com.',
     });
     new Route53.CnameRecord(this, 'webformulieren-validation-record-accp', { // Webformulieren accp - esb (auth.accp.csp-nijmegen.nl)
       zone: this.cspNijmegenZone,
-      recordName: '_9098af4bf46f252af5e3a050f3393016',
-      domainName: '361c615f2fecf47aaaa7c5b74a0a1ebe.33a6de06e8378e1c06dd092f6da142e2.comodoca.com.',
+      recordName: '_9a7010aac50ae002ee6511d0f0755330',
+      domainName: '356ad2f572d3a315c1ce6f6e864d7ee1.043c85a1b6d94b809201b964acd2cb77.comodoca.com.',
     });
   }
 
