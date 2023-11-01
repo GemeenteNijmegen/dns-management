@@ -118,24 +118,24 @@ export class DnsRootStack extends cdk.Stack {
 
     new Route53.CnameRecord(this, 'tribe-brp-validation-record-accp', { // Tribe brp accp - esb (tribebrp.generiek-accp.csp-nijmegen.nl)
       zone: this.cspNijmegenZone,
-      recordName: '_679d84fe3a2b767efc282e6c82d18545',
-      domainName: '68352a3d1dac6785191bf0b8fc4b24c3.46978e978f10c175783611cafb0bbeb1.comodoca.com.',
+      recordName: '_2db6a8de32f9fb49b42f88127092be93',
+      domainName: '7a38240e33f335e0b935367644423084.efec36361a757e70d540a291701c27fb.comodoca.com.',
     });
     new Route53.CnameRecord(this, 'tribe-brp-validation-record-prod', { // Tribe brp prod - esb (tribebrp.generiek-prod.csp-nijmegen.nl)
       zone: this.cspNijmegenZone,
-      recordName: '_c4394b9347b95abaf24cc46a827878c3',
-      domainName: '27fccbea87c494ad174a7b2e792dc4fa.4ceee28a1b2e7e3739ad9fa7b1269dd8.comodoca.com.',
+      recordName: '_7b3cf064cfc7fdbd40a7c6677563c523',
+      domainName: '4594484c90b02f72b15f7a26954f1481.dc969c51f59d7bd58e55f09f19b6882f.comodoca.com.',
     });
 
     new Route53.CnameRecord(this, 'irma-issue-validation-record-accp', { // Irma issue accp - esb (irma-issue.accp.csp-nijmegen.nl)
       zone: this.cspNijmegenZone,
-      recordName: '_d8b9a2cceda1d51a173898f8d536d1ee',
-      domainName: 'd0918abb75959c676f7b431d3c373c29.4ea79a4414b345fd4484fa47920758ae.comodoca.com.',
+      recordName: '_82e96918e2e006569edd57a9bf2ca18a',
+      domainName: '1c25b15c30dea2869a5cf44da8cfd07d.b4a989acf7f156b70e69c6c20996feed.comodoca.com.',
     });
     new Route53.CnameRecord(this, 'irma-issue-validation-record-prod', { // Irma issue prod - esb (irma-issue.auth-prod.csp-nijmegen.nl)
       zone: this.cspNijmegenZone,
-      recordName: '_63a809d82bbb64b4b4e6e4d8f3913b86',
-      domainName: '93f9b0a9c2df09dc6c0f6fb05e2b7e5c.51616c209e01a7a79f2758c921d3039c.comodoca.com.',
+      recordName: '_8bcedded666ccd9b575ab5d78840b91a',
+      domainName: '2a8fbd419e077abf49863ab79387f155.5afde26b969373212b99b4a97eab728a.comodoca.com.',
     });
 
     /**
