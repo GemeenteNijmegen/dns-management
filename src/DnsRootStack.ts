@@ -452,7 +452,7 @@ export class DnsRootStack extends cdk.Stack {
     );
 
     // Records for sandbox-marnix
-    new Route53.NsRecord(this, `gn-sandbox-marnix-ns`, {
+    new Route53.NsRecord(this, 'gn-sandbox-marnix-ns', {
       zone: this.cspNijmegenZone,
       recordName: 'sandbox-marnix',
       values: [
