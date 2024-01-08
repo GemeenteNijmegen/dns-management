@@ -451,6 +451,18 @@ export class DnsRootStack extends cdk.Stack {
       ],
     );
 
+    // Records for sandbox-marnix
+    new Route53.NsRecord(this, `gn-sandbox-marnix-ns`, {
+      zone: this.cspNijmegenZone,
+      recordName: 'sandbox-marnix',
+      values: [
+        'ns-553.awsdns-05.net',
+        'ns-1583.awsdns-05.co.uk',
+        'ns-1109.awsdns-10.org',
+        'ns-476.awsdns-59.com',
+      ],
+    });
+
   }
 
   addNsAndDsRecordForAccount(name: string, dsValue: string, nsValues: string[]) {
