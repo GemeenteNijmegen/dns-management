@@ -260,4 +260,13 @@ export const DnsConfigurationNewLz: AccountConfiguration[] = [
     deployDnsSecKmsKey: true,
     registerInCspNijmegenRoot: true,
   },
+  {
+    environment: Statics.gnSandboxMarnix,
+    name: 'sandbox-marnix',
+    dnsRootEnvironment: Statics.gnNetworkEnvironment,
+    enableDnsSec: false,
+    deployDnsSecKmsKey: false,
+    deployDnsStack: true,
+    registerInCspNijmegenRoot: true,
+  },
 ];
