@@ -94,7 +94,7 @@ export class DnsRootStack extends cdk.Stack {
 
     new Route53.CnameRecord(this, 'webformulieren-validation-record-prod', { // Webformulieren prod - esb (auth.csp-nijmegen.nl)
       zone: this.cspNijmegenZone,
-      recordName: '_340cfc157601acb6b4c252db633edc14',
+      recordName: '_340cfc157601acb6b4c252db633edc14', 
       domainName: '175eb7edb12cda08b3414a21f9c0d9b6.becda2462a6a358d54cb81320a1ed244.comodoca.com.',
     });
     new Route53.CnameRecord(this, 'webformulieren-validation-record-accp', { // Webformulieren accp - esb (auth.accp.csp-nijmegen.nl)
