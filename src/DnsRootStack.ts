@@ -161,7 +161,7 @@ export class DnsRootStack extends cdk.Stack {
     new Route53.CnameRecord(this, 'docpoc-validation-record-accp', { // DocPoc accp - esb (docpoc-accp.csp-nijmegen.nl)
       zone: this.cspNijmegenZone,
       recordName: '_C09AF98DC2FE54695443BF987E37C329',
-      domainName: '98DCDAD749B9B0C55544167D8CE5202C.2F575C50C0E49874844BC0A5A49CAD06.sectigo.com',
+      domainName: '98DCDAD749B9B0C55544167D8CE5202C.2F575C50C0E49874844BC0A5A49CAD06.sectigo.com.',
     });
   }
 
