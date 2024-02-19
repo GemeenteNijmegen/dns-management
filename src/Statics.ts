@@ -156,6 +156,12 @@ export class Statics {
     region: 'eu-central-1',
   };
 
+  // New LZ
+  static readonly gnSandbox01 = {
+    account: '833119272131',
+    region: 'eu-central-1',
+  };
+
   // New LZ - has no old LZ account
   static readonly gnComponentLibraryDevEnvironment = {
     account: '598242258242',
