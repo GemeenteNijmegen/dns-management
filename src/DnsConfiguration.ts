@@ -269,4 +269,13 @@ export const DnsConfigurationNewLz: AccountConfiguration[] = [
     deployDnsStack: true,
     registerInCspNijmegenRoot: true,
   },
+  {
+    environment: Statics.gnSandbox01,
+    name: 'sandbox-01',
+    dnsRootEnvironment: Statics.gnNetworkEnvironment,
+    enableDnsSec: false,
+    deployDnsSecKmsKey: false,
+    deployDnsStack: true,
+    registerInCspNijmegenRoot: true,
+  },
 ];
