@@ -46,7 +46,6 @@
     "typescript": "^4.9.5"
   },
   "dependencies": {
-    "@alma-cdk/cross-region-parameter": "^0.0.14",
     "@gemeentenijmegen/aws-constructs": "^0.0.5",
     "aws-cdk-lib": "^2.20.0",
     "cdk-nag": "^2.0.0",

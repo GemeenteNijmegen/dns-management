@@ -72,10 +72,6 @@
       "type": "build"
     },
     {
-      "name": "@alma-cdk/cross-region-parameter",
-      "type": "runtime"
-    },
-    {
       "name": "@gemeentenijmegen/aws-constructs",
       "type": "runtime"
     },
