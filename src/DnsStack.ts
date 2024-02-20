@@ -1,4 +1,4 @@
-import { CrossRegionParameter } from '@alma-cdk/cross-region-parameter';
+
 import * as cdk from 'aws-cdk-lib';
 import { aws_ssm as SSM, aws_route53 as Route53, Tags, Arn, aws_iam as IAM } from 'aws-cdk-lib';
 import { NagSuppressions } from 'cdk-nag';
@@ -68,18 +68,6 @@ export class DnsStack extends cdk.Stack {
       parameterName: Statics.envRootHostedZoneName,
     });
 
-    new CrossRegionParameter(this, 'csp-sub-hostedzone-id-us', {
-      region: 'us-east-1',
-      name: Statics.envRootHostedZoneId,
-      value: subzone.hostedZoneId,
-      description: 'Account root hosted zone ID',
-    });
-    new CrossRegionParameter(this, 'csp-sub-hostedzone-name-us', {
-      region: 'us-east-1',
-      name: Statics.envRootHostedZoneName,
-      value: subzone.zoneName,
-      description: 'Account root hosted zone name',
-    });
 
     NagSuppressions.addStackSuppressions(this, [{
       id: 'AwsSolutions-L1',
