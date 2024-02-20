@@ -470,6 +470,17 @@ export class DnsRootStack extends cdk.Stack {
         'ns-476.awsdns-59.com',
       ],
     });
+    // Records for sandbox-01
+    new Route53.NsRecord(this, 'gn-sandbox-01-ns', {
+      zone: this.cspNijmegenZone,
+      recordName: 'sandbox-01',
+      values: [
+        'ns-2004.awsdns-58.co.uk',
+        'ns-1346.awsdns-40.org',
+        'ns-952.awsdns-55.net',
+        'ns-259.awsdns-32.com',
+      ],
+    });
 
   }
 
