@@ -487,10 +487,10 @@ export class DnsRootStack extends cdk.Stack {
       zone: this.cspNijmegenZone,
       recordName: 'submissionstorage-dev',
       values: [
-        'ns-2004.awsdns-58.co.uk',
-        'ns-1346.awsdns-40.org',
-        'ns-952.awsdns-55.net',
-        'ns-259.awsdns-32.com',
+        'ns-1374.awsdns-43.org',
+        'ns-1565.awsdns-03.co.uk',
+        'ns-997.awsdns-60.net',
+        'ns-257.awsdns-32.com',
       ],
     });
     // Records for webform-submission-storag-prod
@@ -498,10 +498,10 @@ export class DnsRootStack extends cdk.Stack {
       zone: this.cspNijmegenZone,
       recordName: 'submissionstorage-prod',
       values: [
-        'ns-1374.awsdns-43.org',
-        'ns-1565.awsdns-03.co.uk',
-        'ns-997.awsdns-60.net',
-        'ns-257.awsdns-32.com',
+        'ns-459.awsdns-57.com',
+        'ns-1891.awsdns-44.co.uk',
+        'ns-1281.awsdns-32.org',
+        'ns-704.awsdns-24.net',
       ],
     });
 
