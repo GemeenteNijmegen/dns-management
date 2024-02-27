@@ -3,6 +3,12 @@ import { Statics } from './Statics';
 
 export interface AccountConfiguration {
   environment: Environment;
+
+  /**
+   * The account name, this will be used as the subdomain:
+   * E.g.: name: 'my-test', will result in a zone for
+   * `my-test.csp-nijmegen.nl`
+   */
   name: string;
   dnsRootEnvironment: Environment;
   deployDnsStack: boolean;
@@ -275,6 +281,24 @@ export const DnsConfigurationNewLz: AccountConfiguration[] = [
     dnsRootEnvironment: Statics.gnNetworkEnvironment,
     enableDnsSec: false,
     deployDnsSecKmsKey: false,
+    deployDnsStack: true,
+    registerInCspNijmegenRoot: true,
+  },
+  {
+    environment: Statics.gnSubmissionStorageDev,
+    name: 'submissionstorage-dev',
+    dnsRootEnvironment: Statics.gnNetworkEnvironment,
+    enableDnsSec: false,
+    deployDnsSecKmsKey: false,
+    deployDnsStack: true,
+    registerInCspNijmegenRoot: true,
+  },
+  {
+    environment: Statics.gnSubmissionStorageProd,
+    name: 'submissionstorage-prod',
+    dnsRootEnvironment: Statics.gnNetworkEnvironment,
+    enableDnsSec: true,
+    deployDnsSecKmsKey: true,
     deployDnsStack: true,
     registerInCspNijmegenRoot: true,
   },
