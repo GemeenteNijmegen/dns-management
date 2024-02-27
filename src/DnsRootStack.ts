@@ -485,7 +485,7 @@ export class DnsRootStack extends cdk.Stack {
     // Records for webform-submission-storage-dev
     new Route53.NsRecord(this, 'gn-webform-submission-storage-dev-ns', {
       zone: this.cspNijmegenZone,
-      recordName: 'webform-submission-storage-dev',
+      recordName: 'submissionstorage-dev',
       values: [
         'ns-2004.awsdns-58.co.uk',
         'ns-1346.awsdns-40.org',
@@ -496,7 +496,7 @@ export class DnsRootStack extends cdk.Stack {
     // Records for webform-submission-storag-prod
     new Route53.NsRecord(this, 'gn-webform-submission-storag-prod-ns', {
       zone: this.cspNijmegenZone,
-      recordName: 'webform-submission-storag-prod',
+      recordName: 'submissionstorage-prod',
       values: [
         'ns-1374.awsdns-43.org',
         'ns-1565.awsdns-03.co.uk',
