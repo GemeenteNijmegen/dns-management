@@ -482,6 +482,29 @@ export class DnsRootStack extends cdk.Stack {
       ],
     });
 
+    // Records for webform-submission-storage-dev
+    new Route53.NsRecord(this, 'gn-webform-submission-storage-dev-ns', {
+      zone: this.cspNijmegenZone,
+      recordName: 'submissionstorage-dev',
+      values: [
+        'ns-1374.awsdns-43.org',
+        'ns-1565.awsdns-03.co.uk',
+        'ns-997.awsdns-60.net',
+        'ns-257.awsdns-32.com',
+      ],
+    });
+    // Records for webform-submission-storag-prod
+    new Route53.NsRecord(this, 'gn-webform-submission-storag-prod-ns', {
+      zone: this.cspNijmegenZone,
+      recordName: 'submissionstorage-prod',
+      values: [
+        'ns-459.awsdns-57.com',
+        'ns-1891.awsdns-44.co.uk',
+        'ns-1281.awsdns-32.org',
+        'ns-704.awsdns-24.net',
+      ],
+    });
+
   }
 
   addNsAndDsRecordForAccount(name: string, dsValue: string, nsValues: string[]) {
