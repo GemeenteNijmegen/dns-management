@@ -226,6 +226,18 @@ export class Statics {
     region: 'eu-central-1',
   };
 
+  // New LZ - has no old LZ account
+  static readonly gnSubmissionStorageDev = {
+    account: '358927146986',
+    region: 'eu-central-1',
+  };
+
+  // New LZ - has no old LZ account
+  static readonly gnSubmissionStorageProd = {
+    account: '606343885688',
+    region: 'eu-central-1',
+  };
+
 
   /**
    * Create a role name (used for registration and assuming the role)
