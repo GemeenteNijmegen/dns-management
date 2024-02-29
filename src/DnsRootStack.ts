@@ -146,13 +146,13 @@ export class DnsRootStack extends cdk.Stack {
      */
     new Route53.CnameRecord(this, 'esf-validation-record-prod', {
       zone: this.cspNijmegenZone,
-      recordName: '_e6afe3b30f34b29943c7a25a57a64fc3',
-      domainName: '8a517865032f100eb489a4cb779bea43.3de2af4d2845abf6a916c2f487d7cdd2.comodoca.com.',
+      recordName: '_21EF7078D93987B2D49B2D89223723B7.esf-prod',
+      domainName: 'D283AE83D6EA0582065689BBDEDD0976.43BB0DC72103FEB1D77E381ABC03C10A.sectigo.com.',
     });
     new Route53.CnameRecord(this, 'esf-validation-record-accp', {
       zone: this.cspNijmegenZone,
-      recordName: '_0dda4864990029d7b9def59785242089',
-      domainName: '4bd2d704cc5f72f39cf605cf24500bde.13f6be6ddcec328123708fd74b620d25.comodoca.com.',
+      recordName: '_76E4569991B509964584CB63698E1D66.esf-accp',
+      domainName: 'B942DB898E70A7B047E005038436D675.72B45A1C227F2B2BA8B926B19B573665.sectigo.com.',
     });
 
     /**
