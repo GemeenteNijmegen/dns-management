@@ -238,6 +238,16 @@ export class Statics {
     region: 'eu-central-1',
   };
 
+  static readonly gnYiviNijmegenAccp = {
+    account: '992382808833',
+    region: 'eu-central-1',
+  };
+
+  static readonly gnYiviNijmegenProd = {
+    account: '767398106682',
+    region: 'eu-central-1',
+  };
+
 
   /**
    * Create a role name (used for registration and assuming the role)

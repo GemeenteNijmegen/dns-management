@@ -302,4 +302,22 @@ export const DnsConfigurationNewLz: AccountConfiguration[] = [
     deployDnsStack: true,
     registerInCspNijmegenRoot: true,
   },
+  {
+    environment: Statics.gnYiviNijmegenAccp,
+    name: 'yivi-nijmegen-accp',
+    dnsRootEnvironment: Statics.gnNetworkEnvironment,
+    enableDnsSec: true,
+    deployDnsSecKmsKey: true,
+    deployDnsStack: true,
+    registerInCspNijmegenRoot: true,
+  },
+  {
+    environment: Statics.gnYiviNijmegenProd,
+    name: 'yivi-nijmegen-prod',
+    dnsRootEnvironment: Statics.gnNetworkEnvironment,
+    enableDnsSec: true,
+    deployDnsSecKmsKey: true,
+    deployDnsStack: true,
+    registerInCspNijmegenRoot: true,
+  },
 ];
