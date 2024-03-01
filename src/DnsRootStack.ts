@@ -505,6 +505,30 @@ export class DnsRootStack extends cdk.Stack {
       ],
     });
 
+    // Records for yivi-nijmegen-accp
+    this.addNsAndDsRecordForAccount(
+      'yivi-nijmegen-accp',
+      '12058 13 2 0064C2758B7380147CB2CC97A2002E738F11741DDB6F236930C3431348BFC901',
+      [
+        'ns-1403.awsdns-47.org',
+        'ns-1600.awsdns-08.co.uk',
+        'ns-480.awsdns-60.com',
+        'ns-780.awsdns-33.net',
+      ],
+    );
+
+    // Records for yivi-nijmegen-prod
+    this.addNsAndDsRecordForAccount(
+      'yivi-nijmegen-prod',
+      '58866 13 2 7738D28EA34A54E7AB3578FFA126A87679E2E71C7BAE39D34D5C5895F6392549',
+      [
+        'ns-1372.awsdns-43.org',
+        'ns-1634.awsdns-12.co.uk',
+        'ns-589.awsdns-09.net',
+        'ns-228.awsdns-28.com',
+      ],
+    );
+
   }
 
   addNsAndDsRecordForAccount(name: string, dsValue: string, nsValues: string[]) {
