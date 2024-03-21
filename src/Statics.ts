@@ -233,6 +233,12 @@ export class Statics {
   };
 
   // New LZ - has no old LZ account
+  static readonly gnSubmissionStorageAccp = {
+    account: '654654253219',
+    region: 'eu-central-1',
+  };
+
+  // New LZ - has no old LZ account
   static readonly gnSubmissionStorageProd = {
     account: '606343885688',
     region: 'eu-central-1',

@@ -294,6 +294,15 @@ export const DnsConfigurationNewLz: AccountConfiguration[] = [
     registerInCspNijmegenRoot: true,
   },
   {
+    environment: Statics.gnSubmissionStorageAccp,
+    name: 'submissionstorage-accp',
+    dnsRootEnvironment: Statics.gnNetworkEnvironment,
+    enableDnsSec: false,
+    deployDnsSecKmsKey: false,
+    deployDnsStack: true,
+    registerInCspNijmegenRoot: true,
+  },
+  {
     environment: Statics.gnSubmissionStorageProd,
     name: 'submissionstorage-prod',
     dnsRootEnvironment: Statics.gnNetworkEnvironment,
