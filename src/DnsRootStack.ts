@@ -493,6 +493,29 @@ export class DnsRootStack extends cdk.Stack {
         'ns-257.awsdns-32.com',
       ],
     });
+    new Route53.DsRecord(this, 'gn-webform-submissionstorage-dev-ds', {
+      zone: this.cspNijmegenZone,
+      recordName: 'submissionstorage-dev',
+      values: ['33404 13 2 14BD8D96D6C9AE4F5A572F90D9BCE7F74E7A93EFC6F0B66D07EB76B8DC07E8B8'],
+    });
+
+    // Records for webform-submission-storage-accp
+    new Route53.NsRecord(this, 'gn-webform-submission-storage-accp-ns', {
+      zone: this.cspNijmegenZone,
+      recordName: 'submissionstorage-accp',
+      values: [
+        'ns-1253.awsdns-28.org',
+        'ns-238.awsdns-29.com',
+        'ns-741.awsdns-28.net',
+        'ns-1677.awsdns-17.co.uk',
+      ],
+    });
+    new Route53.DsRecord(this, 'gn-webform-submissionstorage-accp-ds', {
+      zone: this.cspNijmegenZone,
+      recordName: 'submissionstorage-accp',
+      values: ['3031 13 2 31A4C2F664BA7C515D835589DC7124EA0034A1187B37BCE69AC8FB63C3956D1E'],
+    });
+
     // Records for webform-submission-storag-prod
     new Route53.NsRecord(this, 'gn-webform-submission-storag-prod-ns', {
       zone: this.cspNijmegenZone,
@@ -503,6 +526,12 @@ export class DnsRootStack extends cdk.Stack {
         'ns-1281.awsdns-32.org',
         'ns-704.awsdns-24.net',
       ],
+    });
+
+    new Route53.DsRecord(this, 'gn-webform-submissionstorage-prod-ds', {
+      zone: this.cspNijmegenZone,
+      recordName: 'submissionstorage-prod',
+      values: ['33804 13 2 04EF6D716B95E5186E94047FDAA640F002DCF34FCB332D1B506FF92271896C1D'],
     });
 
     // Records for yivi-nijmegen-accp
