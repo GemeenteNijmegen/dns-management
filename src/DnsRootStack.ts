@@ -493,6 +493,19 @@ export class DnsRootStack extends cdk.Stack {
         'ns-257.awsdns-32.com',
       ],
     });
+
+    // Records for webform-submission-storage-accp
+    new Route53.NsRecord(this, 'gn-webform-submission-storage-accp-ns', {
+      zone: this.cspNijmegenZone,
+      recordName: 'submissionstorage-accp',
+      values: [
+        'ns-1253.awsdns-28.org',
+        'ns-238.awsdns-29.com',
+        'ns-741.awsdns-28.net',
+        'ns-1677.awsdns-17.co.uk',
+      ],
+    });
+
     // Records for webform-submission-storag-prod
     new Route53.NsRecord(this, 'gn-webform-submission-storag-prod-ns', {
       zone: this.cspNijmegenZone,
