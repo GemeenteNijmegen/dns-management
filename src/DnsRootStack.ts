@@ -558,6 +558,30 @@ export class DnsRootStack extends cdk.Stack {
       ],
     );
 
+    // Records for sociale-recherche-accp
+    new Route53.NsRecord(this, 'gn-sociale-recherche-accp-ns', {
+      zone: this.cspNijmegenZone,
+      recordName: 'sociale-recherche-accp',
+      values: [
+        'ns-1309.awsdns-35.org',
+        'ns-832.awsdns-40.net',
+        'ns-419.awsdns-52.com',
+        'ns-2007.awsdns-58.co.uk',
+      ],
+    });
+
+    // Records for sociale-recherche-accp
+    new Route53.NsRecord(this, 'gn-sociale-recherche-prod-ns', {
+      zone: this.cspNijmegenZone,
+      recordName: 'sociale-recherche-prod',
+      values: [
+        'ns-584.awsdns-09.net',
+        'ns-1696.awsdns-20.co.uk',
+        'ns-449.awsdns-56.com',
+        'ns-1218.awsdns-24.org',
+      ],
+    });
+
   }
 
   addNsAndDsRecordForAccount(name: string, dsValue: string, nsValues: string[]) {
