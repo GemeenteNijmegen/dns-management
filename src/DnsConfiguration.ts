@@ -329,4 +329,22 @@ export const DnsConfigurationNewLz: AccountConfiguration[] = [
     deployDnsStack: true,
     registerInCspNijmegenRoot: true,
   },
+  {
+    environment: Statics.gnSocialeRechercheAccp,
+    name: 'sociale-recherche-accp',
+    dnsRootEnvironment: Statics.gnNetworkEnvironment,
+    enableDnsSec: false,
+    deployDnsSecKmsKey: false,
+    deployDnsStack: true,
+    registerInCspNijmegenRoot: true,
+  },
+  {
+    environment: Statics.gnSocialeRechercheProd,
+    name: 'sociale-recherche-prod',
+    dnsRootEnvironment: Statics.gnNetworkEnvironment,
+    enableDnsSec: false,
+    deployDnsSecKmsKey: false,
+    deployDnsStack: true,
+    registerInCspNijmegenRoot: true,
+  },
 ];
