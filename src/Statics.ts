@@ -254,6 +254,16 @@ export class Statics {
     region: 'eu-central-1',
   };
 
+  static readonly gnSocialeRechercheAccp = {
+    account: '543802458112',
+    region: 'eu-central-1',
+  };
+
+  static readonly gnSocialeRechercheProd = {
+    account: '958875843009',
+    region: 'eu-central-1',
+  };
+
 
   /**
    * Create a role name (used for registration and assuming the role)
