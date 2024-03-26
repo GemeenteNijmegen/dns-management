@@ -97,17 +97,16 @@ export class DnsRootStack extends cdk.Stack {
    * Therefore they are set here instad of in the projects
    */
   createRootCertificateValidationRecords() {
-    new Route53.CnameRecord(this, 'mijn-validation-record-prod', { // mijn-nijmegen prod - esb
-      zone: this.cspNijmegenZone,
-      recordName: '_4588e69b1b76bc5be539b7c806bb3997',
-      domainName: 'b74dfb03fee04da5fc9f34760ae7c822.3848d0265a5bf6527c915d7c436a9901.comodoca.com.',
-    });
     new Route53.CnameRecord(this, 'mijn-validation-record-accp', { // mijn-nijmegen accp - esb
       zone: this.cspNijmegenZone,
       recordName: '_bad8ee6a4a83dc702b00b2a56b247c2b',
       domainName: 'da505453e2d0f774ea88e8da8e04f047.7314b2ac6463a4e254bbad8710ad7ced.comodoca.com.',
     });
-
+    new Route53.CnameRecord(this, 'mijn-nijmegen-validation-record-prod', { // mijn-nijmegen prod - esb (mijn-uitkeringen certificaat) TODO: acceptatie
+      zone: this.cspNijmegenZone,
+      recordName: '_321FEE2A85EECDD51AF4F0F43F85A506',
+      domainName: '9FD6D6ECE9FA41042D97040DB771CE77.D1959DEEA04645EDF8080C2181A54D6B.sectigo.com',
+    });
     new Route53.CnameRecord(this, 'webformulieren-validation-record-prod', { // Webformulieren prod - esb (auht.csp-nijmegen.nl)
       zone: this.cspNijmegenZone,
       recordName: '_578630817267b977076c44d1065f484d',
