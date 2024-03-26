@@ -105,7 +105,7 @@ export class DnsRootStack extends cdk.Stack {
     new Route53.CnameRecord(this, 'mijn-nijmegen-validation-record-prod', { // mijn-nijmegen prod - esb (mijn-uitkeringen certificaat) TODO: acceptatie
       zone: this.cspNijmegenZone,
       recordName: '_321FEE2A85EECDD51AF4F0F43F85A506',
-      domainName: '9FD6D6ECE9FA41042D97040DB771CE77.D1959DEEA04645EDF8080C2181A54D6B.sectigo.com',
+      domainName: '9FD6D6ECE9FA41042D97040DB771CE77.D1959DEEA04645EDF8080C2181A54D6B.sectigo.com.',
     });
     new Route53.CnameRecord(this, 'webformulieren-validation-record-prod', { // Webformulieren prod - esb (auht.csp-nijmegen.nl)
       zone: this.cspNijmegenZone,
