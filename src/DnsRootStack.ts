@@ -97,12 +97,12 @@ export class DnsRootStack extends cdk.Stack {
    * Therefore they are set here instad of in the projects
    */
   createRootCertificateValidationRecords() {
-    new Route53.CnameRecord(this, 'mijn-validation-record-accp', { // mijn-nijmegen accp - esb
+    new Route53.CnameRecord(this, 'mijn-validation-record-accp', { // mijn-nijmegen accp - esb (mijn-uitkering certificaat)
       zone: this.cspNijmegenZone,
-      recordName: '_bad8ee6a4a83dc702b00b2a56b247c2b',
-      domainName: 'da505453e2d0f774ea88e8da8e04f047.7314b2ac6463a4e254bbad8710ad7ced.comodoca.com.',
+      recordName: '_83670523E9AB46362639CA116FA1B1EF',
+      domainName: 'B7C0EC8200218ECC599FEB69269D75E6.AB58323A71260282B88A2A4F0E8A64DF.sectigo.com.',
     });
-    new Route53.CnameRecord(this, 'mijn-nijmegen-validation-record-prod', { // mijn-nijmegen prod - esb (mijn-uitkeringen certificaat) TODO: acceptatie
+    new Route53.CnameRecord(this, 'mijn-nijmegen-validation-record-prod', { // mijn-nijmegen prod - esb (mijn-uitkering certificaat)
       zone: this.cspNijmegenZone,
       recordName: '_321FEE2A85EECDD51AF4F0F43F85A506',
       domainName: '9FD6D6ECE9FA41042D97040DB771CE77.D1959DEEA04645EDF8080C2181A54D6B.sectigo.com.',
