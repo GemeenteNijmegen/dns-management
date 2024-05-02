@@ -42,7 +42,7 @@ export class DnsSecStack extends cdk.Stack {
         region: '',
       });
 
-      const toplevleHostedzone = this.importSubHostedzone(props);
+      const toplevleHostedzone = this.importToplevelHostedzone(props);
       new DnssecRecordStruct(this, 'record', {
         hostedZone: subHostedzone,
         keySigningKey: ksk,

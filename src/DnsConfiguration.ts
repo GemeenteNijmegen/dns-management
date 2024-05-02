@@ -122,7 +122,8 @@ export const DnsConfiguration: SubdomainConfiguration[] = [
   {
     environment: Statics.gnSandboxMarnix,
     name: 'sandbox-marnix',
-    enableDnsSec: false,
+    enableDnsSec: true,
+    addDSRecord: true, // Test DS automatic record creation
   },
   {
     environment: Statics.gnSandbox01,
