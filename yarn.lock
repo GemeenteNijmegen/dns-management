@@ -891,10 +891,10 @@
   resolved "https://registry.yarnpkg.com/@gemeentenijmegen/aws-constructs/-/aws-constructs-0.0.10.tgz#b85fe149c9546d541ab5c8e90d302c0561086701"
   integrity sha512-mJi2rJ0jLRrx7cuAjtAWYm5nPYDPxMz//c27ptElLKgFxLRjELrnJhIGGofrqOJPaaSst8gWXDGWPcToG4B19g==
 
-"@gemeentenijmegen/dnssec-record@^0.0.13":
-  version "0.0.13"
-  resolved "https://registry.yarnpkg.com/@gemeentenijmegen/dnssec-record/-/dnssec-record-0.0.13.tgz#2a2b4e110f8652372bb3be7107b1f78aee0c4354"
-  integrity sha512-6AQh1ksdA3tPM+3TrGxdBULGiskz4OV/oFLMU6ZdKBhg4XB0448AmSkAxIB7xspzix2ZKexmg5Wc4SAD+IASRg==
+"@gemeentenijmegen/dnssec-record@^0.0.14":
+  version "0.0.14"
+  resolved "https://registry.yarnpkg.com/@gemeentenijmegen/dnssec-record/-/dnssec-record-0.0.14.tgz#7dde7bd37c04479895dd3085ba39d4165fdb9fc8"
+  integrity sha512-RmtsZe6nCL5D3F1YZcpiAmK6CQW5eV3Nf6ZGPPx65PeqNDLbTw9CPsm+tNPCfQhElIMXAsw7E3IhwzEsirefMQ==
   dependencies:
     "@aws-sdk/client-route-53" "^3.565.0"
     "@aws-sdk/client-sts" "^3.565.0"

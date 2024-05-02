@@ -48,7 +48,7 @@ export class DnsSecStack extends cdk.Stack {
         keySigningKey: ksk,
         parentHostedZone: toplevleHostedzone,
         roleToAssume: roleArn,
-        forceUpdate: 'QFJ39Oej', // Change to force update all DS records
+        forceUpdate: 'QF034pqaln', // Change to force update all DS records
       });
     }
 
