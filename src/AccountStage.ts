@@ -1,16 +1,12 @@
 import { PermissionsBoundaryAspect } from '@gemeentenijmegen/aws-constructs';
-import { Aspects, Environment, Stage, StageProps } from 'aws-cdk-lib';
+import { Aspects, Stage, StageProps } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
+import { Configurable } from './Configuration';
+import { SubdomainConfigurable } from './DnsConfiguration';
 import { DnsSecStack } from './DnsSecStack';
 import { DnsStack } from './DnsStack';
 
-export interface AccountStageProps extends StageProps {
-  name: string;
-  dnsRootEnvironment: Environment;
-  deployDnsStack: boolean;
-  enableDnsSec: boolean;
-  deployDnsSecKmsKey: boolean;
-  registerInCspNijmegenRoot: boolean;
+export interface AccountStageProps extends StageProps, SubdomainConfigurable, Configurable {
 }
 
 export class AccountStage extends Stage {
@@ -23,35 +19,29 @@ export class AccountStage extends Stage {
 
     Aspects.of(this).add(new PermissionsBoundaryAspect());
 
-
-    // Deploy a hosted zone (sub domain of csp-nijmegen.nl)
-    if (props.deployDnsStack) {
-      if (props.dnsRootEnvironment.account == undefined) {
-        throw 'Account reference to csp root hosted zone account is empty, can not deploy subzones.';
-      }
-      this.dnsStack = new DnsStack(this, 'stack', {
-        dnsRootAccount: props.dnsRootEnvironment.account,
-        rootZoneName: 'csp-nijmegen.nl',
-        subzoneName: props.name,
-        registerInCspNijmegenRoot: props.registerInCspNijmegenRoot,
-      });
-
+    if (props.configuration.toplevelHostedzoneEnvironment.account == undefined) {
+      throw 'Account reference to csp root hosted zone account is empty, can not deploy subzones.';
     }
+
+    // Deploy a hosted zone (subdomain of the toplevel domain)
+    this.dnsStack = new DnsStack(this, 'stack', {
+      configuration: props.configuration,
+      subdomainConfiguration: props.subdomainConfiguration,
+    });
+
 
     // KMS key used for dnssec (must be in us-east-1)
-    if (props.deployDnsSecKmsKey) {
-      if (props.dnsRootEnvironment.region == undefined) {
+    if (props.subdomainConfiguration.enableDnsSec) {
+      if (props.configuration.toplevelHostedzoneEnvironment.region == undefined) {
         throw 'Region reference to csp root hosted zone account is empty, can not deploy dnssec stack.';
       }
+
       this.dnssecStack = new DnsSecStack(this, 'dnssec-stack', {
         env: { region: 'us-east-1' },
-        enableDnsSec: props.enableDnsSec,
-        lookupHostedZoneInRegion: props.dnsRootEnvironment.region,
+        configuration: props.configuration,
+        subdomainConfiguration: props.subdomainConfiguration,
       });
-    }
 
-    // Set the correct dependency
-    if (this.dnsStack != undefined && this.dnssecStack != undefined) {
       this.dnssecStack.addDependency(this.dnsStack);
     }
 

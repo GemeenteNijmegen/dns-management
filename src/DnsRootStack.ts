@@ -45,7 +45,7 @@ export class DnsRootStack extends cdk.Stack {
      * Note: the accetpance hosted zone is still named accp
      */
     const arn = this.cspNijmegenZone.hostedZoneArn;
-    props.configuration.dnsConfiguration.forEach(acc => {
+    props.configuration.subdomains.forEach(acc => {
       this.enableDelegationToAccount(arn, acc.environment, acc.name);
     });
 
