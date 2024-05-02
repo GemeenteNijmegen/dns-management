@@ -14,14 +14,16 @@ export class DnsRootStage extends Stage {
     Aspects.of(this).add(new PermissionsBoundaryAspect());
 
     new DnsRootStack(this, 'dns-stack', {
-      env: props.configuration.dnsRootEnvironment,
+      env: props.configuration.toplevelHostedzoneEnvironment,
       configuration: props.configuration,
     });
 
     new DnsSecStack(this, 'dnssec-stack', {
       env: { region: 'us-east-1' },
-      enableDnsSec: true,
-      lookupHostedZoneInRegion: props.configuration.dnsRootEnvironment.region,
+      configuration: props.configuration,
+      subdomainConfiguration: {
+        addDSRecord: false, // This is the root hostedzone so no parent
+      } as any, // Hack to still use this stack without a subdomain
     });
 
   }

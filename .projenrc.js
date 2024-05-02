@@ -18,6 +18,7 @@ const project = new awscdk.AwsCdkTypeScriptApp({
     'cdk-nag@^2.0.0',
     'cdk-remote-stack',
     '@gemeentenijmegen/aws-constructs',
+    '@gemeentenijmegen/dnssec-record',
   ],
   gitignore: [
     'test-reports/junit.xml',

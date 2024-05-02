@@ -27,18 +27,18 @@ export class PipelineStack extends Stack {
 
     // DNS root account
     const dnsRoot = new DnsRootStage(this, 'dns-management', {
-      env: props.configuration.dnsRootEnvironment,
+      env: props.configuration.toplevelHostedzoneEnvironment,
       configuration: props.configuration,
     });
     pipeline.addStage(dnsRoot);
 
     // Account stages
     const wave = pipeline.addWave('accounts');
-    props.configuration.dnsConfiguration.forEach(acc => {
-      const stageName = acc.overwriteStageName ?? acc.name;
-      const stage = new AccountStage(this, `dns-management-${stageName}`, {
-        env: acc.environment,
-        ...acc,
+    props.configuration.subdomains.forEach(subdomainConfiguration => {
+      const stage = new AccountStage(this, `dns-management-${subdomainConfiguration.name}`, {
+        configuration: props.configuration,
+        subdomainConfiguration: subdomainConfiguration,
+        env: subdomainConfiguration.environment,
       });
       wave.addStage(stage);
     });

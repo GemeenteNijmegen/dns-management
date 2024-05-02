@@ -1,25 +1,19 @@
+import { DnssecRecordStruct } from '@gemeentenijmegen/dnssec-record';
 import * as cdk from 'aws-cdk-lib';
 import { aws_ssm as SSM, Tags, aws_iam as IAM, aws_kms as KMS, aws_route53 as route53 } from 'aws-cdk-lib';
-import { NagSuppressions } from 'cdk-nag';
+import { HostedZone } from 'aws-cdk-lib/aws-route53';
 import { RemoteParameters } from 'cdk-remote-stack';
-import { Construct, IConstruct } from 'constructs';
+import { Construct } from 'constructs';
+import { Configurable } from './Configuration';
+import { SubdomainConfigurable } from './DnsConfiguration';
 import { Statics } from './Statics';
 
-export interface DnsSecStackProps extends cdk.StackProps {
-  /**
-   * If this stack is created it creats a KSM key
-   * set this to true to import the account hosted zone and enable dnssec on it
-   */
-  enableDnsSec: boolean;
-
-  lookupHostedZoneInRegion: string;
-}
+export interface DnsSecStackProps extends cdk.StackProps, SubdomainConfigurable, Configurable {}
 
 export class DnsSecStack extends cdk.Stack {
 
   constructor(scope: Construct, id: string, props: DnsSecStackProps) {
     super(scope, id, props);
-
     Tags.of(this).add('cdkManaged', 'yes');
     Tags.of(this).add('Project', Statics.projectName);
 
@@ -33,26 +27,57 @@ export class DnsSecStack extends cdk.Stack {
       parameterName: Statics.accountDnsSecKmsKey,
     });
 
-    if (props.enableDnsSec) {
-      this.enableDnsSecForAccountRootZone(dnssecKey.keyArn, props);
+    const subHostedzone = this.importSubHostedzone(props);
+    const ksk = this.enableDnsSecForAccountRootZone(dnssecKey.keyArn, subHostedzone.hostedZoneId);
+
+    if (props.subdomainConfiguration.addDSRecord) {
+
+      // Import the delegated role in the production account
+      const roleArn = cdk.Arn.format({
+        service: 'iam',
+        account: props.configuration.toplevelHostedzoneEnvironment.account,
+        resource: 'role',
+        resourceName: Statics.constructDelegationRoleName(props.subdomainConfiguration.name),
+        partition: 'aws',
+        region: '',
+      });
+
+      const toplevleHostedzone = this.importSubHostedzone(props);
+      new DnssecRecordStruct(this, 'record', {
+        hostedZone: subHostedzone,
+        keySigningKey: ksk,
+        parentHostedZone: toplevleHostedzone,
+        roleToAssume: roleArn,
+      });
     }
 
+
+  }
+
+  importToplevelHostedzone(props: DnsSecStackProps) {
+    return HostedZone.fromHostedZoneAttributes(this, 'toplevel-hostedzone', {
+      zoneName: props.configuration.toplevelHostedzoneName,
+      hostedZoneId: props.configuration.toplevelHostedzoneId,
+    });
+  }
+
+  importSubHostedzone(props: DnsSecStackProps) {
+    // Import the hosted zone id from target region
+    const parameters = new RemoteParameters(this, 'hosted-zone-parameters', {
+      path: Statics.envRootHostedZonePath,
+      region: props.configuration.toplevelHostedzoneEnvironment.region,
+    });
+    return HostedZone.fromHostedZoneAttributes(this, 'sub-hostedzone', {
+      zoneName: parameters.get(Statics.envRootHostedZoneName),
+      hostedZoneId: parameters.get(Statics.envRootHostedZoneId),
+    });
   }
 
   /**
    * Enable DNSSEC usign the KMS key from this stack for the account root hosted zone.
    * @param keyArn
    */
-  enableDnsSecForAccountRootZone(keyArn: string, props: DnsSecStackProps) {
-
-    // Import the hosted zone id from eu-west-1
-    const parameters = new RemoteParameters(this, 'hosted-zone-parameters', {
-      path: Statics.envRootHostedZonePath,
-      region: props.lookupHostedZoneInRegion,
-    });
-    this.suppressNaggingRemoteParameters(parameters);
-    const hostedZoneId = parameters.get(Statics.envRootHostedZoneId);
-
+  enableDnsSecForAccountRootZone(keyArn: string, hostedZoneId: string) {
 
     // Create a ksk for the hosted zone
     const ksk = new route53.CfnKeySigningKey(this, 'account-ksk', {
@@ -70,6 +95,7 @@ export class DnsSecStack extends cdk.Stack {
     // Make sure the ksk exists before enabling dnssec
     dnssec.node.addDependency(ksk);
 
+    return ksk;
   }
 
   /**
@@ -135,43 +161,6 @@ export class DnsSecStack extends cdk.Stack {
 
     dnssecKmsKey.addAlias(alias);
     return dnssecKmsKey;
-  }
-
-
-  suppressNaggingRemoteParameters(parameters: IConstruct) {
-    NagSuppressions.addResourceSuppressions(parameters, [
-      {
-        id: 'AwsSolutions-IAM4',
-        reason: 'We do not have control over RemoteParameters construct, its an external package',
-      },
-      {
-        id: 'AwsSolutions-IAM5',
-        reason: 'We do not have control over RemoteParameters construct, its an external package',
-      },
-      {
-        id: 'AwsSolutions-L1',
-        reason: 'Lambda (in package remote-parameters) has a python version of 3.8, this is not the newest version',
-      },
-    ], true);
-
-    /**
-     * The lambda can't be directely access so we'll supress this on stack level
-     */
-    NagSuppressions.addStackSuppressions(
-      this,
-      [
-        {
-          id: 'AwsSolutions-IAM4',
-          reason: 'Lambda (in package remote-parameters) needs to be able to create and write to a log group',
-          appliesTo: ['Policy::arn:<AWS::Partition>:iam::aws:policy/service-role/AWSLambdaBasicExecutionRole'],
-        },
-        {
-          id: 'AwsSolutions-IAM5',
-          reason: 'Lambda (in package remote-parameters) needs to be able to create and write to a log group',
-          appliesTo: ['Resource::*'],
-        },
-      ], true,
-    );
   }
 
 }
