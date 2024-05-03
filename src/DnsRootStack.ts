@@ -253,10 +253,15 @@ export class DnsRootStack extends cdk.Stack {
         delegation: new IAM.PolicyDocument({
           statements: [
             new IAM.PolicyStatement({
-              actions: ['route53:ChangeResourceRecordSets'],
+              effect: IAM.Effect.ALLOW,
+              actions: [
+                'route53:ChangeResourceRecordSets',
+                'route53:GetChange',
+              ],
               resources: [arn],
             }),
             new IAM.PolicyStatement({
+              effect: IAM.Effect.ALLOW,
               actions: ['route53:ListHostedZonesByName'],
               resources: ['*'],
             }),
