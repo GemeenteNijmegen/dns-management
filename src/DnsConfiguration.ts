@@ -15,9 +15,8 @@ export interface SubdomainConfiguration {
    */
   enableDnsSec: boolean;
   /**
-   * If true try to add the DS record to the root hostedzone
-   * TEMPORARILY ADDED TO TEST NEW DS RECORD CREATION FOR ON ACCOUNT AT A TIME
-   * @default false
+   * If true add the DS record to the root hostedzone
+   * @default true
    */
   addDSRecord?: boolean;
 }
@@ -123,7 +122,6 @@ export const DnsConfiguration: SubdomainConfiguration[] = [
     environment: Statics.gnSandboxMarnix,
     name: 'sandbox-marnix',
     enableDnsSec: true,
-    addDSRecord: true, // Test DS automatic record creation
   },
   {
     environment: Statics.gnSandbox01,
@@ -139,7 +137,6 @@ export const DnsConfiguration: SubdomainConfiguration[] = [
     environment: Statics.gnSubmissionStorageAccp,
     name: 'submissionstorage-accp',
     enableDnsSec: true,
-    addDSRecord: true, // Test DS automatic record creation (2)
   },
   {
     environment: Statics.gnSubmissionStorageProd,

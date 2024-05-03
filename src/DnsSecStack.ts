@@ -1,7 +1,7 @@
 import { DnssecRecordStruct } from '@gemeentenijmegen/dnssec-record';
 import * as cdk from 'aws-cdk-lib';
 import { aws_ssm as SSM, Tags, aws_iam as IAM, aws_kms as KMS, aws_route53 as route53 } from 'aws-cdk-lib';
-import { HostedZone } from 'aws-cdk-lib/aws-route53';
+import { CfnKeySigningKey, HostedZone, IHostedZone } from 'aws-cdk-lib/aws-route53';
 import { RemoteParameters } from 'cdk-remote-stack';
 import { Construct } from 'constructs';
 import { Configurable } from './Configuration';
@@ -30,29 +30,32 @@ export class DnsSecStack extends cdk.Stack {
     const subHostedzone = this.importSubHostedzone(props);
     const ksk = this.enableDnsSecForAccountRootZone(dnssecKey.keyArn, subHostedzone.hostedZoneId);
 
-    if (props.subdomainConfiguration.addDSRecord) {
-
-      // Import the delegated role in the production account
-      const roleArn = cdk.Arn.format({
-        service: 'iam',
-        account: props.configuration.toplevelHostedzoneEnvironment.account,
-        resource: 'role',
-        resourceName: Statics.constructDelegationRoleName(props.subdomainConfiguration.name),
-        partition: 'aws',
-        region: '',
-      });
-
-      const toplevleHostedzone = this.importToplevelHostedzone(props);
-      new DnssecRecordStruct(this, 'record', {
-        hostedZone: subHostedzone,
-        keySigningKey: ksk,
-        parentHostedZone: toplevleHostedzone,
-        roleToAssume: roleArn,
-        forceUpdate: 'QF034pqaln', // Change to force update all DS records
-      });
+    const addDSRecord = props.subdomainConfiguration.addDSRecord;
+    if (addDSRecord !== false) {
+      this.addDsRecord(props, subHostedzone, ksk);
     }
 
+  }
 
+  addDsRecord(props: DnsSecStackProps, subHostedzone: IHostedZone, ksk: CfnKeySigningKey) {
+    // Import the delegated role in the production account
+    const roleArn = cdk.Arn.format({
+      service: 'iam',
+      account: props.configuration.toplevelHostedzoneEnvironment.account,
+      resource: 'role',
+      resourceName: Statics.constructDelegationRoleName(props.subdomainConfiguration.name),
+      partition: 'aws',
+      region: '',
+    });
+
+    const toplevleHostedzone = this.importToplevelHostedzone(props);
+    new DnssecRecordStruct(this, 'record', {
+      hostedZone: subHostedzone,
+      keySigningKey: ksk,
+      parentHostedZone: toplevleHostedzone,
+      roleToAssume: roleArn,
+      forceUpdate: 'QF034pqaln', // Change to force update all DS records
+    });
   }
 
   importToplevelHostedzone(props: DnsSecStackProps) {
