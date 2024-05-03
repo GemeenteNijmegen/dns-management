@@ -2,7 +2,6 @@ import { PermissionsBoundaryAspect } from '@gemeentenijmegen/aws-constructs';
 import { Stack, StackProps, Tags, pipelines, Aspects } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import { AccountStage } from './AccountStage';
-import { AuthAccpStage } from './AuthAccpStage';
 import { Configurable } from './Configuration';
 import { DnsRootStage } from './DnsRootStage';
 import { Statics } from './Statics';
@@ -42,14 +41,6 @@ export class PipelineStack extends Stack {
       });
       wave.addStage(stage);
     });
-
-    if (props.configuration.branchName == 'production') {
-      // Acceptance records
-      const authAccpRecordStage = new AuthAccpStage(this, 'dns-management-acceptance-records', {
-        env: Statics.authAccpEnvironment,
-      });
-      pipeline.addStage(authAccpRecordStage);
-    }
 
   }
 

@@ -56,11 +56,6 @@ export interface Configuration {
    */
   cnameRecords?: { [key: string]: string };
 
-  /**
-   * DS records to add
-   * Note: do not add csp-nijmegen.nl suffix (route53 will add this for us).
-   */
-  dsRecords?: { [key: string]: string };
 }
 
 export interface Configurable {
@@ -82,10 +77,6 @@ export const configurations: { [key: string]: Configuration } = {
     toplevelHostedzoneName: 'csp-nijmegen.nl',
     toplevelHostedzoneEnvironment: Statics.gnNetworkEnvironment,
     subdomains: DnsConfiguration,
-    dsRecords: {
-      'yivi-accp': '51061 13 2 83F061A07CDB0044033CEB74E91E92B054E0A92588420F137F9B54272158A13B',
-      'yivi-prod': '46016 13 2 6A12D4BB10AC8EA7E4FEB622F8BD1E9395824B39AD0A38A0EE42577199ACFFA1',
-    },
   },
 };
 
