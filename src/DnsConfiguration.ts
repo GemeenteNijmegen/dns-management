@@ -139,6 +139,7 @@ export const DnsConfiguration: SubdomainConfiguration[] = [
     environment: Statics.gnSubmissionStorageAccp,
     name: 'submissionstorage-accp',
     enableDnsSec: true,
+    addDSRecord: true, // Test DS automatic record creation (2)
   },
   {
     environment: Statics.gnSubmissionStorageProd,
