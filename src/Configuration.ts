@@ -65,7 +65,7 @@ export interface Configurable {
 export const configurations: { [key: string]: Configuration } = {
   main: {
     branchName: 'main',
-    codeStartConnectionArn: Statics.codeStarConnectionArnNewLz,
+    codeStartConnectionArn: Statics.codeStarConnectionArn,
     deploymentEnvironment: Statics.gnBuildEnvironment,
     /**
      * Not the most beautiful solution as this is a resrouce in the
