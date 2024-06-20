@@ -1,20 +1,10 @@
 export class Statics {
   static readonly projectName: string = 'dns-management';
 
-  // In prod and accp the root hosted zone can be obtained using
-  // static readonly cspRootHostedZoneId: string = '/gemeente-nijmegen/formio/hostedzone/id';
-  // static readonly cspRootHostedZoneName: string = '/gemeente-nijmegen/formFio/hostedzone/name';
-
   // In newer accounts use these two to obtain the hostedzone
   static readonly envRootHostedZonePath: string = '/gemeente-nijmegen/account/hostedzone';
   static readonly envRootHostedZoneId: string = '/gemeente-nijmegen/account/hostedzone/id';
   static readonly envRootHostedZoneName: string = '/gemeente-nijmegen/account/hostedzone/name';
-
-  // csp-nijmegen.nl hosted zone
-  // static readonly cspNijmegenHostedZonePath: string = '/gemeente-nijmegen/csp/hostedzone';
-  // static readonly cspNijmegenHostedZoneId: string = '/gemeente-nijmegen/csp/hostedzone/id';
-  // static readonly cspNijmegenHostedZoneName: string = '/gemeente-nijmegen/csp/hostedzone/name';
-
 
   // The KSM key parameters for each account
   static readonly accountDnsSecKmsKey: string = '/gemeente-nijmegen/account/dnssec/kmskey/arn';
