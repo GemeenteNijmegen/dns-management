@@ -77,6 +77,9 @@ export const configurations: { [key: string]: Configuration } = {
     toplevelHostedzoneName: 'csp-nijmegen.nl',
     toplevelHostedzoneEnvironment: Statics.gnNetworkEnvironment,
     subdomains: DnsConfiguration,
+    cnameRecords: {
+      _3A602293AB37C2AFB01044F2F6DC9191: 'AA0DACEA5D9C0E25CEE904EC66B9C804.DAFE96A47ABE38F072197F7D851974D3.sectigo.com', //auth.csp-nijmegen.nl validation '24
+    },
   },
 };
 
