@@ -173,6 +173,15 @@ export class Statics {
     region: 'eu-central-1',
   };
 
+  static readonly gnMijnServicesAccp = {
+    account: '145023129433',
+    region: 'eu-central-1',
+  };
+
+  static readonly gnMijnServicesProd = {
+    account: '692859927138',
+    region: 'eu-central-1',
+  };
 
   /**
    * Create a role name (used for registration and assuming the role)

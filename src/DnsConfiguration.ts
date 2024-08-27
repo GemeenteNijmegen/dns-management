@@ -168,4 +168,14 @@ export const DnsConfiguration: SubdomainConfiguration[] = [
     name: 'sociale-recherche-prod',
     enableDnsSec: false,
   },
+  {
+    environment: Statics.gnMijnServicesAccp,
+    name: 'mijn-services-accp',
+    enableDnsSec: true,
+  },
+  {
+    environment: Statics.gnMijnServicesProd,
+    name: 'mijn-services-prod',
+    enableDnsSec: true,
+  },
 ];
