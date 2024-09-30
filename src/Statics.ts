@@ -188,6 +188,16 @@ export class Statics {
     region: 'eu-central-1',
   };
 
+  static readonly gnHaalCentraalBrpAccp = {
+    account: '448049813413',
+    region: 'eu-central-1',
+  };
+
+  static readonly gnHaalCentraalBrpProd = {
+    account: '980921728594',
+    region: 'eu-central-1',
+  };
+
   /**
    * Create a role name (used for registration and assuming the role)
    * @param name

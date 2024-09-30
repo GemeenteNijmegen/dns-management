@@ -183,4 +183,14 @@ export const DnsConfiguration: SubdomainConfiguration[] = [
     name: 'haal-centraal-brp-dev',
     enableDnsSec: true,
   },
+  {
+    environment: Statics.gnHaalCentraalBrpAccp,
+    name: 'haal-centraal-brp-accp',
+    enableDnsSec: true,
+  },
+  {
+    environment: Statics.gnHaalCentraalBrpProd,
+    name: 'haal-centraal-brp-prod',
+    enableDnsSec: true,
+  },
 ];

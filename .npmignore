@@ -24,4 +24,3 @@ tsconfig.tsbuildinfo
 !/assets/
 cdk.out/
 .cdk.staging/
-/.gitattributes
