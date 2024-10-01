@@ -4,8 +4,11 @@ name: release
 on:
   push:
     branches:
-      - production
+      - main
   workflow_dispatch: {}
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
 jobs:
   release:
     runs-on: ubuntu-latest
@@ -29,8 +32,8 @@ jobs:
         uses: scottbrenner/cfn-lint-action@v2
       - name: Install dependencies
         run: yarn install --check-files --frozen-lockfile
-      - name: release:production
-        run: npx projen release:production
+      - name: release
+        run: npx projen release
       - name: cfn-lint
         run: npx projen lint
       - name: Check if version has already been tagged
@@ -50,7 +53,7 @@ jobs:
         continue-on-error: true
       - name: Upload artifact
         if: ${{ steps.git_remote.outputs.latest_commit == github.sha }}
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v4.4.0
         with:
           name: build-artifact
           path: dist
@@ -65,7 +68,7 @@ jobs:
     steps:
       - uses: actions/setup-node@v4
         with:
-          node-version: 18.x
+          node-version: lts/*
       - name: Download build artifacts
         uses: actions/download-artifact@v4
         with:

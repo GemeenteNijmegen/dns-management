@@ -2,13 +2,14 @@ const { awscdk } = require('projen');
 const project = new awscdk.AwsCdkTypeScriptApp({
   cdkVersion: '2.20.0',
   name: 'dns-management',
+  repository: 'https://github.com/GemeenteNijmegen/dns-management.git',
   license: 'EUPL-1.2',
   release: true,
-  defaultReleaseBranch: 'production',
+  defaultReleaseBranch: 'main',
   majorVersion: 1,
   depsUpgradeOptions: {
     workflowOptions: {
-      branches: ['production'],
+      branches: ['main'],
     },
   },
   scripts: {
