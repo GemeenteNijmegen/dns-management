@@ -78,7 +78,7 @@ export const configurations: { [key: string]: Configuration } = {
     toplevelHostedzoneEnvironment: Statics.gnNetworkEnvironment,
     subdomains: DnsConfiguration,
     cnameRecords: {
-      _3A602293AB37C2AFB01044F2F6DC9191: 'AA0DACEA5D9C0E25CEE904EC66B9C804.DAFE96A47ABE38F072197F7D851974D3.sectigo.com', //auth.csp-nijmegen.nl validation '24
+      _96AB508969E6DB3AFAF156DA267846BF: '62702E086A917F69A9FCBE762992974B.4388E4608BAD7470083C0FCDA22E9885.sectigo.com', //auth-accp.csp-nijmegen.nl validation '24
     },
   },
 };
