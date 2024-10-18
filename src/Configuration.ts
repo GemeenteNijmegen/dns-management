@@ -78,7 +78,7 @@ export const configurations: { [key: string]: Configuration } = {
     toplevelHostedzoneEnvironment: Statics.gnNetworkEnvironment,
     subdomains: DnsConfiguration,
     cnameRecords: {
-      _96AB508969E6DB3AFAF156DA267846BF: '62702E086A917F69A9FCBE762992974B.4388E4608BAD7470083C0FCDA22E9885.sectigo.com', //auth-accp.csp-nijmegen.nl validation '24
+      _AED22C243BC91CD44FA5490DD8E0B9AE: 'EBF0720EF31A64B0A6206D7FBD3BFF61.EB6C879240E9234F8DC603564EA16AC9.sectigo.com', //brp haal centraal dev
     },
   },
 };
