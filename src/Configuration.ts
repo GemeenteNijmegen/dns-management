@@ -78,7 +78,7 @@ export const configurations: { [key: string]: Configuration } = {
     toplevelHostedzoneEnvironment: Statics.gnNetworkEnvironment,
     subdomains: DnsConfiguration,
     cnameRecords: {
-      _AED22C243BC91CD44FA5490DD8E0B9AE: 'EBF0720EF31A64B0A6206D7FBD3BFF61.EB6C879240E9234F8DC603564EA16AC9.sectigo.com', //brp haal centraal dev
+      _B65AA75030DCDA97722EF8A90C06AB24: '0CB678D5F992DC431D68A2755D422E03.B2844970D80D2284833FB700489242D8.sectigo.com', //brp haal centraal prod
     },
   },
 };
