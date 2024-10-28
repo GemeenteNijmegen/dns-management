@@ -198,6 +198,17 @@ export class Statics {
     region: 'eu-central-1',
   };
 
+  static readonly gnOpenFormsAccp = {
+    account: '043309345347',
+    region: 'eu-central-1',
+  };
+
+  static readonly gnOpenFormsProd = {
+    account: '761018864362',
+    region: 'eu-central-1',
+  };
+
+
   /**
    * Create a role name (used for registration and assuming the role)
    * @param name

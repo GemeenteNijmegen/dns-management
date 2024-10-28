@@ -193,4 +193,14 @@ export const DnsConfiguration: SubdomainConfiguration[] = [
     name: 'haal-centraal-brp-prod',
     enableDnsSec: true,
   },
+  {
+    environment: Statics.gnOpenFormsAccp,
+    name: 'open-forms-accp',
+    enableDnsSec: true,
+  },
+  {
+    environment: Statics.gnOpenFormsProd,
+    name: 'open-forms-prod',
+    enableDnsSec: true,
+  },
 ];
