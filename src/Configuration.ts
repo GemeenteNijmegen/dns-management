@@ -78,7 +78,8 @@ export const configurations: { [key: string]: Configuration } = {
     toplevelHostedzoneEnvironment: Statics.gnNetworkEnvironment,
     subdomains: DnsConfiguration,
     cnameRecords: {
-      _B65AA75030DCDA97722EF8A90C06AB24: '0CB678D5F992DC431D68A2755D422E03.B2844970D80D2284833FB700489242D8.sectigo.com', //brp haal centraal prod
+      _E08929E0EC921D45B6E1CCF5C4B0F093: 'A1E30CCF44BAC992E9EDD9DBC9BBF749.439F3BB1F431B7EBCC8B2A6D000A702F.sectigo.com', //irma-issue.accp validatierecord sectigo
+      _9BEA4A379E8D4D8F3E064F2BD65471AE: '0275A5AEC9C1B52FD398E9939058B202.9EFCFFBBFE17705E183F0FFECD16026F.sectigo.com', //irma-issue.auth-prod validatierecord sectigo
     },
   },
 };
