@@ -78,8 +78,8 @@ export const configurations: { [key: string]: Configuration } = {
     toplevelHostedzoneEnvironment: Statics.gnNetworkEnvironment,
     subdomains: DnsConfiguration,
     cnameRecords: {
-      _E08929E0EC921D45B6E1CCF5C4B0F093: 'A1E30CCF44BAC992E9EDD9DBC9BBF749.439F3BB1F431B7EBCC8B2A6D000A702F.sectigo.com', //irma-issue.accp validatierecord sectigo
-      _9BEA4A379E8D4D8F3E064F2BD65471AE: '0275A5AEC9C1B52FD398E9939058B202.9EFCFFBBFE17705E183F0FFECD16026F.sectigo.com', //irma-issue.auth-prod validatierecord sectigo
+      _F2D03DDF63A4C64F08674EB6F7FF67E3: '7479115D82F8E6B190210DB579233DED.02A564957A3A8F959B683864EDA65D91.sectigo.com', //tribebrp.generiek-accp validatierecord sectigo
+      _61493014859E684FB0B392DD7007C7B3: '019B07E2238CA9C45F3B64ABB5B74570.AFBD1537869BE1A0AE76602B54AF9C27.sectigo.com', //tribebrp.generiek-prod validatierecord sectigo
     },
   },
 };
