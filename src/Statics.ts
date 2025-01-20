@@ -208,6 +208,15 @@ export class Statics {
     region: 'eu-central-1',
   };
 
+  static readonly gnVerzoekserviceWerkInkomenAccp = {
+    account: '528757829324',
+    region: 'eu-central-1',
+  };
+
+  static readonly gnVerzoekserviceWerkInkomenProd = {
+    account: '222634384969',
+    region: 'eu-central-1',
+  };
 
   /**
    * Create a role name (used for registration and assuming the role)

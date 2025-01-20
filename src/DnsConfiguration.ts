@@ -203,4 +203,14 @@ export const DnsConfiguration: SubdomainConfiguration[] = [
     name: 'open-forms-prod',
     enableDnsSec: true,
   },
+  {
+    environment: Statics.gnVerzoekserviceWerkInkomenAccp,
+    name: 'vwi-accp',
+    enableDnsSec: true,
+  },
+  {
+    environment: Statics.gnVerzoekserviceWerkInkomenProd,
+    name: 'vwi-prod',
+    enableDnsSec: true,
+  },
 ];
