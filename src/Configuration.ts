@@ -79,6 +79,7 @@ export const configurations: { [key: string]: Configuration } = {
     subdomains: DnsConfiguration,
     cnameRecords: {
       _16CF4D27263C264AA528D30B0C189FD7: '636E74F515CBF2C561510AC2019363DE.A849E9FC566D59538484CDE17F9AD382.sectigo.com', //vwi-accp.csp-nijmegen.nl
+      _04B53C0AB10852A9297D1488CEB7BB74: '337B8E86657ECF0E49B878E5D708237B.C869CF1543BABDE44034DCB374ADC35C.sectigo.com', //vwi-prod.csp-nijmegen.nl
     },
   },
 };
