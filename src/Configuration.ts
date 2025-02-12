@@ -79,7 +79,7 @@ export const configurations: { [key: string]: Configuration } = {
     subdomains: DnsConfiguration,
     cnameRecords: {
       _8EB90A827CA30DF0D15CB819DEE19249: '8A412BC57C15888A1B5C21A9B751C49A.199F432B2A40913816D5A06328BC2384.sectigo.com', // open-forms-accp-haal-centraal.csp-nijmegen.nl
-   },
+    },
   },
 };
 
