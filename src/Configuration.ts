@@ -78,7 +78,9 @@ export const configurations: { [key: string]: Configuration } = {
     toplevelHostedzoneEnvironment: Statics.gnNetworkEnvironment,
     subdomains: DnsConfiguration,
     cnameRecords: {
-      _8EB90A827CA30DF0D15CB819DEE19249: '8A412BC57C15888A1B5C21A9B751C49A.199F432B2A40913816D5A06328BC2384.sectigo.com', // open-forms-accp-haal-centraal.csp-nijmegen.nl
+      _8EB90A827CA30DF0D15CB819DEE19249: '8A412BC57C15888A1B5C21A9B751C49A.199F432B2A40913816D5A06328BC2384.sectigo.com', // open-forms-accp-haal-centraal.csp-nijmegen.nl ACC
+      _AF223A96ADA542568F916E1154803133: 'C95A6867F0E432A3A074408D6FF308E9.521B7F0E5D88BCEB93571B37118FF6AF.sectigo.com', // open-forms-prod-haal-centraal.csp-nijmegen.nl PROD
+      _AD5B5643AC6346098EE5AE629BFDF6D1: 'C4ED21513132A46BE055394AA2C90CB6.181F0FC2F8C878F8A732442B605D7CB9.sectigo.com', // mijn-nijmegen-prod-haal-centraal.csp-nijmegen.nl PROD
     },
   },
 };
