@@ -1,4 +1,4 @@
-import { SubdomainConfiguration, DnsConfiguration } from './DnsConfiguration';
+import { DnsConfiguration, SubdomainConfiguration } from './DnsConfiguration';
 import { Statics } from './Statics';
 
 /**
@@ -59,7 +59,7 @@ export interface Configuration {
 }
 
 export interface Configurable {
-  configuration : Configuration;
+  configuration: Configuration;
 }
 
 export const configurations: { [key: string]: Configuration } = {
@@ -78,10 +78,8 @@ export const configurations: { [key: string]: Configuration } = {
     toplevelHostedzoneEnvironment: Statics.gnNetworkEnvironment,
     subdomains: DnsConfiguration,
     cnameRecords: {
-      _8EB90A827CA30DF0D15CB819DEE19249: '8A412BC57C15888A1B5C21A9B751C49A.199F432B2A40913816D5A06328BC2384.sectigo.com', // open-forms-accp-haal-centraal.csp-nijmegen.nl ACC
-      _AF223A96ADA542568F916E1154803133: 'C95A6867F0E432A3A074408D6FF308E9.521B7F0E5D88BCEB93571B37118FF6AF.sectigo.com', // open-forms-prod-haal-centraal.csp-nijmegen.nl PROD
-      _AD5B5643AC6346098EE5AE629BFDF6D1: 'C4ED21513132A46BE055394AA2C90CB6.181F0FC2F8C878F8A732442B605D7CB9.sectigo.com', // mijn-nijmegen-prod-haal-centraal.csp-nijmegen.nl PROD
-      _9BD575E4839D8E23C39E777EE1114398: 'B16C59AC61C65DD26282E0CFDA5E35F0.16C4B66F279D058BCB4C23A49F23B077.sectigo.com', // mijn-nijmegen-accp-haal-centraal.csp-nijmegen.nl ACCP
+      _4AD7955AD4BC254C93EAD3DBEC46DBA3: '5529E780D013D6ED5831826524335877.EB14BEB4616B3CD80C9C9D94EA3E91E9.sectigo.com',
+      _644E02EAA5A2EB209E1B54300DE508D2: '5BC7CC4A7DAA0EFD33240E8C6B7988A4.74C679F298D9B5E1C55A04F7FAE84864.sectigo.com',
     },
   },
 };
