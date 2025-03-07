@@ -114,16 +114,6 @@ export const DnsConfiguration: SubdomainConfiguration[] = [
     enableDnsSec: true,
   },
   {
-    environment: Statics.gnVerwerkingenloggingAccp,
-    name: 'vwlog-accp',
-    enableDnsSec: true,
-  },
-  {
-    environment: Statics.gnVerwerkingenloggingProd,
-    name: 'vwlog-prod',
-    enableDnsSec: true,
-  },
-  {
     environment: Statics.gnSandboxMarnix,
     name: 'sandbox-marnix',
     enableDnsSec: true,

@@ -128,16 +128,6 @@ export class Statics {
     region: 'eu-central-1',
   };
 
-  static readonly gnVerwerkingenloggingAccp = {
-    account: '649781704230',
-    region: 'eu-central-1',
-  };
-
-  static readonly gnVerwerkingenloggingProd = {
-    account: '887474129159',
-    region: 'eu-central-1',
-  };
-
   static readonly gnSubmissionStorageDev = {
     account: '358927146986',
     region: 'eu-central-1',
