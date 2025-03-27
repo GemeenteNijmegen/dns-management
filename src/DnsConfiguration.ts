@@ -46,7 +46,7 @@ export const DnsConfiguration: SubdomainConfiguration[] = [
   {
     environment: Statics.gnTribeBrpLinkerAccpEnvironment,
     name: 'tribebrplinker-accp',
-    enableDnsSec: false,
+    enableDnsSec: true,
   },
   {
     environment: Statics.gnTribeBrpLinkerAccpProduction,
