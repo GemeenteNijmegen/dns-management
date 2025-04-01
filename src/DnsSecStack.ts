@@ -70,6 +70,7 @@ export class DnsSecStack extends cdk.Stack {
     const parameters = new RemoteParameters(this, 'hosted-zone-parameters', {
       path: Statics.envRootHostedZonePath,
       region: props.configuration.toplevelHostedzoneEnvironment.region,
+      timeout: cdk.Duration.seconds(10),
     });
     return HostedZone.fromHostedZoneAttributes(this, 'sub-hostedzone', {
       zoneName: parameters.get(Statics.envRootHostedZoneName),
