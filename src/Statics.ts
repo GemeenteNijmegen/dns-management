@@ -208,6 +208,16 @@ export class Statics {
     region: 'eu-central-1',
   };
 
+  static readonly gnGeoDataAccp = {
+    account: '766983128454',
+    region: 'eu-central-1',
+  };
+
+  static readonly gnGeoDataProd = {
+    account: '549334216741',
+    region: 'eu-central-1',
+  };
+
   /**
    * Create a role name (used for registration and assuming the role)
    * @param name
