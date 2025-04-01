@@ -28,11 +28,6 @@ export class Statics {
     region: 'eu-central-1',
   };
 
-  static readonly gnGeoDataAcceptanceEnvironment = {
-    account: '766983128454',
-    region: 'eu-central-1',
-  };
-
   static readonly gnYiviAccpEnvironment = {
     account: '699363516011',
     region: 'eu-central-1',
@@ -205,6 +200,16 @@ export class Statics {
 
   static readonly gnVerzoekserviceWerkInkomenProd = {
     account: '222634384969',
+    region: 'eu-central-1',
+  };
+
+  static readonly gnGeoDataAccp = {
+    account: '766983128454',
+    region: 'eu-central-1',
+  };
+
+  static readonly gnGeoDataProd = {
+    account: '549334216741',
     region: 'eu-central-1',
   };
 

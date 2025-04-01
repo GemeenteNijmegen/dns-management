@@ -203,4 +203,9 @@ export const DnsConfiguration: SubdomainConfiguration[] = [
     name: 'vwi-prod',
     enableDnsSec: true,
   },
+  {
+    environment: Statics.gnGeoDataAccp,
+    name: 'geodata-accp',
+    enableDnsSec: true,
+  },
 ];
