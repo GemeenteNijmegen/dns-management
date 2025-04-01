@@ -205,7 +205,7 @@ export const DnsConfiguration: SubdomainConfiguration[] = [
   },
   {
     environment: Statics.gnGeoDataAccp,
-    name: 'geoData-accp',
+    name: 'geodata-accp',
     enableDnsSec: true,
   },
 ];
