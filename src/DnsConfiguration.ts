@@ -208,4 +208,9 @@ export const DnsConfiguration: SubdomainConfiguration[] = [
     name: 'geodata-accp',
     enableDnsSec: true,
   },
+  {
+    environment: Statics.gnGeoDataProd,
+    name: 'geodata',
+    enableDnsSec: true,
+  },
 ];
