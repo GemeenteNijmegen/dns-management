@@ -209,7 +209,7 @@ export const DnsConfiguration: SubdomainConfiguration[] = [
     enableDnsSec: true,
   },
   {
-    environment: Statics.gnGeoDataAccp,
+    environment: Statics.gnGeoDataProd,
     name: 'geodata',
     enableDnsSec: true,
   },
