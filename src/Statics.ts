@@ -158,6 +158,11 @@ export class Statics {
     region: 'eu-central-1',
   };
 
+  static readonly gnMijnServicesDev = {
+    account: '958979025885',
+    region: 'eu-central-1',
+  };
+
   static readonly gnMijnServicesAccp = {
     account: '145023129433',
     region: 'eu-central-1',
