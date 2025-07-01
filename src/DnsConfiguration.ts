@@ -159,6 +159,11 @@ export const DnsConfiguration: SubdomainConfiguration[] = [
     enableDnsSec: false,
   },
   {
+    environment: Statics.gnMijnServicesDev,
+    name: 'mijn-services-dev',
+    enableDnsSec: true,
+  },
+  {
     environment: Statics.gnMijnServicesAccp,
     name: 'mijn-services-accp',
     enableDnsSec: true,
