@@ -78,8 +78,7 @@ export const configurations: { [key: string]: Configuration } = {
     toplevelHostedzoneEnvironment: Statics.gnNetworkEnvironment,
     subdomains: DnsConfiguration,
     cnameRecords: {
-      _1E1EC82DF1B8C1AB49C940B083289F11: 'AA046E16D580BEAE757AD62D5829B9B8.7828F6EB0A782D6DAE7829ED6259B020.sectigo.com', // sociaal-gws.csp-nijmegen.nl
-      _1B58C4A10CBD1B1059C305CC8427B336: 'B322E0EA22FEBF8C44D7AAF88AE2AAE6.EB7A3F25AA795A2A93134D4CCB510954.sectigo.com', // sociaal-gws.accp.csp-nijmegen.nl
+      _A900C562EA2DBF1626B6BBE5BE8B5983: 'D519CDD38FC51B853713B4024F6B5B05.52FB42B5ABF3D2CE5297B4D7006AA872.sectigo.com', // auth.csp-nijmegen.nl
     },
   },
 };
