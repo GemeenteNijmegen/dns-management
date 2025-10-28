@@ -222,5 +222,5 @@ export const DnsConfiguration: SubdomainConfiguration[] = [
     environment: Statics.gnGeoDataProd,
     name: 'geodata',
     enableDnsSec: true,
-  }
+  },
 ];
