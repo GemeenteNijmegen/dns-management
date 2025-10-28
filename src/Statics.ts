@@ -123,6 +123,11 @@ export class Statics {
     region: 'eu-central-1',
   };
 
+  static readonly gnStaticWebsitesAccp = {
+    account: '991246619216',
+    region: 'eu-central-1',
+  };
+
   static readonly gnSubmissionStorageDev = {
     account: '358927146986',
     region: 'eu-central-1',
