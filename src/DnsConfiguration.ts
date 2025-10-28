@@ -114,6 +114,11 @@ export const DnsConfiguration: SubdomainConfiguration[] = [
     enableDnsSec: true,
   },
   {
+    environment: Statics.gnStaticWebsitesAccp,
+    name: 'static-websites-accp',
+    enableDnsSec: true,
+  },
+  {
     environment: Statics.gnSandboxMarnix,
     name: 'sandbox-marnix',
     enableDnsSec: true,
@@ -217,5 +222,5 @@ export const DnsConfiguration: SubdomainConfiguration[] = [
     environment: Statics.gnGeoDataProd,
     name: 'geodata',
     enableDnsSec: true,
-  },
+  }
 ];
