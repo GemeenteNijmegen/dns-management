@@ -204,22 +204,22 @@ export const DnsConfiguration: SubdomainConfiguration[] = [
     enableDnsSec: true,
   },
   {
-    environment: Statics.gnVerzoekserviceWerkInkomenAccp,
-    name: 'vwi-accp',
+    environment: Statics.gnAiAccp,
+    name: 'ai-accp',
     enableDnsSec: true,
   },
   {
-    environment: Statics.gnVerzoekserviceWerkInkomenProd,
-    name: 'vwi-prod',
+    environment: Statics.gnAiProd,
+    name: 'ai-prod',
     enableDnsSec: true,
   },
   {
-    environment: Statics.gnGeoDataAccp,
+    environment: Statics.gnDataStorageAccp,
     name: 'geodata-accp',
     enableDnsSec: true,
   },
   {
-    environment: Statics.gnGeoDataProd,
+    environment: Statics.gnDataStorageProd,
     name: 'geodata',
     enableDnsSec: true,
   },
