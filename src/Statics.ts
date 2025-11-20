@@ -203,22 +203,22 @@ export class Statics {
     region: 'eu-central-1',
   };
 
-  static readonly gnVerzoekserviceWerkInkomenAccp = {
+  static readonly gnAiAccp = {
     account: '528757829324',
     region: 'eu-central-1',
   };
 
-  static readonly gnVerzoekserviceWerkInkomenProd = {
+  static readonly gnAiProd = {
     account: '222634384969',
     region: 'eu-central-1',
   };
 
-  static readonly gnGeoDataAccp = {
+  static readonly gnDataStorageAccp = {
     account: '766983128454',
     region: 'eu-central-1',
   };
 
-  static readonly gnGeoDataProd = {
+  static readonly gnDataStorageProd = {
     account: '549334216741',
     region: 'eu-central-1',
   };
