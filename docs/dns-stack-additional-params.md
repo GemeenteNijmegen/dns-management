@@ -1,7 +1,7 @@
 # DNS-Stack additional params
 
 By default the AccountStage:
-- Deploys the DS Records in Global Route53
+- Deploys the subzone HostedZone - with subdomain - in Global Route53
 - Deploys hostedzoneName and hostedzoneID in configuration env region - toplevelRegion ( often eu-central-1)
 - If enableDNSSEC: true deploys to us-east-1 key and adds to key to the DS Record to be signed. Also deploys hostedzoneName and hostedzoneID params to us-east-1
 
