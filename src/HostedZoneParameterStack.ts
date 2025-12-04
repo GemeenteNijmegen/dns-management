@@ -9,7 +9,7 @@ interface HostedZoneParameterStackProps extends StackProps, SubdomainConfigurabl
 
 export class HostedZoneParameterStack extends Stack {
   constructor(scope: Construct, id: string, props: HostedZoneParameterStackProps) {
-    super(scope, id);
+    super(scope, id, props);
 
     const importedHostedZoneParameters = this.importSubHostedzone(props.subdomainConfiguration);
     this.createHostedZoneParameters(importedHostedZoneParameters);
