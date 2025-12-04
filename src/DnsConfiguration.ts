@@ -19,6 +19,10 @@ export interface SubdomainConfiguration {
    * @default true
    */
   addDSRecord?: boolean;
+  /**
+   * Additional regions to put hosted zone parameters
+   */
+  additionalRegions?: string[];
 }
 
 
@@ -207,6 +211,7 @@ export const DnsConfiguration: SubdomainConfiguration[] = [
     environment: Statics.gnAiAccp,
     name: 'ai-accp',
     enableDnsSec: true,
+    additionalRegions: ['eu-west-1', 'us-east-1'],
   },
   {
     environment: Statics.gnAiProd,

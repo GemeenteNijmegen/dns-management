@@ -1,10 +1,11 @@
 import { PermissionsBoundaryAspect } from '@gemeentenijmegen/aws-constructs';
-import { Aspects, Stage, StageProps } from 'aws-cdk-lib';
+import { Aspects, Stack, Stage, StageProps } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import { Configurable } from './Configuration';
 import { SubdomainConfigurable } from './DnsConfiguration';
 import { DnsSecStack } from './DnsSecStack';
 import { DnsStack } from './DnsStack';
+import { HostedZoneParameterStack } from './HostedZoneParameterStack';
 
 export interface AccountStageProps extends StageProps, SubdomainConfigurable, Configurable {
 }
@@ -29,6 +30,17 @@ export class AccountStage extends Stage {
       subdomainConfiguration: props.subdomainConfiguration,
     });
 
+    if (props.subdomainConfiguration.additionalRegions) {
+      props.subdomainConfiguration.additionalRegions.forEach(additionalRegion => {
+        new HostedZoneParameterStack(this, `hostedzoneparams-${additionalRegion}`, {
+          subdomainConfiguration: props.subdomainConfiguration,
+          env: {
+            account: this.account,
+            region: additionalRegion,
+          },
+        });
+      });
+    }
 
     // KMS key used for dnssec (must be in us-east-1)
     if (props.subdomainConfiguration.enableDnsSec) {
@@ -44,7 +56,6 @@ export class AccountStage extends Stage {
 
       this.dnssecStack.addDependency(this.dnsStack);
     }
-
-
   }
+
 }
