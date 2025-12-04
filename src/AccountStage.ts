@@ -34,10 +34,7 @@ export class AccountStage extends Stage {
       for (let additionalRegion of props.subdomainConfiguration.additionalRegions) {
         const paramStack = new HostedZoneParameterStack(this, `hostedzoneparams-${additionalRegion}`, {
           subdomainConfiguration: props.subdomainConfiguration,
-          env: {
-            account: this.account,
-            region: additionalRegion,
-          },
+          env: { region: additionalRegion },
         });
         paramStack.addDependency(this.dnsStack);
       };
@@ -58,5 +55,4 @@ export class AccountStage extends Stage {
       this.dnssecStack.addDependency(this.dnsStack);
     }
   }
-
 }
