@@ -31,15 +31,16 @@ export class AccountStage extends Stage {
     });
 
     if (props.subdomainConfiguration.additionalRegions) {
-      props.subdomainConfiguration.additionalRegions.forEach(additionalRegion => {
-        new HostedZoneParameterStack(this, `hostedzoneparams-${additionalRegion}`, {
+      for (let additionalRegion of props.subdomainConfiguration.additionalRegions) {
+        const paramStack = new HostedZoneParameterStack(this, `hostedzoneparams-${additionalRegion}`, {
           subdomainConfiguration: props.subdomainConfiguration,
           env: {
             account: this.account,
             region: additionalRegion,
           },
         });
-      });
+        paramStack.addDependency(this.dnsStack);
+      };
     }
 
     // KMS key used for dnssec (must be in us-east-1)
