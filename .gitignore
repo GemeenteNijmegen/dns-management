@@ -59,4 +59,5 @@ junit.xml
 .cdk.staging/
 .parcel-cache/
 !/.github/workflows/emergency.yml
+!/.nvmrc
 !/.projenrc.ts
