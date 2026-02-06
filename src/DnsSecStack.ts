@@ -1,8 +1,8 @@
+import { RemoteParameters } from '@gemeentenijmegen/cross-region-parameters';
 import { DnssecRecordStruct } from '@gemeentenijmegen/dnssec-record';
 import * as cdk from 'aws-cdk-lib';
 import { aws_ssm as SSM, Tags, aws_iam as IAM, aws_kms as KMS, aws_route53 as route53 } from 'aws-cdk-lib';
 import { CfnKeySigningKey, HostedZone, IHostedZone } from 'aws-cdk-lib/aws-route53';
-import { RemoteParameters } from 'cdk-remote-stack';
 import { Construct } from 'constructs';
 import { Configurable } from './Configuration';
 import { SubdomainConfigurable } from './DnsConfiguration';
