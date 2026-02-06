@@ -13,7 +13,7 @@ const project = new GemeenteNijmegenCdkApp({
   deps: [
     'dotenv',
     'cdk-nag@^2.0.0',
-    'cdk-remote-stack',
+    '@gemeentenijmegen/cross-region-parameters',
     '@gemeentenijmegen/aws-constructs',
     '@gemeentenijmegen/dnssec-record',
   ],
@@ -27,6 +27,11 @@ const project = new GemeenteNijmegenCdkApp({
   jestOptions: {
     jestConfig: {
       setupFiles: ['dotenv/config'],
+    },
+  },
+  tsconfig: {
+    compilerOptions: {
+      isolatedModules: true,
     },
   },
   enableAutoMergeDependencies: false, // No acceptance branch

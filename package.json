@@ -49,10 +49,10 @@
   },
   "dependencies": {
     "@gemeentenijmegen/aws-constructs": "^0.0.47",
+    "@gemeentenijmegen/cross-region-parameters": "^0.0.4",
     "@gemeentenijmegen/dnssec-record": "^0.0.41",
     "aws-cdk-lib": "^2.1.0",
     "cdk-nag": "^2.0.0",
-    "cdk-remote-stack": "^2.1.0",
     "constructs": "^10.0.5",
     "dotenv": "^17.2.4"
   },

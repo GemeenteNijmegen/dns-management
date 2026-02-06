@@ -1,6 +1,6 @@
+import { RemoteParameters } from '@gemeentenijmegen/cross-region-parameters';
 import { Duration, Stack, StackProps } from 'aws-cdk-lib';
 import { StringParameter } from 'aws-cdk-lib/aws-ssm';
-import { RemoteParameters } from 'cdk-remote-stack';
 import { Construct } from 'constructs';
 import { SubdomainConfigurable, SubdomainConfiguration } from './DnsConfiguration';
 import { Statics } from './Statics';
