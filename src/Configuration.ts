@@ -78,8 +78,8 @@ export const configurations: { [key: string]: Configuration } = {
     toplevelHostedzoneEnvironment: Statics.gnNetworkEnvironment,
     subdomains: DnsConfiguration,
     cnameRecords: {
-      _25F40B44B89998CF2F1C1EB082071B4D: 'AD7A8E6E2AD3F5A674ACB264F8F00BC2.CC3C17CEB5924FC4BD403C7437D12521.sectigo.com', // api.haal-centraal-brp-dev (is ook accp)
-      _0DCB2CDA01F80670E5C43EF23A002CC9: 'EA4C530587FA0BC1963C9AFA33F76613.2D82BA13DBBC3D14D40734BFBE762BEB.sectigo.com', // api.haal-centraal-brp-prod
+      _F32A36A083D8E4A332C3CF5BA98798DC: 'A6493DBCF1A8C0535C73E1C203D0F71E.BF0DE475E523C778F122DDF729C281C8.sectigo.com', // vwi-prod
+      _4124723DB3FDE809CB511DA5BE73F202: 'A6F9449F7B0A7DD83DCCD427EC3A5CB5.67D090C905AF8F6F1D8E43798522E4FB.sectigo.com', // vwi-accp
     },
   },
 };
