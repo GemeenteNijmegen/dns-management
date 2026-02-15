@@ -48,13 +48,13 @@
     "typescript": "^5.9.3"
   },
   "dependencies": {
-    "@gemeentenijmegen/aws-constructs": "^0.0.47",
-    "@gemeentenijmegen/cross-region-parameters": "^0.0.4",
-    "@gemeentenijmegen/dnssec-record": "^0.0.41",
+    "@gemeentenijmegen/aws-constructs": "^0.0.48",
+    "@gemeentenijmegen/cross-region-parameters": "^0.0.5",
+    "@gemeentenijmegen/dnssec-record": "^0.0.42",
     "aws-cdk-lib": "^2.1.0",
     "cdk-nag": "^2.0.0",
     "constructs": "^10.0.5",
-    "dotenv": "^17.2.4"
+    "dotenv": "^17.3.1"
   },
   "license": "EUPL-1.2",
   "publishConfig": {
