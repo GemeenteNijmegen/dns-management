@@ -78,8 +78,7 @@ export const configurations: { [key: string]: Configuration } = {
     toplevelHostedzoneEnvironment: Statics.gnNetworkEnvironment,
     subdomains: DnsConfiguration,
     cnameRecords: {
-      _D7C1F6522E154D3F64133A9A3D464B6D: 'F6A6DD3B8CD734283F382FC51456E895.7C31C123D7B1907E13FFDDDAC7ABFC1E.sectigo.com', // mijn-uitkering
-      _CEF65E075BC77DA55387BCD5BB588FB1: '4723981F2A2200D2F82559647754A28E.9C55ED3F4D69EC40CEEC87DB573501D5.sectigo.com', // mijn-uitkering-accp
+      _59CF8F4EC9585190E1BF98EF9B525853: '2D32D7C1D8DE9ADEB3AB994ED1D824D9.5B8A8724D76232CB473D47364DA84941.sectigo.com', // Docpoc-accp (2026)
     },
   },
 };
