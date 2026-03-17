@@ -1,5 +1,5 @@
 import { PermissionsBoundaryAspect } from '@gemeentenijmegen/aws-constructs';
-import { Aspects, Stack, Stage, StageProps } from 'aws-cdk-lib';
+import { Aspects, Stage, StageProps } from 'aws-cdk-lib';
 import { Construct } from 'constructs';
 import { Configurable } from './Configuration';
 import { SubdomainConfigurable } from './DnsConfiguration';
