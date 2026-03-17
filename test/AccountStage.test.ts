@@ -1,5 +1,4 @@
 import { App } from 'aws-cdk-lib';
-import { Template } from 'aws-cdk-lib/assertions';
 import { AccountStage } from '../src/AccountStage';
 
 const dummyEnv = {
@@ -26,8 +25,6 @@ const configuration = {
 
 test('Snapshot with actual dns configuration', () => {
   const app = new App();
-
-  const stages: AccountStage[] = [];
 
   const stage = new AccountStage(app, 'snapshot-dns-management-test', {
     configuration,
