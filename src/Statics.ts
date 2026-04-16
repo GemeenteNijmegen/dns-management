@@ -223,6 +223,21 @@ export class Statics {
     region: 'eu-central-1',
   };
 
+  static readonly gnMuleDev = {
+    account: '013052902779',
+    region: 'eu-central-1',
+  };
+
+  static readonly gnMuleAccp = {
+    account: '938595516784',
+    region: 'eu-central-1',
+  };
+
+  static readonly gnMuleProd = {
+    account: '664926621746',
+    region: 'eu-central-1',
+  };
+
   /**
    * Create a role name (used for registration and assuming the role)
    * @param name
