@@ -228,4 +228,19 @@ export const DnsConfiguration: SubdomainConfiguration[] = [
     name: 'geodata',
     enableDnsSec: true,
   },
+  {
+    environment: Statics.gnMuleDev,
+    name: 'mule-dev',
+    enableDnsSec: true,
+  },
+  {
+    environment: Statics.gnMuleAccp,
+    name: 'mule-accp',
+    enableDnsSec: true,
+  },
+  {
+    environment: Statics.gnMuleProd,
+    name: 'mule-prod',
+    enableDnsSec: true,
+  },
 ];
