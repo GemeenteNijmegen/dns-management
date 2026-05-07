@@ -238,6 +238,11 @@ export class Statics {
     region: 'eu-central-1',
   };
 
+  static readonly gnKccDev = {
+    account: '111035763707',
+    region: 'eu-central-1',
+  };
+
   /**
    * Create a role name (used for registration and assuming the role)
    * @param name
