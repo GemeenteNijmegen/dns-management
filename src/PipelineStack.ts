@@ -77,7 +77,6 @@ export class PipelineStack extends Stack {
           'n lts',
           'node -v',
           'npm ci',
-          'npx projen build',
         ],
       }),
     });
