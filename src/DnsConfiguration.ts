@@ -243,4 +243,9 @@ export const DnsConfiguration: SubdomainConfiguration[] = [
     name: 'mule-prod',
     enableDnsSec: true,
   },
+  {
+    environment: Statics.gnKccDev,
+    name: 'kcc-dev',
+    enableDnsSec: true,
+  },
 ];

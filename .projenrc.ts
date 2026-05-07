@@ -2,7 +2,7 @@ import { GemeenteNijmegenCdkApp } from '@gemeentenijmegen/projen-project-type';
 const project = new GemeenteNijmegenCdkApp({
   cdkVersion: '2.1.0',
   defaultReleaseBranch: 'main',
-  devDeps: ['@gemeentenijmegen/projen-project-type'],
+  devDeps: [],
   name: 'dns-management',
   projenrcTs: true,
   depsUpgradeOptions: {
@@ -14,6 +14,7 @@ const project = new GemeenteNijmegenCdkApp({
     'dotenv',
     'cdk-nag@^2.0.0',
     '@gemeentenijmegen/cross-region-parameters',
+    '@gemeentenijmegen/projen-project-type',
     '@gemeentenijmegen/aws-constructs',
     '@gemeentenijmegen/dnssec-record',
   ],

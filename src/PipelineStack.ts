@@ -1,5 +1,8 @@
 import { PermissionsBoundaryAspect } from '@gemeentenijmegen/aws-constructs';
+import { getNodeVersion } from '@gemeentenijmegen/projen-project-type';
 import { Stack, StackProps, Tags, pipelines, Aspects } from 'aws-cdk-lib';
+import { BuildSpec } from 'aws-cdk-lib/aws-codebuild';
+import { PipelineType } from 'aws-cdk-lib/aws-codepipeline';
 import { Construct } from 'constructs';
 import { AccountStage } from './AccountStage';
 import { Configurable } from './Configuration';
@@ -53,6 +56,18 @@ export class PipelineStack extends Stack {
     const pipeline = new pipelines.CodePipeline(this, `dns-management-${this.branchName}`, {
       pipelineName: `dns-management-${this.branchName}`,
       crossAccountKeys: true,
+      pipelineType: PipelineType.V1,
+      synthCodeBuildDefaults: {
+        partialBuildSpec: BuildSpec.fromObject({
+          phases: {
+            install: {
+              'runtime-versions': {
+                nodejs: getNodeVersion(),
+              },
+            },
+          },
+        }),
+      },
       synth: new pipelines.ShellStep('Synth', {
         input: source,
         env: {
@@ -61,8 +76,7 @@ export class PipelineStack extends Stack {
         commands: [
           'n lts',
           'node -v',
-          'yarn install --frozen-lockfile',
-          'yarn build',
+          'npm ci',
         ],
       }),
     });
