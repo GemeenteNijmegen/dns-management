@@ -5,6 +5,7 @@ const project = new GemeenteNijmegenCdkApp({
   devDeps: [],
   name: 'dns-management',
   projenrcTs: true,
+  enableCfnLintOnGithub: false,
   depsUpgradeOptions: {
     workflowOptions: {
       branches: ['main'],
