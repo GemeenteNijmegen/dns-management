@@ -1,5 +1,5 @@
 {
-  "manifestVersion": 2,
+  "manifestVersion": 3,
   "env": {
     "PATH": "$(npx -c \"node --print process.env.PATH\")"
   },
@@ -50,6 +50,15 @@
       "name": "bundle",
       "description": "Prepare assets"
     },
+    "cfn-lint": {
+      "name": "cfn-lint",
+      "description": "Lint synthesized CloudFormation templates",
+      "steps": [
+        {
+          "exec": "cfn-lint cdk.out/**/*.template.json -i W3005 W2001"
+        }
+      ]
+    },
     "clobber": {
       "name": "clobber",
       "description": "hard resets to HEAD of origin and cleans the local repo",
@@ -91,7 +100,12 @@
       "description": "Synthesize project files",
       "steps": [
         {
-          "exec": "ts-node --project test/tsconfig.json .projenrc.ts"
+          "execArgs": [
+            "ts-node",
+            "--project",
+            "projenrc/tsconfig.json",
+            ".projenrc.ts"
+          ]
         }
       ]
     },

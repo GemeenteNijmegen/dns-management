@@ -42,7 +42,7 @@ jobs:
       - name: release
         run: npx projen release
       - name: CloudFormation lint
-        run: npx projen lint
+        run: npx projen cfn-lint
       - name: Check if version has already been tagged
         id: check_tag_exists
         run: |-
