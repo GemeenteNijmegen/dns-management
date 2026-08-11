@@ -78,8 +78,8 @@ export const configurations: { [key: string]: Configuration } = {
     toplevelHostedzoneEnvironment: Statics.gnNetworkEnvironment,
     subdomains: DnsConfiguration,
     cnameRecords: {
-      _CF53A2934921DB2D2F9B0832A37DB0F8: 'A10FDFEAE96CA5CD844F053DF6660F95.DC6084937FED1CCA7DDF79456D890149.sectigo.com', // sociaal-gws prod
-      _513ABF59C275B221DE7211B0C543291B: 'B7C6D4B25C3E6BC7B5E9E8233B3574D4.DD4F3D148D142A6342758FCC9FD1B582.sectigo.com', // sociaal-gws accp
+      '_D1D3DA83D42898AF7DCC082754D0677D.data.mule-dev': '2DFCA4BBF3A2E3E9309B552F57876D8C.9633141E74B7095EB9444AD755627AFF.sectigo.com', // mule-dev
+      '_0B09FEE32BBC128264F775BF32511736.data.mule-accp': '447C490326AFABB4B06FAF37F45BA0E1.115767F454ECB8FACEE90B42FADF56A6.sectigo.com', // mule-accp
     },
   },
 };
