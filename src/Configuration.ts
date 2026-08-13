@@ -78,8 +78,7 @@ export const configurations: { [key: string]: Configuration } = {
     toplevelHostedzoneEnvironment: Statics.gnNetworkEnvironment,
     subdomains: DnsConfiguration,
     cnameRecords: {
-      '_D1D3DA83D42898AF7DCC082754D0677D.data.mule-dev': '2DFCA4BBF3A2E3E9309B552F57876D8C.9633141E74B7095EB9444AD755627AFF.sectigo.com', // mule-dev
-      '_0B09FEE32BBC128264F775BF32511736.data.mule-accp': '447C490326AFABB4B06FAF37F45BA0E1.115767F454ECB8FACEE90B42FADF56A6.sectigo.com', // mule-accp
+      _1DC27ABD6F2109D11C591AC526AF32E6: '4EE21CC4381A02B97A207FBD9D8829E5.6D9C8F9FE4391645761530BE296B0498.sectigo.com', // mule-prod
     },
   },
 };
