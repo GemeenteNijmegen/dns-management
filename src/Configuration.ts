@@ -78,7 +78,7 @@ export const configurations: { [key: string]: Configuration } = {
     toplevelHostedzoneEnvironment: Statics.gnNetworkEnvironment,
     subdomains: DnsConfiguration,
     cnameRecords: {
-      '_1DC27ABD6F2109D11C591AC526AF32E6': '4EE21CC4381A02B97A207FBD9D8829E5.6D9C8F9FE4391645761530BE296B0498.sectigo.com', // mule-prod
+      _1DC27ABD6F2109D11C591AC526AF32E6: '4EE21CC4381A02B97A207FBD9D8829E5.6D9C8F9FE4391645761530BE296B0498.sectigo.com', // mule-prod
     },
   },
 };
