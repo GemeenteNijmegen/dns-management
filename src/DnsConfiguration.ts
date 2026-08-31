@@ -98,21 +98,6 @@ export const DnsConfiguration: SubdomainConfiguration[] = [
     enableDnsSec: true,
   },
   {
-    environment: Statics.gnWebformsDev,
-    name: 'webforms-dev',
-    enableDnsSec: true,
-  },
-  {
-    environment: Statics.gnWebformsAccp,
-    name: 'webforms-accp',
-    enableDnsSec: true,
-  },
-  {
-    environment: Statics.gnWebformsProd,
-    name: 'webforms-prod',
-    enableDnsSec: true,
-  },
-  {
     environment: Statics.gnStaticWebsitesProd,
     name: 'static-websites',
     enableDnsSec: true,

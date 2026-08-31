@@ -103,21 +103,6 @@ export class Statics {
     region: 'eu-central-1',
   };
 
-  static readonly gnWebformsDev = {
-    account: '033598396027',
-    region: 'eu-central-1',
-  };
-
-  static readonly gnWebformsAccp = {
-    account: '338472043295',
-    region: 'eu-central-1',
-  };
-
-  static readonly gnWebformsProd = {
-    account: '147064197580',
-    region: 'eu-central-1',
-  };
-
   static readonly gnStaticWebsitesProd = {
     account: '654477686593',
     region: 'eu-central-1',
