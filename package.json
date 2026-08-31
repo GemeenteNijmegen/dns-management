@@ -3,6 +3,7 @@
   "scripts": {
     "build": "projen build",
     "bump": "projen bump",
+    "bump:releasable-commits": "projen bump:releasable-commits",
     "bundle": "projen bundle",
     "cfn-lint": "projen cfn-lint",
     "clobber": "projen clobber",
