@@ -73,6 +73,11 @@ export class Statics {
     region: 'eu-central-1',
   };
 
+  static readonly gnSandboxIndy = {
+    account: '956966432757',
+    region: 'eu-central-1',
+  };
+
   static readonly gnComponentLibraryDevEnvironment = {
     account: '598242258242',
     region: 'eu-central-1',

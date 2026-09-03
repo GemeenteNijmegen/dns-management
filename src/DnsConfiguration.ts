@@ -113,6 +113,11 @@ export const DnsConfiguration: SubdomainConfiguration[] = [
     enableDnsSec: true,
   },
   {
+    environment: Statics.gnSandboxIndy,
+    name: 'sandbox-indy',
+    enableDnsSec: true,
+  },
+  {
     environment: Statics.gnSandbox01,
     name: 'sandbox-01',
     enableDnsSec: false,
