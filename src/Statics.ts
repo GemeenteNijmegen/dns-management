@@ -193,6 +193,11 @@ export class Statics {
     region: 'eu-central-1',
   };
 
+  static readonly gnAiDev = {
+    account: '707071531549',
+    region: 'eu-central-1',
+  };
+
   static readonly gnAiAccp = {
     account: '528757829324',
     region: 'eu-central-1',
