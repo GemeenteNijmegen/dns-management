@@ -198,6 +198,11 @@ export const DnsConfiguration: SubdomainConfiguration[] = [
     enableDnsSec: true,
   },
   {
+    environment: Statics.gnAiDev,
+    name: 'ai-dev',
+    enableDnsSec: true,
+  },
+  {
     environment: Statics.gnAiAccp,
     name: 'ai-accp',
     enableDnsSec: true,
